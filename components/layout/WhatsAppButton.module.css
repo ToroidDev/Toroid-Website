@@ -1,0 +1,62 @@
+.wrapper {
+  position: fixed;
+  right: calc(20px + env(safe-area-inset-right));
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tooltip {
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 22px rgba(26, 75, 140, 0.14);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-blue);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.wrapper:hover .tooltip,
+.wrapper:focus-within .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: var(--color-blue);
+  border: 2px solid var(--color-green);
+  box-shadow: 0 10px 26px rgba(26, 75, 140, 0.28);
+  transition: transform 0.18s ease-out;
+}
+
+.wrapper:hover .button {
+  transform: scale(1.04);
+}
+
+.ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  border: 2px solid var(--color-green);
+  animation: waRing 3.4s ease-out infinite;
+}
+
+.wrapper:hover .ring,
+.wrapper:focus-within .ring {
+  animation-play-state: paused;
+}

@@ -1,0 +1,75 @@
+.quadro {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #fff;
+  padding: clamp(16px, 2vw, 22px);
+  box-shadow: 0 2px 8px rgba(26, 75, 140, 0.05);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 720 / 190;
+  /* o viewBox já recorta o traçado dobrado; sem isto a segunda metade escapa */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Caixa mais alta em tela estreita, para a banda continuar com espessura legível.
+   Combinado com preserveAspectRatio slice, o que se perde é largura de tempo, não
+   altura de sinal. */
+@media (max-width: 700px) {
+  .svg {
+    aspect-ratio: 360 / 190;
+  }
+}
+
+/* Um único gesto: o eixo do tempo corre para a esquerda. O traçado tem o dobro
+   da largura visível e é periódico na metade, então -720 unidades volta ao mesmo
+   ponto e a emenda não aparece. Só transform, sem repintura por quadro. */
+.deriva {
+  animation: bandaDeriva 24s linear infinite;
+}
+
+@keyframes bandaDeriva {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-720px);
+  }
+}
+
+.legenda {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(18px, 2.4vw, 30px);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.chip {
+  flex: none;
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.chipCarga {
+  background: rgba(26, 75, 140, 0.34);
+}
+
+.chipSaida {
+  background: var(--color-blue);
+}

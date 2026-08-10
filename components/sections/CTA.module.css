@@ -1,0 +1,147 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: #fff;
+  border-top: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Azul→azul, sem parada branca, e sem clarear além de --color-blue: nenhuma faixa
+   clara passa atrás do texto e o lead se mantém em AA no canto mais claro. */
+.card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--color-blue-ink) 0%, var(--color-blue-deep) 55%, var(--color-blue) 100%);
+  padding: clamp(36px, 5vw, 68px);
+  box-shadow: 0 22px 50px rgba(14, 46, 90, 0.24), 0 4px 10px rgba(14, 46, 90, 0.1);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -55%;
+  right: -12%;
+  width: min(620px, 80%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 66%);
+  pointer-events: none;
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -78%;
+  right: -14%;
+  width: min(860px, 92%);
+  pointer-events: none;
+}
+
+/* Largura em px, não em ch: `ch` aqui resolvia contra os 17px herdados do corpo,
+   não contra os 42px do h2, e a coluna saía com ~320px, e o título quebrava em
+   seis linhas. */
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 580px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+}
+
+.heading {
+  margin: 18px 0 0;
+  font-size: clamp(27px, 3.3vw, 42px);
+  line-height: 1.13;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.lead {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(28px, 3.4vw, 38px);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 17px 28px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out);
+}
+
+.primary {
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 28px rgba(6, 22, 46, 0.26);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(6, 22, 46, 0.34);
+  color: var(--color-blue-deep);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+}
+
+.secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.75);
+  color: #fff;
+}
+
+.primary svg,
+.secondary svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.primary:hover svg,
+.secondary:hover svg {
+  transform: translateX(3px);
+}

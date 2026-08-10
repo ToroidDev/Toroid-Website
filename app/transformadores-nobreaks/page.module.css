@@ -1,0 +1,79 @@
+/* Só o que é próprio desta página. Todo o resto vem do sistema já existente:
+   AplicacaoHero, PillarBody/Prose, PillarSpecTable, PillarChecklist e CTA. */
+
+/* Segunda oração do h1, em verde claro. O verde é detalhe, nunca o peso
+   principal: aqui carrega só o fecho da frase sobre o azul do hero. */
+.acento {
+  color: var(--color-green-light);
+}
+
+.grafico {
+  margin: clamp(28px, 3.4vw, 40px) 0 0;
+}
+
+/* Nota do gráfico. Existe por rigor técnico, não por estilo: o desenho
+   representa um parâmetro de especificação e não pode ser lido como curva de
+   ensaio. */
+.notaGrafico {
+  margin: 14px 0 0;
+  max-width: 68ch;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.perguntas {
+  margin: clamp(44px, 5vw, 66px) 0 0;
+}
+
+/* CTA contextual no meio do corpo, para quem decide na seção de fornecimento e
+   não vai rolar até o fim da página. */
+.ctaInline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px clamp(18px, 2.4vw, 28px);
+  max-width: 68ch;
+  margin: clamp(26px, 3vw, 34px) 0 0;
+  padding: clamp(18px, 2.2vw, 24px);
+  border: 1px solid #dfe8f5;
+  border-radius: 14px;
+  background: var(--color-bg-tint);
+}
+
+.ctaInlineTexto {
+  margin: 0;
+  flex: 1 1 22ch;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.ctaInlineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+  padding: 13px 20px;
+  border-radius: 10px;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out);
+}
+
+.ctaInlineLink:hover {
+  transform: translateY(-2px);
+  background: var(--color-blue-deep);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(26, 75, 140, 0.24);
+}
+
+.ctaInlineLink svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.ctaInlineLink:hover svg {
+  transform: translateX(3px);
+}

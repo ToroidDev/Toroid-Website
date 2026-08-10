@@ -1,0 +1,274 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(92svh, 900px);
+  display: flex;
+  flex-direction: column;
+  /* folga para a pílula de nav flutuante passar por cima sem encostar no texto */
+  padding-top: clamp(124px, 16vw, 184px);
+  padding-bottom: clamp(24px, 3vw, 38px);
+  /* pintado antes da imagem resolver, evita flash branco */
+  background: var(--color-blue-abyss);
+  color: var(--color-on-blue);
+}
+
+.bgImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: 50% 44%;
+  /* A foto é 680px de largura. Dessaturada e puxada para o azul ela lê como
+     atmosfera, não como fotografia nítida, e o upscale deixa de ser perceptível.
+     Trocar por um export de ~2400px é drop-in: mesmo arquivo, mesmo nome. */
+  filter: saturate(0.62) contrast(1.08) brightness(0.86);
+}
+
+/* Scrim azul→azul, sem nenhuma parada branca: o gradiente institucional
+   azul→branco é proibido atrás de texto.
+   As opacidades são dimensionadas para o PIOR caso, não para esta foto: a coluna
+   de texto termina em ~58% da largura, e mesmo que ali o pixel da foto fosse
+   branco puro o branco do h1 fica em ~6.5:1 e o subtítulo em ~6:1. Isso importa
+   porque a foto vai ser trocada por um export de 2400px, e o contraste não pode
+   depender de qual imagem está por baixo. O terço direito segue claro (0.44),
+   que é onde o toroide mora e não há texto. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      104deg,
+      rgba(9, 28, 56, 0.95) 0%,
+      rgba(14, 46, 90, 0.9) 38%,
+      rgba(18, 60, 116, 0.74) 68%,
+      rgba(26, 75, 140, 0.44) 100%
+    ),
+    linear-gradient(180deg, rgba(9, 28, 56, 0.62) 0%, rgba(9, 28, 56, 0) 26%, rgba(9, 28, 56, 0.7) 100%);
+}
+
+/* Centro do radial bem acima da borda: aparecem só as pontas dos raios, que é o
+   que dá textura. Centrado na altura do toroide virava um sunburst atrás dele:
+   dois motivos radiais sobrepostos, e nenhum dos dois lia. */
+.pattern {
+  position: absolute;
+  z-index: 2;
+  top: -78%;
+  left: 40%;
+  transform: rotate(8deg);
+  width: min(1180px, 112vw);
+  pointer-events: none;
+}
+
+/* Grão fino sobre o scrim. Tile de 160px rasterizado uma vez e repetido:
+   dissimula a interpolação do upscale e dá matéria à área lisa do azul. */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.inner {
+  position: relative;
+  z-index: 3;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  /* Colunas assimétricas em vez de auto-fit 1fr/1fr: com colunas iguais a de texto
+     ficava em ~572px e os dois CTAs quebravam em linhas separadas. */
+  grid-template-columns: 1fr;
+}
+
+/* Duas colunas só a partir de 1200px. Abrir antes disso estreitava a coluna de
+   texto abaixo dos ~586px que os dois CTAs ocupam lado a lado, e eles quebravam em
+   linhas separadas justamente numa largura onde sobrava espaço à direita. */
+@media (min-width: 1200px) {
+  .inner {
+    /* 1.24fr reserva ~590px à coluna de texto, que é exatamente o que os dois CTAs
+       ocupam lado a lado. O toroide precisa de mais que a coluna restante e por
+       isso sangra para a direita (ver .art). */
+    grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr);
+  }
+}
+
+.copy {
+  max-width: 40rem;
+}
+
+.slogan {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.sloganRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+  transform-origin: left center;
+  animation: ruleGrow 0.9s var(--ease-out) both;
+}
+
+.headline {
+  margin: 20px 0 0;
+  font-size: clamp(34px, 4.1vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #fff;
+  max-width: 24ch;
+  text-shadow: 0 1px 26px rgba(6, 20, 42, 0.45);
+}
+
+.headlineAccent {
+  color: var(--color-green-light);
+}
+
+.subtitle {
+  margin: 24px 0 0;
+  font-size: clamp(16.5px, 1.25vw, 19px);
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 54ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(28px, 3.4vw, 40px);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 17px 28px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out);
+}
+
+.primary {
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 30px rgba(4, 14, 30, 0.34);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(4, 14, 30, 0.44);
+  color: var(--color-blue-deep);
+}
+
+.primary svg,
+.secondary svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.primary:hover svg,
+.secondary:hover svg {
+  transform: translateX(3px);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 32px rgba(4, 14, 30, 0.3);
+  color: #fff;
+}
+
+/* Dimensionado para a altura visual do toroide bater com o bloco do h1: dentro do
+   viewBox 780×560 o toro ocupa ~57% da altura, então a altura visual é ≈ 0,41 × a
+   largura da caixa. Com 570px dá ~234px, que é a altura do h1 em 4 linhas a 54px.
+   Isso é mais largo que a coluna do grid, então a peça sangra para a direita, para
+   dentro da margem da página, e `justify-self: start` garante que o transbordo vá
+   para esse lado e não por cima do texto. O hero tem overflow: hidden. */
+.art {
+  position: relative;
+  justify-self: start;
+  width: clamp(300px, 42vw, 570px);
+}
+
+.fatos {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--shell);
+  margin: clamp(32px, 4vw, 52px) auto 0;
+  padding: clamp(16px, 2vw, 20px) var(--gutter) 0;
+  border-top: 1px solid var(--color-rule-on-blue);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(20px, 3.4vw, 44px);
+}
+
+.fato {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: var(--color-on-blue-faint);
+}
+
+.fatoIcon {
+  flex: none;
+  color: var(--color-green-light);
+}
+
+/* Coluna única. O toroide fica DEPOIS dos CTAs e encolhe: subir a arte empurraria
+   os botões abaixo da linha d'água no celular. */
+@media (max-width: 1199px) {
+  .art {
+    max-width: clamp(200px, 26vw, 300px);
+    justify-self: start;
+  }
+
+  .headline {
+    max-width: 22ch;
+  }
+
+  /* Num viewport estreito o gradiente de 104deg cobria a tela inteira com a ponta
+     escura e a foto desaparecia. Aqui o escurecimento passa a ser vertical, então
+     a fachada volta a aparecer sem perder contraste sob o texto. */
+  .scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(9, 28, 56, 0.9) 0%,
+        rgba(12, 40, 78, 0.84) 34%,
+        rgba(16, 52, 100, 0.76) 62%,
+        rgba(9, 28, 56, 0.82) 100%
+      ),
+      linear-gradient(100deg, rgba(9, 28, 56, 0.5), rgba(26, 75, 140, 0.16));
+  }
+}

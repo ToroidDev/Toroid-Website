@@ -1,0 +1,213 @@
+/* Padding inferior menor: a faixa de certificações que fechava esta seção saiu, e
+   com o padding cheio sobravam ~280px de branco entre o carrossel e o CTA. */
+.section {
+  position: relative;
+  padding: var(--section-pad) 0 clamp(40px, 5vw, 72px);
+  background: #fff;
+}
+
+.inner {
+  position: relative;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.headingAccent {
+  color: var(--color-blue);
+}
+
+/* ── mosaico de fotos ──
+   Uma foto grande (escala da operação) + duas menores (detalhe de ofício e a
+   placa de fachada, que é a prova visual dos 32 anos). Precisa de breakpoint
+   porque o span de duas linhas do tile principal não é expressável de forma
+   intrínseca; abaixo dele os três tiles empilham. */
+
+.mosaic {
+  display: grid;
+  gap: 14px;
+  margin-top: clamp(38px, 4.4vw, 56px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 860px) {
+  .mosaic {
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .tileMain {
+    grid-row: span 2;
+  }
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: clamp(200px, 24vw, 250px);
+  background: var(--color-bg-tint);
+}
+
+.tileMain {
+  min-height: clamp(260px, 32vw, 514px);
+}
+
+.tileImg {
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.tile:hover .tileImg {
+  transform: scale(1.03);
+}
+
+.tileOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(14, 46, 90, 0.82) 0%, rgba(14, 46, 90, 0.14) 58%, rgba(14, 46, 90, 0) 100%);
+}
+
+.tileCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: clamp(18px, 2.2vw, 28px);
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #fff;
+  max-width: 34ch;
+  text-shadow: 0 1px 14px rgba(8, 26, 52, 0.6);
+}
+
+/* ── cartões de operação ── */
+
+.stats {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(26, 75, 140, 0.13), 0 3px 8px rgba(26, 75, 140, 0.05);
+  border-color: var(--color-blue-soft);
+}
+
+.statIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  color: var(--color-blue);
+  background: rgba(26, 75, 140, 0.08);
+  border: 1px solid rgba(26, 75, 140, 0.12);
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  line-height: 1.18;
+}
+
+.statText {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+/* ── carrossel ── */
+
+.marqueeWrapper {
+  position: relative;
+  margin-top: clamp(40px, 5vw, 64px);
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding: 0 10px;
+  animation: toroidMarquee 46s linear infinite;
+}
+
+.marqueeWrapper:hover .track {
+  animation-play-state: paused;
+}
+
+.figure {
+  flex: 0 0 auto;
+  width: 344px;
+  height: 248px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.figCaption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(18, 60, 116, 0.94) 0%, rgba(26, 75, 140, 0.55) 55%, rgba(26, 75, 140, 0.1) 100%);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.28s ease-out;
+}
+
+.figure:hover .figCaption {
+  opacity: 1;
+}
+
+.figTitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.figSubtitle {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.edgeFadeLeft,
+.edgeFadeRight {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: clamp(40px, 10vw, 140px);
+  pointer-events: none;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.edgeFadeRight {
+  inset: 0 0 0 auto;
+  background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}

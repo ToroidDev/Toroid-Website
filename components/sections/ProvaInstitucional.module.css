@@ -1,0 +1,94 @@
+/* Faixa de prova. Encosta no hero escuro, então ganha um fundo levemente azulado
+   e uma borda superior própria em vez do wash global que existia antes. */
+.section {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-bg-tint) 0%, #fff 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Números e selos empilhados e ambos alinhados à esquerda, na mesma margem.
+   Antes os selos iam para a direita com margin-left:auto e a faixa lia como duas
+   informações desconexas em vez de um bloco só de prova institucional. */
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: clamp(30px, 4vw, 44px) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(20px, 2.6vw, 30px);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(22px, 3vw, 44px);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+}
+
+/* filete vertical separando os números, mais firme que espaço em branco */
+.stat + .stat {
+  padding-left: clamp(22px, 3vw, 44px);
+}
+
+.stat + .stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--color-border-strong);
+}
+
+.statValue {
+  font-family: var(--font-title);
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-blue);
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  background: #fff;
+  border: 1px solid var(--color-border-badge);
+  border-radius: 999px;
+  padding: 9px 15px;
+  box-shadow: 0 2px 6px rgba(26, 75, 140, 0.05);
+}
+
+.badgeGreen {
+  composes: badge;
+  /* verde como detalhe: um selo entre cinco, nunca o peso do azul */
+  color: #3f7d3f;
+  border-color: var(--color-border-green);
+}

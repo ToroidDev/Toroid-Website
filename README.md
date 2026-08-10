@@ -1,38 +1,30 @@
-# Toroid-Website
+# Toroid do Brasil: site institucional
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Site institucional da Toroid do Brasil (transformadores toroidais, transformadores de corrente e indutores/reatores), em Next.js (App Router), consumindo WordPress como CMS headless. Contexto completo do projeto em [`CLAUDE.md`](./CLAUDE.md) e [`PRODUCT.md`](./PRODUCT.md).
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variáveis de ambiente
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Nunca hardcodar estes valores em código: sempre `process.env.X`. Criar um `.env.local` na raiz (ignorado pelo git) com:
 
-## Learn More
+| Variável | Para quê serve |
+|---|---|
+| `WP_API_URL` | Base da REST API do WordPress (`https://toroid.com.br/wp-json/wp/v2`). Usada por `lib/wordpress.ts` para buscar produtos, aplicações e posts. Sem ela, as funções de fetch lançam erro explícito. |
+| `WHATSAPP_NUMBER` | Número usado em `lib/whatsapp.ts` para montar o link de contato. Enquanto não confirmado, o código usa um placeholder explícito. Ver `PRODUCT.md`. |
+| `GA4_MEASUREMENT_ID` | ID de medição do GA4, para os eventos de conversão (`whatsapp_click`, `form_submit`). |
 
-To learn more about Next.js, take a look at the following resources:
+Configurar as três no Vercel em Production, Preview **e** Development.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/`: rotas (App Router). Chrome global (Nav/Footer/botão de WhatsApp) fica em `app/layout.tsx`, aplicado a toda página.
+- `components/`: `layout/` (chrome global), `sections/` (blocos da home), `ui/` (primitivas), `produtos/` (blocos reaproveitados pelas páginas de família de produto em `app/produtos/*`).
+- `lib/`: `wordpress.ts` (tipos + camada de fetch do CMS headless, ver `CLAUDE.md`), `whatsapp.ts`, `produtos.ts`, `institucional.ts`.

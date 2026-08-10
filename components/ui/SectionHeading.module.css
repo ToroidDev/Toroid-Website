@@ -1,0 +1,50 @@
+.wrap {
+  --sh-eyebrow: var(--color-blue);
+  --sh-rule: var(--color-green);
+  --sh-heading: var(--color-text);
+  --sh-lead: var(--color-text-secondary);
+}
+
+.dark {
+  --sh-eyebrow: var(--color-on-blue-muted);
+  --sh-rule: var(--color-green-light);
+  --sh-heading: #fff;
+  --sh-lead: var(--color-on-blue-muted);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sh-eyebrow);
+}
+
+.rule {
+  width: 30px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--sh-rule);
+}
+
+.heading {
+  margin: 18px 0 0;
+  font-size: clamp(30px, 3.5vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--sh-heading);
+  max-width: 24ch;
+}
+
+.lead {
+  margin: 20px 0 0;
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.62;
+  color: var(--sh-lead);
+  max-width: 62ch;
+}

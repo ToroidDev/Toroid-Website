@@ -1,0 +1,831 @@
+/* Sistema visual das páginas-pilar de família de produto.
+   Reaproveita o mesmo mundo da home: faixa azul invertida com grão e pattern,
+   faixa de prova em tinta azulada, corpo branco com medida de leitura, pico
+   azul no meio da página e cartões com a mesma borda, raio e sombra. */
+
+/* ══════════ 1. Hero invertido ══════════
+   Existe por dois motivos ao mesmo tempo: dá à página a mesma abertura escura
+   da home, e devolve o fundo que a nav em repouso presume. A nav não-scrolled
+   é branca (logo em placa branca, links brancos, CTA branco): sobre fundo
+   claro ela some. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* folga para a pílula flutuante da nav passar sem encostar no breadcrumb */
+  padding: clamp(132px, 15vw, 180px) 0 0;
+  background: linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 46%, var(--color-blue-deep) 100%);
+  color: var(--color-on-blue);
+}
+
+/* halo frio no canto superior direito, mesma receita da seção Performance */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -34%;
+  right: -14%;
+  width: min(880px, 94vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.18), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.heroPattern {
+  position: absolute;
+  z-index: 0;
+  top: -66%;
+  left: -16%;
+  width: min(1060px, 106vw);
+  pointer-events: none;
+}
+
+/* Mesmo tile de 160px do hero da home: dá matéria ao chapado azul e disfarça
+   o banding do gradiente em telas grandes. */
+.heroGrain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+/* Duas colunas só quando sobra largura real para a coluna de texto manter os
+   dois CTAs lado a lado. Abaixo disso o emblema vai para baixo e encolhe. */
+@media (min-width: 1080px) {
+  .heroInner {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 clamp(20px, 2.6vw, 30px);
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--color-on-blue-faint);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--color-on-blue-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-green-light);
+  border-bottom-color: var(--color-green-light);
+}
+
+.breadcrumbSep {
+  color: rgba(206, 224, 244, 0.45);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-on-blue-faint);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+  transform-origin: left center;
+  animation: ruleGrow 0.9s var(--ease-out) both;
+}
+
+.heroTitle {
+  margin: 20px 0 0;
+  font-size: clamp(31px, 3.9vw, 50px);
+  line-height: 1.09;
+  letter-spacing: -0.025em;
+  color: #fff;
+  max-width: 21ch;
+  text-shadow: 0 1px 26px rgba(6, 20, 42, 0.4);
+}
+
+.heroTitleAccent {
+  color: var(--color-green-light);
+}
+
+.heroLead {
+  margin: 22px 0 0;
+  font-size: clamp(16.5px, 1.2vw, 18.5px);
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 56ch;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(26px, 3.2vw, 36px);
+}
+
+.onDarkPrimary,
+.onDarkSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 26px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out);
+}
+
+.onDarkPrimary {
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 30px rgba(4, 14, 30, 0.34);
+}
+
+.onDarkPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(4, 14, 30, 0.44);
+  color: var(--color-blue-deep);
+}
+
+.onDarkSecondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+}
+
+.onDarkSecondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 32px rgba(4, 14, 30, 0.3);
+  color: #fff;
+}
+
+.onDarkPrimary svg,
+.onDarkSecondary svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.onDarkPrimary:hover svg,
+.onDarkSecondary:hover svg {
+  transform: translateX(3px);
+}
+
+.heroArt {
+  position: relative;
+  justify-self: center;
+  width: clamp(230px, 40vw, 400px);
+}
+
+@media (min-width: 1080px) {
+  .heroArt {
+    justify-self: end;
+  }
+}
+
+/* faixa de fatos fechando o hero, mesma construção da home */
+.heroFatos {
+  position: relative;
+  z-index: 2;
+  max-width: var(--shell);
+  margin: clamp(34px, 4vw, 52px) auto 0;
+  padding: clamp(16px, 2vw, 20px) var(--gutter) clamp(22px, 2.6vw, 30px);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(20px, 3.4vw, 44px);
+}
+
+.heroFatos::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 1px;
+  background: var(--color-rule-on-blue);
+}
+
+.heroFato {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-on-blue-faint);
+}
+
+.heroFatoIcon {
+  flex: none;
+  color: var(--color-green-light);
+}
+
+/* ══════════ 2. Faixa de prova ══════════ */
+
+.proof {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-bg-tint) 0%, #fff 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.proofInner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: clamp(26px, 3.4vw, 38px) var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(18px, 3vw, 36px);
+}
+
+.proofStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.proofStat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.proofStat + .proofStat {
+  padding-left: clamp(20px, 3vw, 40px);
+}
+
+.proofStat + .proofStat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--color-border-strong);
+}
+
+.proofValue {
+  font-family: var(--font-title);
+  font-size: clamp(27px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.proofLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.proofBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.proofBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  background: #fff;
+  border: 1px solid var(--color-border-badge);
+  border-radius: 999px;
+  padding: 9px 15px;
+  box-shadow: 0 2px 6px rgba(26, 75, 140, 0.05);
+}
+
+/* ══════════ 3. Índice da página ══════════
+   Página-pilar tem dez ou mais seções. Sem sumário o leitor técnico que chegou
+   buscando "classe de exatidão" precisa rolar a página inteira para achar. */
+
+.index {
+  position: relative;
+  background: #fff;
+  padding: clamp(44px, 5vw, 68px) 0 0;
+}
+
+.indexInner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.indexCard {
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-bg-tint-2);
+  padding: clamp(22px, 2.6vw, 30px);
+}
+
+.indexTitle {
+  margin: 0 0 4px;
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.indexList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px clamp(20px, 3vw, 44px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .indexList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.indexLink {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.16s ease-out;
+}
+
+.indexLink:hover {
+  color: var(--color-blue);
+}
+
+.indexMarker {
+  flex: none;
+  width: 14px;
+  height: 1.5px;
+  margin-top: 0.65em;
+  border-radius: 2px;
+  background: var(--color-border-strong);
+  transition: background 0.16s ease-out, width 0.16s var(--ease-out);
+}
+
+.indexLink:hover .indexMarker {
+  width: 22px;
+  background: var(--color-green);
+}
+
+/* ══════════ 4. Corpo em prosa ══════════ */
+
+.body {
+  position: relative;
+  background: #fff;
+  padding: clamp(52px, 6vw, 84px) 0;
+}
+
+/* Variante em tinta azulada, para quebrar a sequência de brancos no meio da
+   página. Mesmo tom da seção Segmentos da home. */
+.bodyTint {
+  background: var(--color-bg-tint);
+  border-top: 1px solid #dfe8f5;
+  border-bottom: 1px solid #dfe8f5;
+}
+
+.bodyPattern {
+  position: absolute;
+  top: 4%;
+  right: -20%;
+  width: min(880px, 88vw);
+  pointer-events: none;
+}
+
+.bodyInner {
+  position: relative;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Coluna de leitura. 68ch fica dentro da faixa de 65 a 75 caracteres, que é
+   onde a linha para de exigir salto de retorno do olho. */
+.prose {
+  max-width: 68ch;
+}
+
+.prose + .prose {
+  margin-top: clamp(40px, 4.6vw, 60px);
+}
+
+.proseHeading {
+  margin: 0;
+  font-size: clamp(23px, 2.4vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  /* mais espaço acima do título do que abaixo: agrupa o título com o texto que
+     ele governa, em vez de deixá-lo boiando entre dois blocos */
+  scroll-margin-top: clamp(96px, 10vw, 120px);
+}
+
+.prose p {
+  margin: 16px 0 0;
+  color: var(--color-text-secondary);
+}
+
+.prose p strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.prose ul {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prose ul li {
+  position: relative;
+  padding: 9px 0 9px 26px;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+.prose ul li:first-child {
+  border-top: 0;
+}
+
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 1.05em;
+  width: 12px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--color-green);
+}
+
+/* Destaque de citação da marca. Fica no corpo claro, com filete azul de 3px:
+   é o único lugar da página com barra lateral, então não vira maneirismo. */
+.pullquote {
+  margin: clamp(32px, 3.6vw, 44px) 0 0;
+  padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--color-blue);
+  max-width: 60ch;
+}
+
+.pullquote p {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.pullquoteSource {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+/* ══════════ 5. Tabela de especificação ══════════ */
+
+.specWrap {
+  max-width: 68ch;
+  margin: 0;
+}
+
+.specHeading {
+  margin: 0 0 18px;
+  font-size: clamp(23px, 2.4vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  scroll-margin-top: clamp(96px, 10vw, 120px);
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(26, 75, 140, 0.05);
+}
+
+.specTable th,
+.specTable td {
+  text-align: left;
+  padding: 14px 20px;
+  vertical-align: baseline;
+}
+
+.specTable tr:not(:first-child) th,
+.specTable tr:not(:first-child) td {
+  border-top: 1px solid var(--color-border);
+}
+
+.specTable th {
+  width: 46%;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.specTable td {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--color-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.specTable tbody tr:nth-child(odd) {
+  background: var(--color-bg-tint-2);
+}
+
+/* Abaixo de 560px a dupla rótulo/valor deixa de caber lado a lado sem quebrar
+   o valor em três linhas. Vira bloco: rótulo em cima, valor embaixo. */
+@media (max-width: 559px) {
+  .specTable th,
+  .specTable td {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .specTable th {
+    padding-bottom: 2px;
+    font-size: 13px;
+  }
+
+  .specTable td {
+    padding-top: 0;
+  }
+
+  .specTable tr:not(:first-child) td {
+    border-top: 0;
+  }
+}
+
+.specNote {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+/* ══════════ 6. Faixa azul de checklist ══════════
+   O pico azul do meio da página, no mesmo lugar estrutural que a seção
+   Performance ocupa na home. */
+
+.checklist {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--section-pad) 0;
+  background: linear-gradient(158deg, var(--color-blue-ink) 0%, var(--color-blue-deep) 54%, var(--color-blue) 100%);
+  color: var(--color-on-blue);
+}
+
+.checklist::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -30%;
+  right: -12%;
+  width: min(900px, 92vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.16), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.checklistPattern {
+  position: absolute;
+  z-index: 0;
+  top: -44%;
+  left: -22%;
+  width: min(1000px, 100vw);
+  pointer-events: none;
+}
+
+.checklistInner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(32px, 4.5vw, 60px);
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 940px) {
+  .checklistInner {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  }
+}
+
+.checklistHeading {
+  margin: 18px 0 0;
+  font-size: clamp(26px, 2.9vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  scroll-margin-top: clamp(96px, 10vw, 120px);
+}
+
+.checklistLead {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 46ch;
+}
+
+.checklistItems {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 15px 0;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--color-on-blue-muted);
+}
+
+.checklistItem + .checklistItem {
+  border-top: 1px solid var(--color-rule-on-blue);
+}
+
+.checklistIcon {
+  flex: none;
+  margin-top: 1px;
+  color: var(--color-green-light);
+}
+
+/* ══════════ 7. Objeções ══════════ */
+
+.objections {
+  position: relative;
+  background: #fff;
+  padding: clamp(52px, 6vw, 84px) 0;
+}
+
+.objectionsInner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.objectionsHeading {
+  margin: 0;
+  font-size: clamp(23px, 2.4vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  max-width: 22ch;
+  scroll-margin-top: clamp(96px, 10vw, 120px);
+}
+
+.objectionsGrid {
+  display: grid;
+  gap: 18px;
+  margin: clamp(30px, 3.6vw, 44px) 0 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+}
+
+.objection {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 26px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.objection:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(26, 75, 140, 0.13), 0 3px 8px rgba(26, 75, 140, 0.05);
+  border-color: var(--color-blue-soft);
+}
+
+.objectionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: var(--color-blue);
+  background: rgba(26, 75, 140, 0.08);
+  border: 1px solid rgba(26, 75, 140, 0.12);
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+
+.objection:hover .objectionIcon {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+.objectionQuestion {
+  margin: 18px 0 0;
+  font-family: var(--font-title);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.objectionAnswer {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* ══════════ 8. Fecho antes do CTA ══════════ */
+
+.closing {
+  position: relative;
+  background: #fff;
+  padding: 0 0 clamp(20px, 3vw, 40px);
+}
+
+.closingInner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}

@@ -1,0 +1,258 @@
+/* Hero das páginas de aplicação. Mesma matéria do hero das páginas-pilar
+   (gradiente azul profundo, grão de 160px, pattern institucional, halo frio),
+   com a borda inferior em curva e a prova reduzida a uma linha. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* folga superior para a pílula flutuante da nav; inferior para a curva */
+  padding: clamp(132px, 15vw, 180px) 0 clamp(52px, 6.4vw, 92px);
+  background: linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 46%, var(--color-blue-deep) 100%);
+  color: var(--color-on-blue);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -34%;
+  right: -14%;
+  width: min(880px, 94vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.18), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -66%;
+  left: -16%;
+  width: min(1060px, 106vw);
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1080px) {
+  .inner {
+    /* 1.5fr porque os dois CTAs desta página têm rótulo contextual, mais longo
+       que o genérico das páginas de produto, e precisam caber lado a lado. */
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 clamp(20px, 2.6vw, 30px);
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--color-on-blue-faint);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--color-on-blue-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-green-light);
+  border-bottom-color: var(--color-green-light);
+}
+
+.breadcrumbSep {
+  color: rgba(206, 224, 244, 0.45);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-on-blue-faint);
+}
+
+.eyebrow {
+  display: flex;
+  /* nome de segmento quebra em duas linhas no mobile: o filete tem que ficar na
+     primeira linha, não centralizado no bloco */
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  margin-top: 0.72em;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+  transform-origin: left center;
+  animation: ruleGrow 0.9s var(--ease-out) both;
+}
+
+/* Não animar entrada do h1: ele é o elemento de LCP, e sair de opacidade 0
+   atrasa a métrica. LCP < 2.5s é requisito do projeto. */
+.titulo {
+  margin: 20px 0 0;
+  font-size: clamp(30px, 3.7vw, 47px);
+  line-height: 1.09;
+  letter-spacing: -0.025em;
+  color: #fff;
+  max-width: 24ch;
+  text-shadow: 0 1px 26px rgba(6, 20, 42, 0.4);
+}
+
+.lead {
+  margin: 22px 0 0;
+  font-size: clamp(16.5px, 1.2vw, 18.5px);
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 58ch;
+}
+
+/* Prova em uma linha, junto do primeiro CTA. O bloco institucional completo
+   fica na home e nas páginas de produto. */
+.prova {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: clamp(22px, 2.6vw, 30px) 0 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-on-blue-faint);
+}
+
+.provaIcon {
+  flex: none;
+  color: var(--color-green-light);
+}
+
+.provaSep {
+  margin-left: 8px;
+  color: rgba(206, 224, 244, 0.4);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(22px, 2.8vw, 32px);
+}
+
+.primario,
+.secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 26px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out);
+}
+
+.primario {
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 30px rgba(4, 14, 30, 0.34);
+}
+
+.primario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(4, 14, 30, 0.44);
+  color: var(--color-blue-deep);
+}
+
+.secundario {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+}
+
+.secundario:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 32px rgba(4, 14, 30, 0.3);
+  color: #fff;
+}
+
+.primario svg,
+.secundario svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.primario:hover svg,
+.secundario:hover svg {
+  transform: translateX(3px);
+}
+
+.arte {
+  position: relative;
+  justify-self: center;
+  width: clamp(228px, 36vw, 366px);
+}
+
+@media (min-width: 1080px) {
+  .arte {
+    justify-self: end;
+  }
+}
+
+/* Curva de fechamento do hero. Fica por cima do gradiente, preenchida com a cor
+   da seção seguinte, então não existe emenda para acertar. */
+.onda {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: clamp(38px, 4.6vw, 74px);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.onda svg {
+  display: block;
+}

@@ -1,0 +1,421 @@
+/* Dois estados:
+   - em repouso, barra rente ao topo, largura cheia, fundo transparente sobre o
+     hero escuro, com o filete embaixo, que é a forma que a nav tinha antes;
+   - depois do primeiro scroll, ela se descola e vira a pílula suspensa branca.
+   O que muda entre os dois é só cor/raio/sombra/offset, tudo animável, então a
+   transição é contínua e não há salto de layout. */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  padding: 0;
+  /* só a barra recebe evento; as sobras laterais deixam o hero clicável */
+  pointer-events: none;
+  transition: top 0.3s var(--ease-out), padding 0.3s var(--ease-out);
+}
+
+.header.scrolled {
+  top: clamp(10px, 1.6vw, 20px);
+  padding: 0 clamp(12px, 3vw, 28px);
+}
+
+.bar {
+  pointer-events: auto;
+  max-width: var(--shell);
+  margin: 0 auto;
+  height: clamp(72px, 7.4vw, 88px);
+  padding: 0 var(--gutter);
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 32px);
+  transition: height 0.3s var(--ease-out), padding 0.3s var(--ease-out), background 0.3s var(--ease-out),
+    border-radius 0.3s var(--ease-out), border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+/* A pílula é BRANCO OPACO, não vidro translúcido, e isso é requisito e não
+   estética: logo-toroid-trim.png tem fundo branco chapado (alpha 255), então ele
+   só desaparece se o `mix-blend-mode: multiply` do logo tiver branco puro atrás.
+   Com fundo semitransparente + backdrop-filter o blend ficava isolado e o logo
+   aparecia dentro de um retângulo branco visível. */
+.header.scrolled .bar {
+  height: clamp(56px, 6vw, 64px);
+  /* padding generoso porque as pontas são semicírculos de raio = altura/2: com
+     padding curto o CTA encostava na curva e parecia cortado */
+  padding: 0 clamp(20px, 2.8vw, 34px);
+  border-radius: 999px;
+  background: #fff;
+  border-color: rgba(214, 226, 242, 0.9);
+  box-shadow: 0 12px 36px rgba(9, 28, 56, 0.2), 0 2px 6px rgba(9, 28, 56, 0.08);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Placa branca atrás do logo. Existe porque o PNG do logo tem fundo branco
+   chapado e não há versão negativa do arquivo: sobre o hero azul escuro, sem a
+   placa, o retângulo branco do próprio arquivo apareceria solto. Em repouso ela
+   é uma placa deliberada; com a pílula branca aberta ela desaparece dentro dela. */
+.logoPlate {
+  display: flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(9, 28, 56, 0.16);
+  transition: padding 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-radius 0.3s var(--ease-out);
+}
+
+.header.scrolled .logoPlate {
+  padding: 0;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.logo {
+  display: block;
+  height: clamp(38px, 3.9vw, 46px);
+  width: auto;
+  mix-blend-mode: multiply;
+  transition: height 0.3s var(--ease-out);
+}
+
+.header.scrolled .logo {
+  height: clamp(40px, 4.2vw, 48px);
+}
+
+/* filete sob a barra em repouso, some quando a pílula abre */
+.hairline {
+  max-width: var(--shell);
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.header.scrolled .hairline {
+  opacity: 0;
+}
+
+/* ── desktop nav ── */
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-left: auto;
+  }
+}
+
+.navItem {
+  position: relative;
+}
+
+/* Em repouso a barra é transparente sobre o hero azul escuro, então o texto é
+   branco; com a pílula branca aberta ele volta para o cinza institucional. */
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  padding-bottom: 3px;
+  background: linear-gradient(var(--color-green-light), var(--color-green-light)) no-repeat left bottom / 0% 2px;
+  border: 0;
+  transition: background-size 0.18s ease-out, color 0.3s var(--ease-out);
+  cursor: pointer;
+}
+
+.header.scrolled .navLink {
+  color: var(--color-text);
+  background-image: linear-gradient(var(--color-green), var(--color-green));
+}
+
+.navLink:hover,
+.navItem:hover .navLink,
+.navItem:focus-within .navLink,
+.navItem[data-open] .navLink {
+  background-size: 100% 2px;
+  color: var(--color-green-light);
+}
+
+.header.scrolled .navLink:hover,
+.header.scrolled .navItem:hover .navLink,
+.header.scrolled .navItem:focus-within .navLink,
+.header.scrolled .navItem[data-open] .navLink {
+  color: var(--color-blue);
+}
+
+.chevron {
+  display: block;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.navItem[data-open] .chevron {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 4px);
+  min-width: 292px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 20px 44px rgba(9, 28, 56, 0.16), 0 3px 8px rgba(9, 28, 56, 0.06);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
+}
+
+.navItem[data-open] .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 12px);
+}
+
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background 0.14s ease-out, color 0.14s ease-out;
+}
+
+.dropdownLink:hover,
+.dropdownLink:focus-visible {
+  background: rgba(26, 75, 140, 0.07);
+  color: var(--color-blue);
+}
+
+.dropdownIcon {
+  flex: none;
+  opacity: 0.8;
+}
+
+/* Invertido entre os dois estados: branco sobre o hero escuro, azul sólido dentro
+   da pílula branca. Em ambos o CTA é o elemento de maior contraste da barra. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--color-blue-deep);
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(4, 14, 30, 0.3);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(4, 14, 30, 0.38);
+  color: var(--color-blue-deep);
+}
+
+.header.scrolled .cta {
+  background: var(--color-blue);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(26, 75, 140, 0.28);
+}
+
+.header.scrolled .cta:hover {
+  background: var(--color-blue-deep);
+  box-shadow: 0 12px 26px rgba(26, 75, 140, 0.34);
+  color: #fff;
+}
+
+.cta svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── mobile burger ── */
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  margin-left: auto;
+  color: #fff;
+  transition: background 0.16s ease-out, color 0.3s var(--ease-out);
+}
+
+.burger:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.header.scrolled .burger {
+  color: var(--color-blue);
+}
+
+.header.scrolled .burger:hover {
+  background: rgba(26, 75, 140, 0.07);
+}
+
+@media (min-width: 1000px) {
+  .burger {
+    display: none;
+  }
+}
+
+/* ── mobile full-screen menu ── */
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px clamp(20px, 6vw, 40px) 40px;
+}
+
+@media (min-width: 1000px) {
+  .mobileMenu {
+    display: none;
+  }
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+
+.mobileLogo {
+  display: block;
+  height: 52px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--color-blue);
+  transition: background 0.16s ease-out;
+}
+
+.closeButton:hover {
+  background: rgba(26, 75, 140, 0.07);
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 36px;
+}
+
+.mobileLink {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  padding: 12px 0;
+}
+
+.mobileAccordion {
+  padding: 12px 0;
+}
+
+.mobileAccordion summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobileAccordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobileChevron {
+  flex: none;
+  color: var(--color-blue);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.mobileAccordion[open] .mobileChevron {
+  transform: rotate(180deg);
+}
+
+.mobileSubLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0 4px 4px;
+}
+
+.mobileSubLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 8px 0;
+}
+
+.mobileCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: auto;
+  background: var(--color-blue);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 18px 24px;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(26, 75, 140, 0.28);
+}

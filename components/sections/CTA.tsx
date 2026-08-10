@@ -1,0 +1,36 @@
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
+import { whatsappLink } from "@/lib/whatsapp";
+import styles from "./CTA.module.css";
+
+export function CTA() {
+  return (
+    <section id="orcamento" className={styles.section}>
+      <div className={styles.inner}>
+        <div className={styles.card}>
+          <InstitutionalPattern spiral opacity={0.12} stroke="#BBD5F2" className={styles.pattern} />
+          <div className={styles.content}>
+            <p className={styles.eyebrow}>Orçamento técnico</p>
+            <h2 className={styles.heading}>
+              Envie a especificação, ou só a restrição do painel. A engenharia responde com o dimensionamento.
+            </h2>
+            <p className={styles.lead}>
+              Tensão, corrente, espaço disponível e norma aplicável. Se algum dado ainda não existe, a equipe ajuda a
+              fechar.
+            </p>
+            <div className={styles.actions}>
+              <a href="#contato" className={styles.primary}>
+                Solicitar Orçamento Técnico
+                <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+              </a>
+              <a href={whatsappLink} target="_blank" rel="noopener" className={styles.secondary}>
+                Falar com um engenheiro
+                <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

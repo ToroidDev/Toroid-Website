@@ -1,0 +1,124 @@
+/* Pico azul do meio da página. Gradiente azul→azul, sem nenhuma parada branca:
+   o gradiente institucional azul→branco não pode ficar atrás de texto. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--section-pad) 0;
+  /* Não clareia além de --color-blue: é o teto que mantém o corpo de texto em AA. */
+  background: linear-gradient(158deg, var(--color-blue-ink) 0%, var(--color-blue-deep) 54%, var(--color-blue) 100%);
+  color: var(--color-on-blue);
+}
+
+/* halo frio no canto, dando profundidade ao chapado */
+.section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -30%;
+  right: -12%;
+  width: min(900px, 92vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.16), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -46%;
+  left: -20%;
+  width: min(1000px, 100vw);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(36px, 5vw, 64px);
+  /* stretch, não center: centralizado, a coluna da onda terminava muito antes da
+     lista e deixava um vazio azul grande à direita */
+  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin-top: clamp(32px, 3.6vw, 44px);
+}
+
+.item {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-rule-on-blue);
+}
+
+.itemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: var(--color-green-light);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.itemTitle {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.itemText {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 58ch;
+}
+
+.waveWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  border: 1px solid var(--color-rule-on-blue);
+  border-radius: 16px;
+  padding: clamp(22px, 2.6vw, 34px);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.waveLabel {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-faint);
+}
+
+.waveNote {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-on-blue-muted);
+  max-width: 46ch;
+}

@@ -1,0 +1,154 @@
+.footer {
+  position: relative;
+  padding: clamp(56px, 7vw, 88px) 0 0;
+  background: linear-gradient(180deg, var(--color-bg-tint) 0%, #f7fafd 62%, #fff 100%);
+  border-top: 1px solid #dfe8f5;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  gap: 36px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+}
+
+.logo {
+  display: block;
+  height: 88px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.about {
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 34ch;
+}
+
+.columnTitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+.columnList {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.columnList a,
+.columnList span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  color: var(--color-text-secondary);
+  transition: color 0.16s ease-out;
+}
+
+.columnList a:hover {
+  color: var(--color-blue);
+}
+
+.columnList svg {
+  flex: none;
+  color: var(--color-blue);
+  opacity: 0.75;
+}
+
+/* coluna sem ícone: recupera o alinhamento à esquerda do texto */
+.columnListPlain a {
+  gap: 0;
+}
+
+.selos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.seloRina {
+  display: block;
+  height: 96px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.seloIso {
+  display: block;
+  height: 34px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.seloEsg {
+  display: block;
+  height: 36px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.divider {
+  height: 1px;
+  margin-top: 48px;
+  background: linear-gradient(90deg, rgba(26, 75, 140, 0.24), rgba(26, 75, 140, 0));
+}
+
+.band {
+  margin-top: clamp(40px, 6vw, 72px);
+  padding: clamp(40px, 6vw, 72px) 0 36px;
+  background: linear-gradient(135deg, var(--color-blue-ink) 0%, var(--color-blue-deep) 46%, #16487f 78%, var(--color-blue) 100%);
+}
+
+.bandInner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 14px rgba(14, 46, 90, 0.5);
+}
+
+.stripes {
+  display: block;
+  max-width: 760px;
+}
+
+.stripeYellow {
+  stroke: var(--color-yellow);
+}
+
+.copyright {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}

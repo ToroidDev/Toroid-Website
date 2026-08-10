@@ -1,0 +1,21 @@
+/* Circulação do fluxo dentro da coroa do núcleo.
+   Só rotação: composita na GPU, não repinta, não mexe em layout. A duração vem
+   inline por anel, entre 27s e 42s, porque o que se quer é presença, não
+   movimento perceptível como animação. */
+
+.fluxo {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation-name: fluxoCircula;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fluxoCircula {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
