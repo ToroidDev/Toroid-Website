@@ -12,7 +12,7 @@ Engenheiro que especifica o componente: engenharia de projeto/desenvolvimento em
 
 ## Product Purpose
 
-Site institucional da Toroid do Brasil (fabricante de transformadores toroidais, transformadores de corrente e indutores/reatores). Existe para capturar busca de produto: 94% do tráfego orgânico atual é de marca, e a alavanca de crescimento real é aparecer para quem busca pelo componente técnico, não pelo nome da empresa. Sucesso: o engenheiro chega, reconhece que o produto é projetado para a aplicação dele (não vendido de catálogo fechado), e converte em orçamento técnico ou contato direto com engenharia (WhatsApp/formulário).
+Site institucional da Toroid do Brasil (fabricante de transformadores de corrente, transformadores de potência e indutores/reatores, com núcleo toroidal ou convencional conforme o projeto). Existe para capturar busca de produto: 94% do tráfego orgânico atual é de marca, e a alavanca de crescimento real é aparecer para quem busca pelo componente técnico, não pelo nome da empresa. Sucesso: o engenheiro chega, reconhece que o produto é projetado para a aplicação dele (não vendido de catálogo fechado), e converte em orçamento técnico ou contato direto com engenharia (WhatsApp/formulário).
 
 ## Positioning
 
@@ -27,7 +27,7 @@ Engenharia sob medida a partir da aplicação do cliente, com especificação ve
 
 ## Capabilities and Constraints
 
-- Três famílias de produto, cada uma com página própria: Transformadores de Corrente (`/produtos/transformadores-de-corrente`), Transformadores Toroidais (`/produtos/transformadores-toroidais`), Indutores & Reatores (`/produtos/indutores-e-reatores`).
+- Três famílias de produto, cada uma com página própria: Transformadores de Corrente (`/transformador-de-corrente`), Transformadores de Potência (`/transformador-de-potencia`), Indutores & Reatores (`/indutores-filtros-e-chokes`). As URLs são exigidas por tráfego orgânico e campanhas de Ads já ativas, não seguem um padrão genérico — `/produtos` existe à parte como página própria de listagem das três famílias. Núcleo toroidal **não é uma família**, é uma tecnologia de núcleo que pode ser usada dentro de qualquer uma das três (TC, TP ou Indutor) — `/transformadores-toroidais` continua existindo (URL já indexada) como página explicativa/comparativa dessa tecnologia, sem tabela de especificação própria e sem representar um produto vendável isolado.
 - Estrutura de dados WP: CPT `produto` (categoria, variante, faixa técnica, parâmetros de especificação, aplicações relacionadas, imagens) e CPT `aplicacao` (tier ICP, status de Ads, dor do segmento, produtos recomendados). Ver CLAUDE.md para o schema completo.
 - Imagens de produto reais estão pendentes (Fase 3, virão do WordPress); a UI atual usa placeholders institucionais (`ProductPlaceholder`) com marcação já preparada para troca direta por `next/image` sem mudança estrutural.
 - Meta de performance é requisito de produto, não só técnico: Lighthouse Performance ≥ 90, LCP < 2.5s, CLS < 0.1, INP < 200ms. Decisão de UI que comprometa isso não é uma opção neutra.
@@ -44,7 +44,7 @@ Engenharia sob medida a partir da aplicação do cliente, com especificação ve
 - Certificações reais disponíveis como imagem: `cert-iso.png`, `cert-esg.png`, `cert-rina-iso9001.jpg`.
 - Foto real da fábrica: `fabrica.jpg` (produto/planta reais, nunca produto sobre fundo branco flutuando, por diretriz de CLAUDE.md).
 - **Sem cases ou depoimentos de cliente liberados ainda.** `Segmentos.tsx` marca isso explicitamente como `[CASE PENDENTE: aguardando aprovação comercial]`, placeholder real, não conteúdo a substituir por invenção. Nenhum case, depoimento ou nome de cliente deve ser fabricado até liberação comercial.
-- **Contato oficial ainda não confirmado.** Telefones em `Footer.tsx` e número de WhatsApp em `lib/whatsapp.ts` são placeholders explícitos (`TODO: confirmar telefones e e-mail oficiais` / `TODO: confirmar número real`). Não tratar como dado real em nenhum trabalho futuro até confirmação.
+- **Contato oficial confirmado**: telefone (41) 3035-8282, WhatsApp (41) 3035-8263, e-mails vendas@/engenharia@/rh@toroid.com.br, endereço Rua Antônio Bianchetti, 541 - Iná, São José dos Pinhais, PR, CEP 83065-370, perfis reais de LinkedIn/Instagram/YouTube. Já refletido em `Footer.tsx`, `ContatoInfo.tsx`, `lib/whatsapp.ts` e no schema `Organization` (`components/seo/OrganizationSchema.tsx`). Nome legal: Indústria e Comércio de Transformadores Toroidais Ltda.
 
 ## Product Principles
 

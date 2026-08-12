@@ -6,7 +6,7 @@ Contexto persistente para qualquer trabalho neste repositório. Leia isto antes 
 
 ## O que é este projeto
 
-Site institucional da Toroid do Brasil (fabricante de transformadores toroidais, TCs e indutores), reconstruído em Next.js consumindo WordPress como CMS headless. O WordPress atual (Elementor/Jetpack) deixa de ser renderizado publicamente, mas continua existindo só como fonte de conteúdo via REST API.
+Site institucional da Toroid do Brasil (fabricante de transformadores de corrente, transformadores de potência e indutores, com núcleo toroidal ou convencional conforme o projeto), reconstruído em Next.js consumindo WordPress como CMS headless. O WordPress atual (Elementor/Jetpack) deixa de ser renderizado publicamente, mas continua existindo só como fonte de conteúdo via REST API.
 
 **Prioridade número um deste projeto: performance.** 94% do tráfego orgânico é de marca; a alavanca real é capturar busca de produto, e isso depende de Core Web Vitals bons, não só de conteúdo bom. Toda decisão técnica abaixo existe para proteger isso.
 
@@ -29,7 +29,11 @@ Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configu
 WP_API_URL=https://toroid.com.br/wp-json/wp/v2
 WHATSAPP_NUMBER=554130358263
 GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+MONGODB_URI=mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/toroid?retryWrites=true&w=majority
+LEAD_IP_HASH_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>
 ```
+
+`MONGODB_URI` é obrigatória para a persistência de leads (ver "Formulário de orçamento e captura de lead" abaixo) — sem ela, a gravação no MongoDB falha silenciosamente (loga no servidor) mas o formulário continua funcionando via e-mail. `LEAD_IP_HASH_SECRET` é opcional e recomendada: sem ela, o hash de IP do lead usa SHA-256 simples, mais fraco que o HMAC salgado.
 
 ---
 
@@ -44,12 +48,14 @@ curl -s https://toroid.com.br/wp-json/wp/v2/produto/123 | jq
 ### CPT `produto`
 | Campo (slug ACF) | Tipo | Notas |
 |---|---|---|
-| `categoria_produto` | Taxonomia | `transformador-de-corrente` \| `transformador-toroidal` \| `indutor-reator` |
-| `variante` | Texto/Taxonomia | CX01, resinado, médico, etc. |
+| `categoria_produto` | Taxonomia | `transformador-de-corrente` \| `transformador-toroidal` \| `indutor-reator` — **desatualizado, ver nota abaixo** |
+| `variante` | Texto/Taxonomia | resinado, médico, etc. (não usar como nome de linha comercial inexistente — ver ROADMAP.md) |
 | `faixa_tecnica` | Texto | Ex.: "5 VA a 15 kVA" |
 | `parametros_especificacao` | Repeater (`nome` + `valor`) | Varia por categoria, ver playbook de especificação |
 | `aplicacoes_relacionadas` | Relationship → CPT `aplicacao` | Base do link cruzado produto↔segmento |
 | `imagem_principal`, `galeria` | Imagem/galeria | Produto real, nunca sobre fundo branco flutuando |
+
+> **Nota (2026-08-12):** a taxonomia de família de produto no front-end mudou para Transformador de Corrente / Transformador de Potência / Indutores — núcleo toroidal deixou de ser uma família e passou a ser tecnologia de núcleo cross-line (ver PRODUCT.md). O enum `categoria_produto` acima ainda reflete o esquema antigo do WordPress e precisa ser atualizado no admin do WP (`transformador-toroidal` → `transformador-de-potencia`, decidindo se toroidal continua como tag secundária); isso é mudança de dado fora do repositório, ver ROADMAP.md/Trilha B.
 
 ### CPT `aplicacao`
 | Campo (slug ACF) | Tipo | Notas |
@@ -74,7 +80,17 @@ Taxonomia de categoria: `especificacao-tecnica`, `engenharia-manutencao`, `aplic
   })
   ```
 - **Revalidação sob demanda:** configurar um webhook no WordPress (dispara ao publicar/editar) chamando uma API Route que roda `revalidateTag`. Isso evita dois extremos ruins: página estática desatualizada por horas, ou renderização dinâmica a cada request só pra ter conteúdo fresco.
-- **Rotas por tipo de conteúdo:** `/produtos/[categoria]/[slug]`, `/aplicacoes/[slug]`, `/blog/[slug]`. Cada uma resolve os relacionamentos (produto↔aplicação) numa única chamada quando possível, nunca em cascata de requests sequenciais.
+- **Rotas por tipo de conteúdo:** as URLs de produto são exigidas por tráfego orgânico e campanhas de Ads já ativas — não seguem um padrão genérico `/produtos/[categoria]/[slug]`. São top-level e uma delas tem slug totalmente diferente do nome interno do produto:
+  - Transformadores de Corrente: `/transformador-de-corrente`
+  - Transformadores de Potência: `/transformador-de-potencia`
+  - Indutores & Reatores: `/indutores-filtros-e-chokes` (slug diferente de propósito — é a URL que já rankeia no WordPress antigo, não um erro de digitação)
+  - `/produtos` existe como página própria de listagem das três famílias, não é fundida ao padrão acima.
+  - `/transformadores-toroidais` **não é uma das três famílias** — é uma página própria sobre a tecnologia de núcleo toroidal (comparação com núcleo convencional, cross-link para as três famílias reais). Mantém essa URL porque já é indexada; não reaproveitar esse slug/nome como sinônimo de família de produto em nenhum lugar novo do código.
+  - `/aplicacoes/[slug]` e `/blog/[slug]` seguem o padrão dinâmico genérico normalmente, pois não têm URL legada a preservar. Cada uma resolve os relacionamentos (produto↔aplicação) numa única chamada quando possível, nunca em cascata de requests sequenciais.
+  - Se um padrão dinâmico dirigido pelo WP for construído no futuro para produtos, não usar `/produtos/[categoria]/[slug]` sem reconciliar com as URLs acima — reintroduziria a mesma perda de SEO que essa estrutura corrige.
+- **Redirects 301 do WordPress antigo** (`next.config.ts`, `redirects()`): cada URL indexada confirmada (Search Console/Notion) vira uma entrada literal `source`/`destination`, nunca descartada silenciosamente. Para famílias de URL previsíveis (ex.: arquivos de data do WP, `/AAAA/MM/DD/`), preferir um único redirect por path pattern (`source: '/:ano(\\d{4})/:mes(\\d{2})/:dia(\\d{2})'`) em vez de uma entrada por URL — cobre casos não listados explicitamente no export do GSC. `permanent: true` no Next.js retorna HTTP 308, não 301 — é o comportamento padrão do framework (preserva o método HTTP) e Google trata como equivalente a 301 para SEO, não é bug a corrigir. URLs sem destino confirmado (conteúdo não identificado, decisão de negócio pendente) ficam de fora do mapa e viram pendência explícita no ROADMAP — nunca um redirect adivinhado.
+- **`app/sitemap.ts` e `app/robots.ts`** usam a convenção nativa do Next.js (`MetadataRoute.Sitemap`/`MetadataRoute.Robots`), nunca um XML/txt estático em `public/`. O sitemap só lista rotas que existem de verdade hoje — uma URL de sitemap que devolve 404 é pior sinal que não listar. O bloco de posts do WordPress fica comentado em `sitemap.ts` até `/blog/[slug]` existir como rota e `WP_API_URL` estar validado; habilitar antes disso anunciaria conteúdo que ainda não existe.
+- **Política de crawler de IA** (decisão da diretoria, em `app/robots.ts`): permitir bot de busca/resposta que cita a fonte (`OAI-SearchBot`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`, `Google-Extended`); bloquear bot de treinamento sem link de volta (`GPTBot`, `ClaudeBot`). Não reverter para um bloqueio genérico de bot de IA — é decisão deliberada, consistente com o foco em AEO/FAQPage do projeto.
 - **TypeScript estrito.** Tipar o retorno da API do WP (interface `Produto`, `Aplicacao`, `Post`), nunca `any` no que vem da REST API.
 - **Validação de formulário sempre no back-end** (API Route), com schema por tipo de produto (TC / TP / Indutor). O front-end valida por UX, back-end valida porque é o que importa.
 
@@ -97,6 +113,30 @@ Meta: Lighthouse Performance ≥ 90, LCP < 2.5s, CLS < 0.1, INP < 200ms.
 
 ---
 
+## Dados estruturados (schema.org / JSON-LD)
+
+Cada tipo de página tem um schema obrigatório, seguindo o padrão já usado nas páginas de produto (array `JSON_LD`, renderizado como `<script type="application/ld+json">` ao fim da página):
+
+- **Páginas de produto/pilar:** `Product` + `BreadcrumbList` + `FAQPage` (quando a página tem seção de objeções/perguntas).
+- **Pilar 7 (autoridade técnica) e qualquer página com perguntas frequentes:** `FAQPage` — é o formato mais citável por IA/AEO.
+- **Todo o site:** `Organization` — componente único (`components/seo/OrganizationSchema.tsx`), montado uma única vez no `RootLayout` (`app/layout.tsx`), nunca repetido por página. Dados confirmados: nome legal, endereço, telefones (ver PRODUCT.md).
+- **`/quem-somos` e página local (Curitiba):** `LocalBusiness`, adicional ao `Organization` sitewide. Só falta a página existir — o telefone que bloqueava isso já foi confirmado.
+- **Página de listagem (`/produtos`):** `BreadcrumbList` + `CollectionPage`, sem `Product`/`FAQPage` — esses ficam nas páginas de família individuais.
+- **Domínio/URL absoluta em JSON-LD**: sempre via `absoluteUrl()`/`SITE_URL` de `lib/seo.ts`, nunca a string `https://toroid.com.br` repetida à mão — mesmo motivo do `metadataBase` centralizado em `app/layout.tsx`.
+
+---
+
+## Formulário de orçamento e captura de lead
+
+- Captura de UTM (`utm_source/medium/campaign/term/content`, `gclid`, `fbclid`) no client, em todas as páginas: primeiro toque (`localStorage`, gravado uma única vez) e último toque (`sessionStorage`, sobrescrito a cada nova visita com parâmetro de campanha). Ver `lib/attribution.ts` e `components/layout/AttributionCapture.tsx`, montado no `RootLayout`.
+- Submit do formulário faz POST para `/api/orcamento` (API Route), nunca só exibe "sucesso" sem confirmação do servidor.
+- A API Route persiste o lead no MongoDB (coleção `leads`, banco `toroid`, schema com `lead`/`attribution`/`context`/`consent`/`status` em `lib/leads-schema.ts`) **em paralelo** ao e-mail de notificação já existente (`lib/orcamento-mailer.ts`) — nenhum dos dois substitui o outro. A gravação no Mongo roda depois da resposta HTTP (`after()`), nunca segura nem derruba a resposta ao visitante; só o envio de e-mail decide o `{ok:true}`/`{ok:false}` retornado.
+- Campo `status` do lead (`novo → qualificado → proposta → ganho | perdido`) para medir qualidade de lead por canal depois, não só volume.
+- **Checkbox de consentimento LGPD ainda não existe.** Está bloqueado até existir uma página de política de privacidade real publicada (ver ROADMAP.md) — não adicionar checkbox linkando para conteúdo jurídico inventado. Até lá, `consent.lgpd` é sempre `false` no documento persistido, por design, não é bug.
+- O conjunto de campos visíveis do formulário (`nome`/`email`/`telefone`/`observação`) é intencionalmente mínimo, aguardando validação comercial para expandir (`empresa`, `categoria`/segmento) — ver comentário em `components/forms/OrcamentoForm.tsx` e `lib/orcamento-schema.ts`.
+
+---
+
 ## Identidade visual (não é opcional, é a versão oficial vigente)
 
 | Token | Valor |
@@ -106,7 +146,7 @@ Meta: Lighthouse Performance ≥ 90, LCP < 2.5s, CLS < 0.1, INP < 200ms.
 | Amarelo | `#FBF23D`, **exclusivo dos três fios do logo, nunca usar em UI** |
 | Cinza texto | `#393738` |
 | Gradiente institucional | `azul → branco`, só em capas/faixas de rodapé/separadores, nunca atrás de texto |
-| Tipografia | Montserrat, 700 títulos, 600 subtítulos, 400 corpo, line-height 1.6 |
+| Tipografia | Montserrat Bold 700 (títulos) / SemiBold 600 (subtítulos e CTAs) — Karla Regular 400 (corpo, line-height 1,6) |
 
 Nunca: gradiente verde→azul (versão antiga), azul e verde com peso visual igual (azul é base, verde é detalhe), logo recolorido/distorcido/com sombra.
 
@@ -114,8 +154,10 @@ Nunca: gradiente verde→azul (versão antiga), azul e verde com peso visual igu
 
 ## UTM e eventos de conversão
 
-- Capturar UTM da URL no client ao entrar no site, guardar em `sessionStorage` (sobrevive à navegação interna).
-- Dois eventos GA4 distintos, nunca um só: `whatsapp_click` (intenção) e `form_submit` (lead real), os dois com os parâmetros de UTM originais anexados, disparados via `next/script`/`gtag` **antes** do redirect (usar `sendBeacon` ou pequeno delay, redirect pode cortar a chamada).
+- Capturar UTM da URL no client ao entrar no site — ver detalhe de primeiro/último toque em "Formulário de orçamento e captura de lead" acima.
+- **GA4 implementado** (`components/analytics/GoogleAnalytics.tsx`, montado uma vez no `RootLayout`): carrega `gtag.js` via `next/script` (`strategy="afterInteractive"`) só quando `GA4_MEASUREMENT_ID` está configurado — sem a env var, não renderiza nada, sem quebrar a página. Dois eventos GA4 distintos, nunca um só: `whatsapp_click` e `form_submit` (`lib/analytics.ts`), os dois com o UTM de último toque anexado (mesma fonte de `lib/attribution.ts`).
+  - `whatsapp_click` dispara em todo link de WhatsApp do site via `components/analytics/WhatsAppLink.tsx` (substitui qualquer `<a href={whatsappLink}>` direto — centraliza o link e o evento num único lugar, não repetir por seção). Todos abrem em nova aba (`target="_blank"`), por isso um `gtag('event', ...)` síncrono já é seguro — não há risco de redirect cortar a chamada nessas rotas, então `sendBeacon`/delay não é necessário aqui.
+  - `form_submit` dispara em `OrcamentoForm.tsx` só após confirmação `{ok:true}` do `/api/orcamento` (lead real, não intenção) — mudança de estado na própria página, sem navegação, mesmo motivo acima.
 - Link de WhatsApp: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`. A mensagem já inclui produto/especificação e origem de campanha quando disponível.
 
 ---
@@ -134,3 +176,4 @@ Nunca: gradiente verde→azul (versão antiga), azul e verde com peso visual igu
 - [ ] Algum componente novo tem `"use client"` que não precisava ter?
 - [ ] Campo novo do WP tem "Show in REST API" marcado e testado via curl?
 - [ ] Evento de conversão (se aplicável) dispara com UTM no DebugView do GA4?
+- [ ] Página nova tem o schema.org correto para o tipo de conteúdo?
