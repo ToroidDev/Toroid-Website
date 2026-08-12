@@ -1,53 +1,65 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
 import styles from "./Footer.module.css";
 
 export function Footer() {
   return (
-    <footer id="contato" className={styles.footer}>
+    <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.grid}>
           <div>
             <Image src="/images/logo-toroid-trim.png" alt="Toroid do Brasil" width={808} height={349} className={styles.logo} />
             <p className={styles.about}>
-              Transformadores toroidais, transformadores de corrente e indutores sob medida. Fabricação nacional, ISO 9001.
+              Transformadores de corrente, transformadores de potência e indutores sob medida. Fabricação nacional, ISO 9001.
             </p>
           </div>
 
           <div>
             <p className={styles.columnTitle}>Contato</p>
-            {/* TODO: confirmar telefones e e-mail oficiais */}
             <div className={styles.columnList}>
-              <a href="tel:+554130000000">
+              <a href="tel:+554130358282">
                 <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
-                +55 (41) 3000-0000
+                +55 (41) 3035-8282
               </a>
-              <a href="tel:+554130000001">
-                <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
-                +55 (41) 3000-0001
+              <a href="tel:+554130358263">
+                <WhatsappIcon size={15} />
+                WhatsApp +55 (41) 3035-8263
               </a>
-              <a href="mailto:comercial@toroid.com.br">
+              <a href="mailto:vendas@toroid.com.br">
                 <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
-                comercial@toroid.com.br
+                vendas@toroid.com.br
+              </a>
+              <a href="mailto:engenharia@toroid.com.br">
+                <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
+                engenharia@toroid.com.br
+              </a>
+              <a href="mailto:rh@toroid.com.br">
+                <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
+                rh@toroid.com.br
               </a>
               <span>
                 <MapPin size={15} strokeWidth={1.8} aria-hidden="true" />
-                São José dos Pinhais · PR
+                Rua Antônio Bianchetti, 541 - Iná, São José dos Pinhais, PR
               </span>
             </div>
           </div>
 
           <div>
             <p className={styles.columnTitle}>Redes</p>
-            {/* TODO: confirmar URLs dos perfis oficiais.
-                Sem ícone de propósito: o Lucide v1 removeu as marcas de terceiro
-                (LinkedIn/Instagram/YouTube). Quando as URLs forem confirmadas,
-                decidir entre um pacote de brand icons ou SVG próprio. O glifo do
-                WhatsApp em WhatsAppButton.tsx é o precedente da segunda opção. */}
-            <div className={`${styles.columnList} ${styles.columnListPlain}`}>
-              <a href="#">LinkedIn</a>
-              <a href="#">Instagram</a>
-              <a href="#">YouTube</a>
+            <div className={styles.columnList}>
+              <a href="https://www.linkedin.com/company/toroidbrasil/" target="_blank" rel="noopener">
+                <LinkedinIcon size={15} />
+                LinkedIn
+              </a>
+              <a href="https://www.instagram.com/toroidbrasil/" target="_blank" rel="noopener">
+                <InstagramIcon size={15} />
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/@toroiddobrasil3985" target="_blank" rel="noopener">
+                <YoutubeIcon size={15} />
+                YouTube
+              </a>
             </div>
           </div>
 

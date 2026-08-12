@@ -69,11 +69,6 @@
   opacity: 0.75;
 }
 
-/* coluna sem ícone: recupera o alinhamento à esquerda do texto */
-.columnListPlain a {
-  gap: 0;
-}
-
 .selos {
   display: flex;
   flex-wrap: wrap;

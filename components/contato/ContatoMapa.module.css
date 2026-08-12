@@ -1,0 +1,24 @@
+.section {
+  padding: 0 0 var(--section-pad);
+  background: var(--color-blue-ink);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 22px 50px rgba(14, 46, 90, 0.24), 0 4px 10px rgba(14, 46, 90, 0.1);
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 42vw, 460px);
+  border: 0;
+}
