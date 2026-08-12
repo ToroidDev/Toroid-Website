@@ -50,6 +50,10 @@
   width: 100%;
 }
 
+.cardImg {
+  object-fit: cover;
+}
+
 .cardBadge {
   position: absolute;
   top: 14px;

@@ -39,7 +39,11 @@ export function Performance() {
       <div className={styles.inner}>
         <div className={styles.grid}>
           <div>
-            <SectionHeading eyebrow="Performance técnica" tone="dark">
+            <SectionHeading
+              eyebrow="Performance do núcleo toroidal"
+              tone="dark"
+              lead="Estas características vêm da geometria toroidal. Transformadores de corrente e indutores seguem princípios próprios, cada um dimensionado para a função que exerce no projeto."
+            >
               Estabilidade que aparece no equipamento, não no catálogo.
             </SectionHeading>
             <div className={styles.list}>

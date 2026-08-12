@@ -4,7 +4,9 @@ import type { ProdutoIcone } from "@/lib/produtos";
  * Emblema do hero das páginas de família de produto: o núcleo toroidal
  * desenhado como corte técnico, não como ilustração. Anel de medição por fora,
  * enrolamento no anel, e no centro o detalhe que diferencia a família (condutor
- * atravessando no TC, derivações no toroidal, bobina no indutor).
+ * atravessando no TC, degrau de tensão no TP, bobina no indutor). A variante
+ * "toroidal" (derivações em anel) segue existindo para o hero da página que
+ * explica a tecnologia em si, mesmo não sendo mais uma das 3 famílias.
  *
  * Determinístico e sem estado, então renderiza inteiro no servidor: zero JS no
  * bundle do cliente, que é requisito de performance do projeto.
@@ -68,6 +70,15 @@ function DetalheToroidal() {
   );
 }
 
+function DetalheTP() {
+  return (
+    <g stroke={ACCENT} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" fill="none">
+      {/* barra de tensão de entrada e de saída, ligadas pela transição de nível */}
+      <path d={`M${C - 70} ${C - 26}h30L${C + 40} ${C + 26}h30`} />
+    </g>
+  );
+}
+
 function DetalheIndutor() {
   const base = C + 4;
   return (
@@ -85,6 +96,7 @@ const DETALHES: Record<ProdutoIcone, () => React.JSX.Element> = {
   tc: DetalheTc,
   toroidal: DetalheToroidal,
   indutor: DetalheIndutor,
+  potencia: DetalheTP,
 };
 
 export function PillarEmblem({ icone, className }: { icone: ProdutoIcone; className?: string }) {

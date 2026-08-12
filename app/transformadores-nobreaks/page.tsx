@@ -8,7 +8,7 @@ import { NucleoIsolado } from "@/components/aplicacoes/NucleoIsolado";
 import { BandaRegulacao } from "@/components/aplicacoes/BandaRegulacao";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
-import { whatsappLink } from "@/lib/whatsapp";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -216,7 +216,7 @@ export default function TransformadoresNobreaksPage() {
             desempenho nominal em bancada. É a transição.
           </p>
           <p>
-            A linha toroidal da Toroid é projetada considerando os requisitos de capacidade de resistência a
+            A linha de transformadores de potência da Toroid, em núcleo toroidal, é projetada considerando os requisitos de capacidade de resistência a
             curto-circuito da ABNT NBR5356-5:2015 e a construção tipo seco da ABNT NBR5356-11, sem óleo isolante. São
             duas coisas diferentes e as duas importam aqui: a primeira é prova de robustez elétrica sob evento severo, a
             segunda define a construção que você vai instalar dentro de um equipamento fechado.
@@ -247,7 +247,7 @@ export default function TransformadoresNobreaksPage() {
           <p>
             Ainda nessa decisão? A engenharia compara os dois cenários com os seus números antes de você fechar a
             especificação. O fundamento técnico completo da linha está em{" "}
-            <Link href="/produtos/transformadores-toroidais">Transformadores Toroidais</Link>.
+            <Link href="/transformadores-toroidais">Transformadores Toroidais</Link>.
           </p>
         </Prose>
       </PillarBody>
@@ -255,7 +255,7 @@ export default function TransformadoresNobreaksPage() {
       <PillarBody tone="tint">
         <PillarSpecTable
           id="especificacoes"
-          titulo="Especificações confirmadas da linha toroidal"
+          titulo="Especificações confirmadas do transformador toroidal para nobreak"
           linhas={ESPECIFICACOES}
           nota="Parâmetros da linha padrão. Fora dessas faixas, a customização é avaliada projeto a projeto: transformador sob medida é o padrão da casa, não exceção."
         />
@@ -277,10 +277,10 @@ export default function TransformadoresNobreaksPage() {
             Precisa de previsibilidade de prazo para um programa de produção? Fale com a engenharia sobre volume, lote e
             cronograma.
           </p>
-          <a href={whatsappLink} target="_blank" rel="noopener" className={styles.ctaInlineLink}>
+          <WhatsAppLink className={styles.ctaInlineLink}>
             Falar sobre volume e prazo
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
-          </a>
+          </WhatsAppLink>
         </div>
 
         {/* Perguntas ficam no mesmo fundo branco da seção de fornecimento: uma

@@ -41,12 +41,15 @@
   }
 }
 
+/* Placeholder escuro, não o tint claro padrão: a legenda em branco fica sobre
+   este fundo enquanto a foto carrega (ou se ela falhar), e um tint claro
+   deixava o texto quase invisível nesse intervalo. */
 .tile {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
   min-height: clamp(200px, 24vw, 250px);
-  background: var(--color-bg-tint);
+  background: var(--color-blue-ink);
 }
 
 .tileMain {
@@ -62,10 +65,15 @@
   transform: scale(1.03);
 }
 
+/* O degrau de 0.14 a 58% deixava a metade superior da legenda (que chega a 3
+   linhas, ~121px) clara demais quando a foto por trás é clara ou ainda não
+   carregou: texto branco caía perto de 1:1 de contraste ali. Mantém opacidade
+   alta até depois da faixa de texto, só soltando o escurecimento perto do
+   topo do tile. */
 .tileOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(14, 46, 90, 0.82) 0%, rgba(14, 46, 90, 0.14) 58%, rgba(14, 46, 90, 0) 100%);
+  background: linear-gradient(0deg, rgba(14, 46, 90, 0.88) 0%, rgba(14, 46, 90, 0.72) 45%, rgba(14, 46, 90, 0.2) 80%, rgba(14, 46, 90, 0) 100%);
 }
 
 .tileCaption {
@@ -165,6 +173,10 @@
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 14px;
+}
+
+.figImg {
+  object-fit: cover;
 }
 
 .figCaption {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight, ClipboardCheck, Factory, MapPin, MessageCircle } from "lucide-react";
 import { HeroToroid } from "@/components/ui/HeroToroid";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
-import { whatsappLink } from "@/lib/whatsapp";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./Hero.module.css";
 
 // Barra do pé do hero. Ocupa o lugar do `contactInfo` do componente de referência,
@@ -48,7 +48,7 @@ export function Hero() {
           </h1>
 
           <p className={styles.subtitle}>
-            Transformadores toroidais, transformadores de corrente e indutores projetados a partir da sua aplicação,
+            Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação,
             não de um catálogo. Especificação conferida antes de produzir, mais de 30 anos fabricando no Brasil.
           </p>
 
@@ -57,10 +57,10 @@ export function Hero() {
               Solicitar Orçamento Técnico
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <a href={whatsappLink} target="_blank" rel="noopener" className={styles.secondary}>
+            <WhatsAppLink className={styles.secondary}>
               Falar com um engenheiro
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
-            </a>
+            </WhatsAppLink>
           </div>
         </div>
 

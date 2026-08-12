@@ -1,0 +1,148 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: #fff;
+}
+
+.pattern {
+  position: absolute;
+  bottom: -24%;
+  left: -16%;
+  width: min(820px, 86vw);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Accordion 100% CSS: sem JS, sem lib de animação. O primeiro item vem
+   expandido por padrão (regra `:not(:hover) .item:first-child`); passar o
+   mouse por qualquer item expande só ele, via `flex` animado na transição. */
+.accordion {
+  display: flex;
+  gap: 10px;
+  margin-top: clamp(38px, 4.4vw, 56px);
+}
+
+.item {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-width: 0;
+  height: clamp(320px, 34vw, 460px);
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-blue-ink);
+  transition: flex 0.5s var(--ease-out);
+}
+
+.item:hover {
+  flex: 2.4;
+}
+
+.accordion:not(:hover) .item:first-child {
+  flex: 2.4;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(26, 75, 140, 0.16);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(20px, 2.4vw, 32px);
+  background: linear-gradient(0deg, rgba(14, 46, 90, 0.92) 0%, rgba(14, 46, 90, 0.6) 48%, rgba(14, 46, 90, 0.08) 82%, transparent 100%);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.item:hover .overlay,
+.accordion:not(:hover) .item:first-child .overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(18px, 2vw, 23px);
+  font-weight: 700;
+  color: #fff;
+}
+
+.text {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.link svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.item:hover .link svg {
+  transform: translateX(4px);
+}
+
+/* Sem hover em toque: abaixo de 700px o accordion vira lista empilhada com
+   cada item já expandido, em vez de depender de um gesto que não existe. */
+@media (max-width: 700px) {
+  .accordion {
+    flex-direction: column;
+  }
+
+  /* flex-direction:column torna a altura o eixo principal: `flex: 1` sozinho
+     zera flex-basis e o item colapsa a 0px (nada para crescer contra, já que
+     o container não tem altura própria). Basis fixo evita o colapso. */
+  .item,
+  .item:hover,
+  .accordion:not(:hover) .item:first-child {
+    flex: 0 0 260px;
+  }
+
+  .overlay,
+  .item:hover .overlay,
+  .accordion:not(:hover) .item:first-child .overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

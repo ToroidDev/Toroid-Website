@@ -1,4 +1,4 @@
-export type ProdutoIcone = "tc" | "toroidal" | "indutor";
+export type ProdutoIcone = "tc" | "toroidal" | "indutor" | "potencia";
 
 export interface Produto {
   id: string;
@@ -7,9 +7,9 @@ export interface Produto {
   /** Legenda curta usada no placeholder e na sobreposição do carrossel. */
   resumo: string;
   /**
-   * URL da imagem do produto. Ausente nesta fase (placeholders institucionais);
-   * na Fase 3 recebe a URL do WordPress e os componentes passam a usar next/image
-   * com esse valor, sem alteração de marcação.
+   * Caminho da imagem do produto em /public (fotos reais do site antigo).
+   * Quando `WP_API_URL` for confirmado (Fase 2 do ROADMAP), passa a receber
+   * a URL do WordPress em vez do asset local, sem alteração de marcação.
    */
   imagem?: string;
   href: string;
@@ -23,17 +23,19 @@ export const produtos: Produto[] = [
     descricaoCurta:
       "Medição e proteção com classe de exatidão definida por aplicação, do painel de distribuição ao instrumento de bancada.",
     resumo: "Medição e proteção com classe de exatidão",
-    href: "/produtos/transformadores-de-corrente",
+    imagem: "/images/TRANSFORMADORES-DE-CORRENTE.png",
+    href: "/transformador-de-corrente",
     icone: "tc",
   },
   {
-    id: "transformadores-toroidais",
-    nome: "Transformadores Toroidais",
+    id: "transformador-de-potencia",
+    nome: "Transformadores de Potência",
     descricaoCurta:
-      "Isolação, tensão e volume calculados para o seu equipamento, com ensaio elétrico documentado antes do embarque.",
-    resumo: "Isolação e blindagem sob especificação",
-    href: "/produtos/transformadores-toroidais",
-    icone: "toroidal",
+      "Isolação, tensão e eficiência calculadas para o seu equipamento, com ensaio elétrico documentado antes do embarque.",
+    resumo: "Isolação e eficiência sob especificação",
+    imagem: "/images/TENSAO.png",
+    href: "/transformador-de-potencia",
+    icone: "potencia",
   },
   {
     id: "indutores-e-reatores",
@@ -41,7 +43,8 @@ export const produtos: Produto[] = [
     descricaoCurta:
       "Filtragem e limitação de corrente com indutância especificada em faixa de operação real, não em valor nominal isolado.",
     resumo: "Indutância definida por faixa de operação",
-    href: "/produtos/indutores-e-reatores",
+    imagem: "/images/INDUTORES.png",
+    href: "/indutores-filtros-e-chokes",
     icone: "indutor",
   },
 ];

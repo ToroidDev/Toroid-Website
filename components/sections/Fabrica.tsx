@@ -92,7 +92,17 @@ export function Fabrica() {
         <div className={styles.track}>
           {marqueeItems.map((produto, index) => (
             <figure key={`${produto.id}-${index}`} className={styles.figure} aria-hidden={index >= produtos.length}>
-              <ProductPlaceholder produto={produto} />
+              {produto.imagem ? (
+                <Image
+                  src={produto.imagem}
+                  alt={produto.nome}
+                  fill
+                  sizes="344px"
+                  className={styles.figImg}
+                />
+              ) : (
+                <ProductPlaceholder produto={produto} />
+              )}
               <figcaption className={styles.figCaption}>
                 <span className={styles.figTitle}>{produto.nome}</span>
                 <span className={styles.figSubtitle}>{produto.resumo}</span>

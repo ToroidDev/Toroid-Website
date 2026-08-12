@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   title: "Indutores e Reatores sob Medida | Toroid do Brasil",
   description:
     "Indutores e reatores com indutância especificada pela faixa real de operação do circuito, fabricação nacional e garantia de 3 anos. Peça orçamento técnico.",
-  alternates: { canonical: "/produtos/indutores-e-reatores" },
+  alternates: { canonical: "/indutores-filtros-e-chokes" },
 };
 
 const SECOES: SecaoPilar[] = [
@@ -76,7 +76,7 @@ const JSON_LD = [
         "@type": "ListItem",
         position: 2,
         name: "Indutores e Reatores",
-        item: "https://toroid.com.br/produtos/indutores-e-reatores",
+        item: "https://toroid.com.br/indutores-filtros-e-chokes",
       },
     ],
   },
@@ -104,7 +104,7 @@ const JSON_LD = [
   },
 ];
 
-export default function IndutoresEReatoresPage() {
+export default function IndutoresFiltrosEChokesPage() {
   return (
     <>
       <PillarHero
@@ -195,13 +195,13 @@ export default function IndutoresEReatoresPage() {
 
       {/* <PillarObjections id="objecoes" /> */}
 
-      <PillarClosing id="fecho" titulo="Descreva o circuito, não o componente">
+      {/* <PillarClosing id="fecho" titulo="Descreva o circuito, não o componente">
         <p>
           Se você ainda não tem a indutância alvo fechada, isso não impede a conversa. Descrever a faixa de corrente, a
           frequência e o que precisa ser atenuado ou limitado já é suficiente para a nossa engenharia propor um
           dimensionamento e discutir alternativas.
         </p>
-      </PillarClosing>
+      </PillarClosing> */}
 
       <CTA />
 

@@ -59,7 +59,7 @@ export function Segmentos() {
               banner ocupa exatamente a célula que sobrava na segunda linha. */}
           <div className={styles.pendingBanner}>
             <p className={styles.pendingLabel}>Prova social</p>
-            <p className={styles.pendingText}>[CASE PENDENTE: aguardando aprovação comercial]</p>
+            <p className={styles.pendingText}>Estamos reunindo os primeiros cases de cliente. Em breve, aqui.</p>
           </div>
         </div>
       </div>

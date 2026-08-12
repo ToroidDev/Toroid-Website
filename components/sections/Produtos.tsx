@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { produtos } from "@/lib/produtos";
@@ -18,8 +19,17 @@ export function Produtos() {
           {produtos.map((produto) => (
             <Link key={produto.id} href={produto.href} className={styles.card}>
               <div className={styles.cardImage}>
-                {/* Fase 3: quando `produto.imagem` existir, troca para next/image aqui sem mudar marcação. */}
-                <ProductPlaceholder produto={produto} />
+                {produto.imagem ? (
+                  <Image
+                    src={produto.imagem}
+                    alt={produto.nome}
+                    fill
+                    sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
+                    className={styles.cardImg}
+                  />
+                ) : (
+                  <ProductPlaceholder produto={produto} />
+                )}
                 <span className={styles.cardBadge} aria-hidden="true">
                   <ProdutoIconeSvg icone={produto.icone} size={20} />
                 </span>

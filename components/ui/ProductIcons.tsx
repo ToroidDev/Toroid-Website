@@ -25,6 +25,22 @@ export function ToroidalIcon({ size = 46, className }: IconProps) {
   );
 }
 
+export function PotenciaIcon({ size = 46, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden="true" className={className}>
+      <circle cx="24" cy="24" r="18" stroke="#1A4B8C" strokeWidth="1.4" />
+      <circle cx="24" cy="24" r="8" stroke="#1A4B8C" strokeWidth="1.4" />
+      <path
+        d="M9 18h10L28 30h11"
+        stroke="#B8834A"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IndutorIcon({ size = 46, className }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden="true" className={className}>
@@ -45,6 +61,7 @@ const ICONS: Record<ProdutoIcone, (props: IconProps) => React.JSX.Element> = {
   tc: TcIcon,
   toroidal: ToroidalIcon,
   indutor: IndutorIcon,
+  potencia: PotenciaIcon,
 };
 
 export function ProdutoIconeSvg({

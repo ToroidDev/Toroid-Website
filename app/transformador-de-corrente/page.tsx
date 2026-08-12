@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   title: "Transformador de Corrente (TC) sob Medida | Toroid",
   description:
     "Transformador de corrente para medição e proteção, com classe de exatidão a partir de 0,3%, fabricação nacional e garantia de 3 anos. Peça seu orçamento técnico.",
-  alternates: { canonical: "/produtos/transformadores-de-corrente" },
+  alternates: { canonical: "/transformador-de-corrente" },
 };
 
 const SECOES: SecaoPilar[] = [
@@ -36,7 +36,7 @@ const SECOES: SecaoPilar[] = [
   { id: "medicao-ou-protecao", titulo: "TC de medição ou de proteção" },
   { id: "classe-de-exatidao", titulo: "Classe de exatidão" },
   { id: "saturacao", titulo: "Saturação e curto-circuito" },
-  { id: "tc-compacto", titulo: "TC compacto para painel: CX01, CX02 e CX03" },
+  { id: "tc-compacto", titulo: "TC compacto para painel" },
   { id: "tc-bipartido", titulo: "TC bipartido" },
   { id: "tc-resinado", titulo: "TC resinado para ambiente agressivo" },
   { id: "toroidal-ou-convencional", titulo: "Núcleo toroidal ou convencional" },
@@ -97,7 +97,7 @@ const JSON_LD = [
         "@type": "ListItem",
         position: 2,
         name: "Transformadores de Corrente",
-        item: "https://toroid.com.br/produtos/transformadores-de-corrente",
+        item: "https://toroid.com.br/transformador-de-corrente",
       },
     ],
   },
@@ -190,7 +190,7 @@ export default function TransformadorDeCorrentePage() {
           </p>
           <p>
             A ABNT NBR6856 é a norma que rege transformadores de corrente no Brasil e é a referência usada em toda a
-            linha CX01, CX02 e CX03, da classe de exatidão ao comportamento em sobrecorrente.
+            linha de TCs da Toroid, da classe de exatidão ao comportamento em sobrecorrente.
           </p>
         </Prose>
 
@@ -229,10 +229,10 @@ export default function TransformadorDeCorrentePage() {
       </PillarBody>
 
       <PillarBody tone="tint">
-        <Prose id="tc-compacto" titulo="TC compacto para painel: linha CX01, CX02 e CX03">
+        <Prose id="tc-compacto" titulo="TC compacto para painel">
           <p>
-            Pouco espaço no painel não deveria comprometer o desempenho do sistema. A linha CX01, CX02 e CX03 foi
-            desenvolvida para caber em quadro elétrico com espaço já definido pelo projeto, sem obrigar o projetista a
+            Pouco espaço no painel não deveria comprometer o desempenho do sistema. O TC compacto da Toroid foi
+            desenvolvido para caber em quadro elétrico com espaço já definido pelo projeto, sem obrigar o projetista a
             redesenhar o painel para acomodar o transformador.
           </p>
           <p>
@@ -260,7 +260,7 @@ export default function TransformadorDeCorrentePage() {
             Ambiente com poeira condutiva, umidade ou variação térmica acentuada desgasta isolação convencional mais
             rápido do que o previsto em projeto. O encapsulamento em resina epóxi adiciona uma camada de proteção
             mecânica e de isolação contra esses fatores, o mesmo princípio de acabamento aplicado na linha de
-            transformadores toroidais para aplicação crítica.
+            transformadores de potência para aplicação crítica.
           </p>
           <p>
             Para quem especifica equipamento que vai operar em ambiente industrial não controlado, essa é a diferença
