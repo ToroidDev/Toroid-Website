@@ -2,6 +2,9 @@
   "name": "toroid",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,12 +12,16 @@
   },
   "dependencies": {
     "lucide-react": "^1.28.0",
+    "mongodb": "^7.5.0",
     "next": "16.3.0",
+    "nodemailer": "^9.0.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5"
