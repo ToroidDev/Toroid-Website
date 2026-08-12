@@ -4,6 +4,11 @@ const nextConfig = {
   poweredByHeader: false, // remove o header X-Powered-By, não expõe stack, ganho mínimo mas gratuito
   compress: true,
 
+  // O driver do mongodb tenta resolver dependências nativas opcionais
+  // (kerberos, snappy, aws4 etc.) que não estão instaladas; isso evita o
+  // bundler do servidor tentar empacotar essas.
+  serverExternalPackages: ['mongodb'],
+
   images: {
     remotePatterns: [
       {

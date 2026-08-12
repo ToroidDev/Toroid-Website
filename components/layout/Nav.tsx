@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { produtos } from "@/lib/produtos";
 import { ProdutoIconeSvg } from "@/components/ui/ProductIcons";
@@ -13,6 +14,11 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [produtosOpen, setProdutosOpen] = useState(false);
   const produtosRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  // /contato é a única página sem <CTA id="orcamento">: âncora local vira 404
+  // silencioso (nada acontece). Nessa página o link precisa navegar até a home
+  // e rolar; nas demais, a âncora local mantém o usuário no lugar.
+  const orcamentoHref = pathname === "/contato" ? "/#orcamento" : "#orcamento";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -48,6 +54,11 @@ export function Nav() {
   }, [mobileOpen]);
 
   const closeMobile = () => setMobileOpen(false);
+
+  // Um clique repetido no mesmo href (já em #orcamento) não muda a URL, então
+  // não dispara hashchange nenhum. O evento custom garante que o formulário
+  // abra direto mesmo nesse caso, sem o clique a mais no gatilho do CTA.
+  const abrirOrcamento = () => window.dispatchEvent(new Event("toroid:abrir-orcamento"));
 
   return (
     <>
@@ -95,21 +106,22 @@ export function Nav() {
             </div>
             {/* Raiz-relativas de propósito: `#segmentos` e `#fabrica` só existem
                 na home, então em página interna a âncora pura não levava a lugar
-                nenhum. `#contato` (rodapé) e `#orcamento` (bloco de CTA) existem
-                em toda página, e por isso seguem como âncora local. */}
+                nenhum. `#orcamento` (bloco de CTA) existe em toda página, e por
+                isso segue como âncora local. `Contato` agora é uma rota de
+                verdade (/contato), não mais uma âncora até o rodapé. */}
             <Link href="/#segmentos" className={styles.navLink}>
               Segmentos
             </Link>
             <Link href="/#fabrica" className={styles.navLink}>
               Sobre
             </Link>
-            <a href="#contato" className={styles.navLink}>
+            <Link href="/contato" className={styles.navLink}>
               Contato
-            </a>
-            <a href="#orcamento" className={styles.cta}>
+            </Link>
+            <Link href={orcamentoHref} className={styles.cta} onClick={abrirOrcamento}>
               Solicitar Orçamento
               <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
-            </a>
+            </Link>
           </nav>
 
           <button type="button" className={styles.burger} aria-label="Abrir menu" onClick={() => setMobileOpen(true)}>
@@ -154,14 +166,21 @@ export function Nav() {
             <a href="#fabrica" className={styles.mobileLink} onClick={closeMobile}>
               Sobre
             </a>
-            <a href="#contato" className={styles.mobileLink} onClick={closeMobile}>
+            <Link href="/contato" className={styles.mobileLink} onClick={closeMobile}>
               Contato
-            </a>
+            </Link>
           </nav>
-          <a href="#orcamento" className={styles.mobileCta} onClick={closeMobile}>
+          <Link
+            href={orcamentoHref}
+            className={styles.mobileCta}
+            onClick={() => {
+              closeMobile();
+              abrirOrcamento();
+            }}
+          >
             Solicitar Orçamento
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
       )}
     </>

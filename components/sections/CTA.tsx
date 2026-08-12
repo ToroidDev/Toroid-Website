@@ -1,6 +1,7 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
-import { whatsappLink } from "@/lib/whatsapp";
+import { OrcamentoForm } from "@/components/forms/OrcamentoForm";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./CTA.module.css";
 
 export function CTA() {
@@ -19,14 +20,11 @@ export function CTA() {
               fechar.
             </p>
             <div className={styles.actions}>
-              <a href="#contato" className={styles.primary}>
-                Solicitar Orçamento Técnico
-                <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
-              </a>
-              <a href={whatsappLink} target="_blank" rel="noopener" className={styles.secondary}>
+              <OrcamentoForm />
+              <WhatsAppLink className={styles.secondary}>
                 Falar com um engenheiro
                 <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </div>

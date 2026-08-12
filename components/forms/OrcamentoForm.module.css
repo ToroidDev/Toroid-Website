@@ -1,0 +1,139 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 17px 28px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 28px rgba(6, 22, 46, 0.26);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.trigger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(6, 22, 46, 0.34);
+}
+
+.trigger svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.trigger:hover svg {
+  transform: translateX(3px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-on-blue-muted);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 15px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.campo input::placeholder {
+  color: var(--color-on-blue-faint);
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.erroCampo,
+.erroGeral {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffd4d4;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.enviar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px 26px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), opacity 0.2s ease-out;
+}
+
+.enviar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(6, 22, 46, 0.3);
+}
+
+.enviar:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.spin {
+  animation: orcamentoGirar 0.8s linear infinite;
+}
+
+@keyframes orcamentoGirar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sucesso {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 420px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sucesso svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-green-light);
+}
