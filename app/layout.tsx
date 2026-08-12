@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { Montserrat, Karla } from "next/font/google";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { AttributionCapture } from "@/components/layout/AttributionCapture";
+import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 // Montserrat só nos títulos (600/700). O peso 400 saiu porque corpo de texto,
@@ -23,20 +28,25 @@ const karla = Karla({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://toroid.com.br"),
-  title: "Toroid do Brasil | Transformadores Toroidais, TCs e Indutores",
+  metadataBase: new URL(SITE_URL),
+  title: "Toroid do Brasil | Transformadores de Corrente, de Potência e Indutores",
   description:
-    "Transformadores toroidais, transformadores de corrente e indutores projetados a partir da sua aplicação. Especificação conferida antes de produzir, fabricação nacional com ISO 9001.",
+    "Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação. Especificação conferida antes de produzir, fabricação nacional com ISO 9001.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${karla.variable}`}>
       <body>
+        <GoogleAnalytics />
+        <OrganizationSchema />
         <div style={{ position: "relative" }}>
+          <AttributionCapture />
           <Nav />
           {children}
-          <Footer />
+          <ConditionalFooter>
+            <Footer />
+          </ConditionalFooter>
           <WhatsAppButton />
         </div>
       </body>
