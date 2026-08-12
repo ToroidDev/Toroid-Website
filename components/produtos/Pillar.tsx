@@ -4,7 +4,7 @@ import { ArrowRight, BadgeCheck, Check, Gauge, Layers, MessageCircle, ShieldChec
 import type { ProdutoIcone } from "@/lib/produtos";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { getAnosDeMercado } from "@/lib/institucional";
-import { whatsappLink } from "@/lib/whatsapp";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { PillarEmblem } from "./PillarEmblem";
 import styles from "./Pillar.module.css";
 
@@ -64,10 +64,10 @@ export function PillarHero({
               Solicitar Orçamento Técnico
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <a href={whatsappLink} target="_blank" rel="noopener" className={styles.onDarkSecondary}>
+            <WhatsAppLink className={styles.onDarkSecondary}>
               Falar com um engenheiro
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
-            </a>
+            </WhatsAppLink>
           </div>
         </div>
 
