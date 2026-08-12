@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, MessageCircle } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
-import { whatsappLink } from "@/lib/whatsapp";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./AplicacaoHero.module.css";
 
 /**
@@ -14,6 +14,8 @@ import styles from "./AplicacaoHero.module.css";
  *    repetir a lista inteira de selo em cada segmento desgasta a prova e rouba
  *    espaço do argumento técnico.
  *  - a arte do hero vem por prop, porque cada segmento tem um desenho próprio.
+ *    Opcional: o padrão dinâmico /aplicacoes/[slug] não tem campo de arte no
+ *    CPT `aplicacao`, então renderiza sem ela (`.inner` vira coluna única).
  *  - a borda inferior é uma curva, não um corte reto: é a assinatura orgânica que
  *    liga o azul ao corpo branco da página.
  */
@@ -35,14 +37,14 @@ export function AplicacaoHero({
   prova: string[];
   ctaPrimario: string;
   ctaWhatsapp: string;
-  arte: ReactNode;
+  arte?: ReactNode;
 }) {
   return (
     <section className={styles.hero}>
       <InstitutionalPattern spiral opacity={0.05} stroke="#9FC2EA" className={styles.pattern} />
       <div className={styles.grain} aria-hidden="true" />
 
-      <div className={styles.inner}>
+      <div className={arte ? styles.inner : `${styles.inner} ${styles.innerSemArte}`}>
         <div>
           <ol className={styles.breadcrumb}>
             <li>
@@ -85,14 +87,14 @@ export function AplicacaoHero({
               {ctaPrimario}
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <a href={whatsappLink} target="_blank" rel="noopener" className={styles.secundario}>
+            <WhatsAppLink className={styles.secundario}>
               {ctaWhatsapp}
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
-            </a>
+            </WhatsAppLink>
           </div>
         </div>
 
-        <div className={styles.arte}>{arte}</div>
+        {arte ? <div className={styles.arte}>{arte}</div> : null}
       </div>
 
       {/* Curva de fechamento: preenchida em #fff, a mesma cor da seção seguinte,

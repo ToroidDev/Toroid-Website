@@ -63,6 +63,12 @@
        que o genérico das páginas de produto, e precisam caber lado a lado. */
     grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   }
+
+  /* Sem arte (rota dinâmica /aplicacoes/[slug], sem campo de arte no CPT):
+     volta a coluna única, senão a coluna vazia da direita descentraliza o texto. */
+  .inner.innerSemArte {
+    grid-template-columns: 1fr;
+  }
 }
 
 .breadcrumb {
