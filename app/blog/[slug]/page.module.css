@@ -1,0 +1,39 @@
+.section {
+  padding: var(--section-pad) 0;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--color-text-faint);
+}
+
+.breadcrumb a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-blue);
+}
+
+.titulo {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-title);
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-text);
+}

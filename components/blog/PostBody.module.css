@@ -1,0 +1,72 @@
+/* Estiliza o HTML bruto que vem do WordPress (bloco de conteúdo do post), não
+   marcação própria do projeto: por isso são seletores de tag, não de classe.
+   Cobre o que o editor de bloco do WP tipicamente gera (p, headings, listas,
+   citação, imagem, link) sem depender de classe alguma no HTML de origem. */
+
+.corpo {
+  max-width: 68ch;
+  margin: 0 auto;
+}
+
+.corpo p {
+  margin: 20px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.corpo h2 {
+  margin: 44px 0 0;
+  font-family: var(--font-title);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--color-blue);
+}
+
+.corpo h3 {
+  margin: 32px 0 0;
+  font-family: var(--font-title);
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.corpo ul,
+.corpo ol {
+  margin: 18px 0 0;
+  padding-left: 22px;
+  color: var(--color-text-secondary);
+}
+
+.corpo li {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.corpo a {
+  color: var(--color-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--color-blue-soft);
+}
+
+.corpo blockquote {
+  margin: 28px 0 0;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--color-green-light);
+  color: var(--color-text);
+  font-style: italic;
+}
+
+.corpo img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 24px;
+  border-radius: 12px;
+}
+
+.corpo strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
