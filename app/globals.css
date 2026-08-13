@@ -108,15 +108,6 @@ button {
   }
 }
 
-@keyframes toroidMarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes waRing {
   0% {
     transform: scale(1);

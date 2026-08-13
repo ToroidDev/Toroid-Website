@@ -73,7 +73,7 @@
 .tileOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(14, 46, 90, 0.88) 0%, rgba(14, 46, 90, 0.72) 45%, rgba(14, 46, 90, 0.2) 80%, rgba(14, 46, 90, 0) 100%);
+  background: linear-gradient(0deg, rgba(14, 46, 90, 0.61) 0%, rgba(14, 46, 90, 0.72) 45%, rgba(14, 46, 90, 0.2) 80%, rgba(14, 46, 90, 0) 100%);
 }
 
 .tileCaption {
@@ -157,11 +157,25 @@
   gap: 20px;
   width: max-content;
   padding: 0 10px;
-  animation: toroidMarquee 46s linear infinite;
+  animation: fabricaMarquee 46s linear infinite;
 }
 
 .marqueeWrapper:hover .track {
   animation-play-state: paused;
+}
+
+/* Local ao módulo: um @keyframes referenciado por nome a partir de um
+   .module.css é escopado pelo CSS Modules do Next.js (o nome final leva o
+   hash do módulo), então uma definição em globals.css nunca casava com a
+   regra procurada pelo navegador — a animação ficava "running" no computed
+   style mas sem nenhum frame real (element.getAnimations() vazio). */
+@keyframes fabricaMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .figure {

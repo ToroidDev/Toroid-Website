@@ -19,7 +19,6 @@ const STATS = [
   }
 ];
 
-// duas cópias para o loop contínuo (translateX 0 → -50% do keyframe toroidMarquee)
 const marqueeItems = [...produtos, ...produtos];
 
 export function Fabrica() {
@@ -42,9 +41,9 @@ export function Fabrica() {
               sizes="(min-width: 860px) 60vw, 100vw"
               className={styles.tileImg}
             />
-            <div className={styles.tileOverlay} />
+            {/* <div className={styles.tileOverlay} /> */}
             <figcaption className={styles.tileCaption}>
-              Bobinagem, encapsulamento e ensaio elétrico sob o mesmo teto, em São José dos Pinhais.
+              
             </figcaption>
           </figure>
 
@@ -56,9 +55,9 @@ export function Fabrica() {
               sizes="(min-width: 860px) 38vw, 100vw"
               className={styles.tileImg}
             />
-            <div className={styles.tileOverlay} />
+            {/* <div className={styles.tileOverlay} /> */}
             <figcaption className={styles.tileCaption}>
-              Bobinagem acompanhada por operador em todas as etapas, não só na inspeção final.
+              
             </figcaption>
           </figure>
 
