@@ -25,7 +25,8 @@ export interface ParametroEspecificacao {
   valor: string;
 }
 
-export type CategoriaProduto = "transformador-de-corrente" | "transformador-toroidal" | "indutor-reator";
+export const CATEGORIAS_PRODUTO = ["transformador-de-corrente", "transformador-toroidal", "indutor-reator"] as const;
+export type CategoriaProduto = (typeof CATEGORIAS_PRODUTO)[number];
 
 export interface Produto {
   id: number;
@@ -147,13 +148,23 @@ function mapAplicacao(raw: WPRawAplicacao): Aplicacao {
   };
 }
 
+// Posts antigos foram colados do Word direto no editor: sobra <span
+// data-contrast>/<span data-ccp-props> sem estilo visual algum (confirmado em
+// 13 dos 64 posts reais via curl, 2026-08-12) — só bagunça o HTML, sem afetar
+// o layout. Remove o wrapper, mantém o texto de dentro.
+function limparResiduoDoWord(html: string): string {
+  return html
+    .replace(/<span data-ccp-props="[^"]*">([\s\S]*?)<\/span>/g, "$1")
+    .replace(/<span data-contrast="[^"]*">([\s\S]*?)<\/span>/g, "$1");
+}
+
 function mapPost(raw: WPRawPost): Post {
   return {
     id: raw.id,
     slug: raw.slug,
     titulo: raw.title.rendered,
-    resumoHtml: raw.excerpt.rendered,
-    conteudoHtml: raw.content.rendered,
+    resumoHtml: limparResiduoDoWord(raw.excerpt.rendered),
+    conteudoHtml: limparResiduoDoWord(raw.content.rendered),
     publicadoEm: raw.date,
   };
 }
