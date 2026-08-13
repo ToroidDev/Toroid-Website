@@ -23,7 +23,7 @@ Site institucional da Toroid do Brasil (fabricante de transformadores de corrent
 
 ## Variáveis de ambiente
 
-Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configurado no Vercel em Production + Preview + **Development** (as três, mesmo que hoje só as duas primeiras estejam marcadas).
+Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configurado no Vercel em Production + Preview + **Development**. Confirmado nas três em 2026-08-13 via `vercel env ls` — `WP_API_URL`, `WHATSAPP_NUMBER`, `GA4_MEASUREMENT_ID`, `REVALIDATE_SECRET` e `LEAD_IP_HASH_SECRET` presentes nas três (os dois últimos como Sensitive em Preview/Production, Non-sensitive em Development — a Vercel não permite variável Sensitive em Development). `MONGODB_URI` é a única que ainda falta em todas. **Achado nessa confirmação**: `WP_API_URL` estava configurada só em Development e com valor errado (`https://toroid.com.br/wp-json`, faltando `/wp/v2`) — corrigido para `https://toroid.com.br/wp-json/wp/v2` nas três.
 
 ```
 WP_API_URL=https://toroid.com.br/wp-json/wp/v2
@@ -31,7 +31,10 @@ WHATSAPP_NUMBER=554130358263
 GA4_MEASUREMENT_ID=G-XXXXXXXXXX
 MONGODB_URI=mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/toroid?retryWrites=true&w=majority
 LEAD_IP_HASH_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>
+REVALIDATE_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>
 ```
+
+`REVALIDATE_SECRET` autentica o webhook do WordPress contra `/api/revalidate` (ver "Revalidação sob demanda" abaixo) — sem ela, a rota rejeita toda chamada com 401, por design (evita que qualquer request externo force `revalidateTag` de graça).
 
 `MONGODB_URI` é obrigatória para a persistência de leads (ver "Formulário de orçamento e captura de lead" abaixo) — sem ela, a gravação no MongoDB falha silenciosamente (loga no servidor) mas o formulário continua funcionando via e-mail. `LEAD_IP_HASH_SECRET` é opcional e recomendada: sem ela, o hash de IP do lead usa SHA-256 simples, mais fraco que o HMAC salgado.
 
@@ -79,7 +82,7 @@ Taxonomia de categoria: `especificacao-tecnica`, `engenharia-manutencao`, `aplic
     next: { revalidate: 3600, tags: [`produto-${slug}`] }
   })
   ```
-- **Revalidação sob demanda:** configurar um webhook no WordPress (dispara ao publicar/editar) chamando uma API Route que roda `revalidateTag`. Isso evita dois extremos ruins: página estática desatualizada por horas, ou renderização dinâmica a cada request só pra ter conteúdo fresco.
+- **Revalidação sob demanda:** `app/api/revalidate/route.ts` (POST, `{ post_type: "produto"|"aplicacao"|"post", slug }`, autenticado por `REVALIDATE_SECRET` via header `X-Revalidate-Secret` ou `?secret=`) chama `revalidateTag` com as mesmas tags de `lib/wordpress.ts`. Falta configurar, no WordPress, o webhook que dispara essa rota ao publicar/editar (Trilha B/ROADMAP.md) — a rota já está pronta e esperando. Isso evita dois extremos ruins: página estática desatualizada por horas, ou renderização dinâmica a cada request só pra ter conteúdo fresco.
 - **Rotas por tipo de conteúdo:** as URLs de produto são exigidas por tráfego orgânico e campanhas de Ads já ativas — não seguem um padrão genérico `/produtos/[categoria]/[slug]`. São top-level e uma delas tem slug totalmente diferente do nome interno do produto:
   - Transformadores de Corrente: `/transformador-de-corrente`
   - Transformadores de Potência: `/transformador-de-potencia`
