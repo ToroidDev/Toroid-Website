@@ -1,0 +1,299 @@
+/* Mecanismo do reveal: esta seção é `position: sticky; top: 0`, então ela gruda
+   no topo da viewport pelo exato intervalo de scroll igual à própria altura
+   (clamp abaixo). A seção seguinte (Historia) segue no fluxo normal do
+   documento logo depois, com fundo opaco e borda superior arredondada — como
+   ela não é sticky, sobe naturalmente por cima deste azul enquanto o usuário
+   rola, criando o efeito de cartão deslizando sobre o hero sem nenhum JS de
+   scroll. z-index baixo o bastante para nunca competir com a pílula fixa da
+   nav (z-index 60, ver Nav.module.css). */
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  isolation: isolate;
+  overflow: hidden;
+  height: clamp(640px, 100svh, 960px);
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(124px, 16vw, 184px);
+  background: linear-gradient(158deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 46%, var(--color-blue-deep) 100%);
+  color: var(--color-on-blue);
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -62%;
+  right: -8%;
+  transform: rotate(-6deg);
+  width: min(1180px, 118vw);
+  pointer-events: none;
+}
+
+/* Halo suave à deriva: única concessão de movimento contínuo do hero, parado
+   por padrão possível via prefers-reduced-motion. Dá a sensação "viva" que o
+   hero azul e chapado dos demais pilares não tem, sem pesar no LCP porque não
+   toca no h1 nem atrasa nenhuma pintura. */
+.glow {
+  position: absolute;
+  z-index: 0;
+  top: 8%;
+  left: 58%;
+  width: min(760px, 76vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 167, 94, 0.22) 0%, rgba(94, 167, 94, 0) 68%);
+  filter: blur(4px);
+  animation: heroGlowDrift 16s ease-in-out infinite;
+}
+
+@keyframes heroGlowDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-4%, 6%) scale(1.08);
+  }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 clamp(22px, 3vw, 34px);
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--color-on-blue-muted);
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-green-light);
+  border-bottom-color: var(--color-green-light);
+}
+
+.breadcrumbSep {
+  color: rgba(206, 224, 244, 0.45);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--color-on-blue-faint);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+  transform-origin: left center;
+  animation: ruleGrow 0.9s var(--ease-out) both;
+}
+
+.headline {
+  margin: 20px 0 0;
+  font-size: clamp(32px, 4.6vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.headlineAccent {
+  color: var(--color-green-light);
+}
+
+.lead {
+  margin: 24px 0 0;
+  font-size: clamp(16.5px, 1.25vw, 19px);
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 56ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(28px, 3.4vw, 40px);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 17px 28px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out);
+}
+
+.primary {
+  background: #fff;
+  color: var(--color-blue-deep);
+  border: 1px solid #fff;
+  box-shadow: 0 12px 30px rgba(4, 14, 30, 0.34);
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(4, 14, 30, 0.44);
+  color: var(--color-blue-deep);
+}
+
+.primary svg,
+.secondary svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.primary:hover svg,
+.secondary:hover svg {
+  transform: translateX(3px);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 32px rgba(4, 14, 30, 0.3);
+  color: #fff;
+}
+
+.fatos {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--shell);
+  margin: clamp(26px, 3.2vw, 40px) auto 0;
+  padding: clamp(14px, 1.8vw, 18px) var(--gutter) 0;
+  border-top: 1px solid var(--color-rule-on-blue);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(20px, 3.4vw, 44px);
+}
+
+.fato {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-on-blue-faint);
+}
+
+.fatoIcon {
+  flex: none;
+  color: var(--color-green-light);
+}
+
+.scrollCue {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0 var(--gutter) clamp(18px, 2.6vw, 26px);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-faint);
+}
+
+.scrollCueLine {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(180deg, var(--color-on-blue-faint) 0%, transparent 100%);
+  animation: scrollCuePulse 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollCuePulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .headline {
+    max-width: none;
+  }
+
+  .scrollCue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
+
+  .scrollCueLine {
+    animation: none;
+    opacity: 0.6;
+  }
+}

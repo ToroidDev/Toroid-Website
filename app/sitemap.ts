@@ -11,6 +11,7 @@ const ROTAS_ESTATICAS = [
   "/transformador-de-potencia",
   "/transformadores-toroidais",
   "/indutores-filtros-e-chokes",
+  "/quem-somos",
   "/contato",
   "/transformadores-nobreaks",
   "/blog",

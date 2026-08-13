@@ -1,0 +1,11 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: #fff;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}

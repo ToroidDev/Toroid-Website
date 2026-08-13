@@ -1,0 +1,175 @@
+/* Borda superior arredondada + sombra escura por cima: é o que lê como
+   "cartão subindo sobre o azul" enquanto o hero (sticky) permanece pregado no
+   topo da viewport. margin-top negativo de 1px evita um fiapo de gap
+   subpixel entre as duas seções em telas de alta densidade. */
+.section {
+  position: relative;
+  z-index: 2;
+  margin-top: -1px;
+  background: #fff;
+  border-radius: clamp(22px, 3.6vw, 44px) clamp(22px, 3.6vw, 44px) 0 0;
+  box-shadow: 0 -48px 100px rgba(9, 28, 56, 0.32);
+  padding: clamp(52px, 7vw, 96px) 0 var(--section-pad);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green);
+}
+
+.heading {
+  margin: 18px 0 0;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+  max-width: 18ch;
+}
+
+.lead {
+  margin: 20px 0 0;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 58ch;
+}
+
+.timeline {
+  list-style: none;
+  margin: clamp(28px, 3.4vw, 40px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.timelineItem:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.timelineAno {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-blue);
+}
+
+.timelineMarco {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.nota {
+  margin: clamp(24px, 3vw, 34px) 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 58ch;
+}
+
+.media {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+  align-self: start;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: clamp(180px, 20vw, 240px);
+  background: var(--color-blue-ink);
+}
+
+.tileMain {
+  grid-column: 1 / -1;
+  min-height: clamp(200px, 22vw, 260px);
+}
+
+.tileImg {
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.tile:hover .tileImg {
+  transform: scale(1.03);
+}
+
+.numeros {
+  grid-column: 1 / -1;
+  margin-top: clamp(8px, 2vw, 16px);
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 700px) {
+  .numeros {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.numero {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.numeroValor {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(21px, 2.2vw, 27px);
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+}
+
+.numeroRotulo {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}

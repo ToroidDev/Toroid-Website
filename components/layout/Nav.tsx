@@ -104,16 +104,16 @@ export function Nav() {
                 ))}
               </div>
             </div>
-            {/* Raiz-relativas de propósito: `#segmentos` e `#fabrica` só existem
-                na home, então em página interna a âncora pura não levava a lugar
-                nenhum. `#orcamento` (bloco de CTA) existe em toda página, e por
-                isso segue como âncora local. `Contato` agora é uma rota de
-                verdade (/contato), não mais uma âncora até o rodapé. */}
-            <Link href="/#segmentos" className={styles.navLink}>
-              Segmentos
-            </Link>
-            <Link href="/#fabrica" className={styles.navLink}>
+            {/* `Sobre` aponta para /quem-somos (rota real, ver ROADMAP.md item
+                A.11/Trilha B) — deixou de ser âncora `/#fabrica` da home.
+                `Contato` e `Blog` também são rotas de verdade, não âncoras;
+                só `Solicitar Orçamento` continua sendo âncora local
+                (`#orcamento`), porque esse bloco existe em toda página. */}
+            <Link href="/quem-somos" className={styles.navLink}>
               Sobre
+            </Link>
+            <Link href="/blog" className={styles.navLink}>
+              Blog
             </Link>
             <Link href="/contato" className={styles.navLink}>
               Contato
@@ -160,12 +160,12 @@ export function Nav() {
                 ))}
               </div>
             </details>
-            <a href="#segmentos" className={styles.mobileLink} onClick={closeMobile}>
-              Segmentos
-            </a>
-            <a href="#fabrica" className={styles.mobileLink} onClick={closeMobile}>
+            <Link href="/quem-somos" className={styles.mobileLink} onClick={closeMobile}>
               Sobre
-            </a>
+            </Link>
+            <Link href="/blog" className={styles.mobileLink} onClick={closeMobile}>
+              Blog
+            </Link>
             <Link href="/contato" className={styles.mobileLink} onClick={closeMobile}>
               Contato
             </Link>

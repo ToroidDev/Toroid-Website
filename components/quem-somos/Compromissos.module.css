@@ -1,0 +1,63 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: var(--color-bg-tint);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(28px, 3.4vw, 40px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-green);
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.badge svg {
+  color: var(--color-green);
+}
+
+.selos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(28px, 4vw, 48px);
+  margin-top: clamp(36px, 4.4vw, 52px);
+  padding-top: clamp(32px, 4vw, 44px);
+  border-top: 1px solid var(--color-border);
+}
+
+.selo {
+  display: block;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.seloRina {
+  height: clamp(96px, 9vw, 128px);
+}
+
+.seloIso {
+  height: clamp(40px, 4vw, 50px);
+}
+
+.seloEsg {
+  height: clamp(42px, 4vw, 52px);
+}

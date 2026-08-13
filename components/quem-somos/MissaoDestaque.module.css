@@ -1,0 +1,116 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--section-pad) 0;
+  background: linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 55%, var(--color-blue-deep) 100%);
+  color: var(--color-on-blue);
+  text-align: center;
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -70%;
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+  width: min(1100px, 130vw);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+}
+
+/* Único texto em gradiente animado do site: concessão deliberada para a
+   frase-síntese da marca, não um padrão a repetir em outros títulos. O
+   varrido passa por verde só de relance (o resto do tempo é branco/azul
+   claro), coerente com a regra de identidade de que verde é detalhe, nunca
+   peso igual ao azul. */
+.missao {
+  margin: clamp(26px, 4vw, 40px) auto 0;
+  max-width: 16ch;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(32px, 6vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  background: linear-gradient(
+    100deg,
+    #fff 30%,
+    var(--color-green-light) 45%,
+    #fff 58%,
+    var(--color-on-blue-muted) 75%,
+    #fff 90%
+  );
+  background-size: 220% auto;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: missaoSweep 9s ease-in-out infinite;
+}
+
+@keyframes missaoSweep {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.visao {
+  margin: clamp(44px, 6vw, 64px) auto 0;
+  padding-top: clamp(32px, 4vw, 44px);
+  max-width: 52ch;
+  border-top: 1px solid var(--color-rule-on-blue);
+}
+
+.visaoLabel {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-faint);
+}
+
+.visaoTexto {
+  margin: 14px 0 0;
+  font-size: clamp(16px, 1.3vw, 18.5px);
+  line-height: 1.65;
+  color: var(--color-on-blue-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .missao {
+    animation: none;
+  }
+}

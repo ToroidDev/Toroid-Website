@@ -1,0 +1,6 @@
+/* `position: relative` para virar o bloco de contenção do Hero sticky (ver
+   comentário em HeroStack.tsx) — sem nenhum outro efeito visual, a altura é
+   só a soma natural de Hero + Historia em fluxo normal. */
+.wrap {
+  position: relative;
+}

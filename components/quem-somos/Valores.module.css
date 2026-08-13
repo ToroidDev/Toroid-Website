@@ -1,0 +1,87 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: #fff;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(36px, 4.4vw, 52px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  padding: 26px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--card-tom, var(--color-blue));
+  background: var(--color-bg-tint-2);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(26, 75, 140, 0.12), 0 3px 8px rgba(26, 75, 140, 0.05);
+}
+
+.card[data-tom="blue"] {
+  --card-tom: var(--color-blue);
+}
+
+.card[data-tom="green"] {
+  --card-tom: var(--color-green);
+}
+
+.card[data-tom="copper"] {
+  --card-tom: var(--color-copper);
+}
+
+.card[data-tom="blueSoft"] {
+  --card-tom: var(--color-blue-soft);
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--card-tom, var(--color-blue));
+  background: color-mix(in srgb, var(--card-tom, var(--color-blue)) 12%, transparent);
+}
+
+.nome {
+  margin: 18px 0 0;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--color-text);
+}
+
+.texto {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
