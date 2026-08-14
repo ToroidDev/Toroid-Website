@@ -122,11 +122,17 @@
   }
 }
 
+.sucessoBloco {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+}
+
 .sucesso {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  max-width: 420px;
   color: #fff;
   font-size: 15px;
   line-height: 1.6;
@@ -136,4 +142,20 @@
   flex: none;
   margin-top: 2px;
   color: var(--color-green-light);
+}
+
+/* CTA de WhatsApp pós-envio: opcional e visualmente secundária de propósito
+   (não é botão sólido como .enviar) — não deve competir com a confirmação
+   acima nem parecer o próximo passo obrigatório. */
+.whatsappPosEnvio {
+  align-self: flex-start;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-on-blue-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.whatsappPosEnvio:hover {
+  color: #fff;
 }

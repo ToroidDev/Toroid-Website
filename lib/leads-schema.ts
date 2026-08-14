@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { ObjectId } from "mongodb";
 import type { OrcamentoPayload } from "./orcamento-schema";
 
 export type AttributionSnapshot = {
@@ -25,7 +26,18 @@ export type LeadContext = {
 
 export type LeadStatus = "novo" | "qualificado" | "proposta" | "ganho" | "perdido";
 
+// Marca se a mesma pessoa também usou a CTA de WhatsApp da tela de sucesso do
+// formulário (components/forms/OrcamentoForm.tsx) logo após o envio. Existe
+// pra evitar que esse clique vire um segundo lead contado à parte — ver
+// app/api/orcamento/whatsapp/route.ts, que atualiza este mesmo documento em
+// vez de criar um novo.
+export type WhatsappAposEnvio = {
+  clicado: boolean;
+  em: Date | null;
+};
+
 export type LeadDocument = {
+  _id: ObjectId;
   lead: {
     nome: string;
     empresa: string | null;
@@ -38,6 +50,7 @@ export type LeadDocument = {
   context: LeadContext;
   consent: { lgpd: boolean };
   status: LeadStatus;
+  whatsappAposEnvio: WhatsappAposEnvio;
   criadoEm: Date;
 };
 
@@ -70,12 +83,14 @@ export const attributionBundleSchema = z
   .catch({ firstTouch: null, lastTouch: null });
 
 export function montarLeadDocument(params: {
+  _id: ObjectId;
   payload: OrcamentoPayload;
   attribution: AttributionBundle;
   context: LeadContext;
 }): LeadDocument {
-  const { payload, attribution, context } = params;
+  const { _id, payload, attribution, context } = params;
   return {
+    _id,
     lead: {
       nome: payload.nome,
       // Sem campo de empresa no formulário ativo hoje (ver
@@ -95,6 +110,9 @@ export function montarLeadDocument(params: {
     // é bug.
     consent: { lgpd: false },
     status: "novo",
+    // Preenchido depois, se o usuário clicar na CTA de WhatsApp da tela de
+    // sucesso — ver app/api/orcamento/whatsapp/route.ts.
+    whatsappAposEnvio: { clicado: false, em: null },
     criadoEm: new Date(),
   };
 }

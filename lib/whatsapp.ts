@@ -4,4 +4,8 @@ const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || "554130358263";
 const WHATSAPP_MESSAGE =
   "Ola! Vim pelo site da Toroid (origem: site-home | utm_source=site&utm_medium=botao-flutuante&utm_campaign=orcamento) e gostaria de falar com um engenheiro.";
 
-export const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+export function montarWhatsappLink(mensagem: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
+}
+
+export const whatsappLink = montarWhatsappLink(WHATSAPP_MESSAGE);

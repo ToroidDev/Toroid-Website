@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import type { OrcamentoPayload } from "./orcamento-schema";
+import type { LeadDocument } from "./leads-schema";
 
 function getTransport() {
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
@@ -43,4 +44,33 @@ export async function enviarOrcamentoPorEmail(payload: OrcamentoPayload) {
   // categoria e campos técnicos) for reativada, o assunto e o corpo passam a
   // usar `produtos.find(p => p.icone === payload.categoria)` para o nome do
   // produto e a listar os campos técnicos correspondentes.
+}
+
+// Disparado por app/api/orcamento/whatsapp/route.ts quando a mesma pessoa que
+// já enviou o formulário clica na CTA de WhatsApp da tela de sucesso. Não é
+// um lead novo — é só um aviso pro comercial não contar esse contato duas
+// vezes (ver CLAUDE.md, duplicidade de lead).
+export async function enviarAvisoWhatsappAposEnvio(lead: LeadDocument["lead"]) {
+  const destinatarios = process.env.ORCAMENTO_DESTINATARIOS;
+  if (!destinatarios) {
+    throw new Error("ORCAMENTO_DESTINATARIOS não configurada.");
+  }
+
+  const transport = getTransport();
+
+  await transport.sendMail({
+    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    to: destinatarios.split(",").map((endereco) => endereco.trim()),
+    replyTo: lead.email,
+    subject: `Mesmo lead, não é novo: ${lead.nome} também chamou no WhatsApp`,
+    text: [
+      `${lead.nome} enviou o formulário de orçamento e, na sequência, também clicou`,
+      `na opção de WhatsApp da tela de confirmação. É o mesmo contato — não conte`,
+      `como um segundo lead.`,
+      "",
+      `Nome: ${lead.nome}`,
+      `E-mail: ${lead.email}`,
+      `WhatsApp: ${lead.telefone}`,
+    ].join("\n"),
+  });
 }

@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 // import { produtos } from "@/lib/produtos";
 import { obterAtribuicaoAtual } from "@/lib/attribution";
 import { trackFormSubmit } from "@/lib/analytics";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./OrcamentoForm.module.css";
 
 type Estado = "fechado" | "aberto" | "enviando" | "sucesso" | "erro";
@@ -23,6 +24,11 @@ export function OrcamentoForm() {
   const [estado, setEstado] = useState<Estado>("fechado");
   const [erros, setErros] = useState<Record<string, string[]>>({});
   const [erroGeral, setErroGeral] = useState("");
+  // Preenchidos só depois de um envio bem-sucedido, pra montar a CTA de
+  // WhatsApp contextual da tela de sucesso (nome na mensagem) e correlacionar
+  // o clique com o mesmo lead no Mongo (ver app/api/orcamento/whatsapp).
+  const [nomeEnviado, setNomeEnviado] = useState("");
+  const [leadId, setLeadId] = useState<string | null>(null);
 
   useEffect(() => {
     function abrir() {
@@ -73,6 +79,8 @@ export function OrcamentoForm() {
       }
 
       trackFormSubmit();
+      setNomeEnviado(payload.nome);
+      setLeadId(typeof corpo.leadId === "string" ? corpo.leadId : null);
       setEstado("sucesso");
     } catch {
       setErroGeral("Não foi possível enviar sua solicitação agora.");
@@ -82,9 +90,28 @@ export function OrcamentoForm() {
 
   if (estado === "sucesso") {
     return (
-      <div className={styles.sucesso}>
-        <CheckCircle2 size={22} strokeWidth={2} aria-hidden="true" />
-        <p>Recebemos sua solicitação. A engenharia responde em breve pelo e-mail ou WhatsApp informado.</p>
+      <div className={styles.sucessoBloco}>
+        <div className={styles.sucesso}>
+          <CheckCircle2 size={22} strokeWidth={2} aria-hidden="true" />
+          <p>Recebemos sua solicitação. A engenharia responde em breve pelo e-mail ou WhatsApp informado.</p>
+        </div>
+        <WhatsAppLink
+          className={styles.whatsappPosEnvio}
+          mensagem={`Olá, sou ${nomeEnviado} e acabei de enviar o formulário de orçamento no site.`}
+          onClick={() => {
+            if (!leadId) return;
+            // Fire-and-forget: o link já abre em nova aba, então não há risco
+            // de a navegação cortar a chamada antes dela sair.
+            fetch("/api/orcamento/whatsapp", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ leadId }),
+              keepalive: true,
+            }).catch(() => {});
+          }}
+        >
+          Prefere agilizar agora? Fale com a engenharia pelo WhatsApp
+        </WhatsAppLink>
       </div>
     );
   }

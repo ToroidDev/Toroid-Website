@@ -1,5 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { createHash, createHmac } from "node:crypto";
+import { ObjectId } from "mongodb";
 import { orcamentoSchema } from "@/lib/orcamento-schema";
 import { enviarOrcamentoPorEmail } from "@/lib/orcamento-mailer";
 import {
@@ -58,9 +59,15 @@ export async function POST(request: Request) {
 
   // MongoDB é o registro de sistema (CRM/atribuição): roda independente do
   // e-mail, nunca segura nem derruba a resposta ao visitante. after() agenda
-  // a escrita pra depois da resposta já ter sido enviada.
+  // a escrita pra depois da resposta já ter sido enviada. O _id é gerado
+  // aqui, antes de responder (não precisa de round-trip ao banco), pra poder
+  // devolver leadId ao client — é o que permite a CTA de WhatsApp da tela de
+  // sucesso (OrcamentoForm.tsx) marcar ESTE MESMO documento em vez de virar
+  // um lead solto sem correlação (ver app/api/orcamento/whatsapp/route.ts).
   const attribution = attributionBundleSchema.parse(body.attribution);
+  const leadId = new ObjectId();
   const leadDocument: LeadDocument = montarLeadDocument({
+    _id: leadId,
     payload: parsed.data,
     attribution,
     context: montarContexto(request),
@@ -88,5 +95,5 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, leadId: leadId.toString() });
 }
