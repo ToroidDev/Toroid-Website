@@ -1,0 +1,130 @@
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: var(--color-blue);
+  color: var(--color-on-blue);
+  box-shadow: 0 -12px 28px rgba(6, 22, 46, 0.26);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 20px var(--gutter);
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.texto {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-on-blue-muted);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: none;
+}
+
+.btnContorno,
+.btnPrincipal {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 18px;
+  border-radius: 8px;
+  transition: transform 0.16s var(--ease-out), box-shadow 0.16s var(--ease-out), background 0.16s ease-out;
+}
+
+.btnContorno {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.btnContorno:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btnPrincipal {
+  background: var(--color-green);
+  color: #fff;
+  border: 1px solid var(--color-green);
+}
+
+.btnPrincipal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(6, 22, 46, 0.3);
+}
+
+.preferencias {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 16px;
+  color: #fff;
+}
+
+.linhas {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.linhaConsentimento {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.linhaConsentimento[data-desabilitado] {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.linhaConsentimento input {
+  margin-top: 3px;
+  accent-color: var(--color-green);
+}
+
+.linhaLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.linhaDescricao {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-on-blue-faint);
+}
+
+@media (max-width: 720px) {
+  .linha {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes {
+    justify-content: center;
+  }
+}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
+import { CookieSettingsLink } from "@/components/layout/CookieSettingsLink";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -104,7 +105,10 @@ export function Footer() {
             />
           </svg>
 
-          <p className={styles.copyright}>&copy; 2026 Toroid do Brasil · Todos os direitos reservados</p>
+          <p className={styles.copyright}>
+            &copy; 2026 Toroid do Brasil · Todos os direitos reservados ·{" "}
+            <CookieSettingsLink className={styles.preferenciasCookies} />
+          </p>
         </div>
       </div>
     </footer>

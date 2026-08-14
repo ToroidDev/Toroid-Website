@@ -147,3 +147,13 @@
   color: #fff;
   text-align: center;
 }
+
+.preferenciasCookies {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.preferenciasCookies:hover {
+  color: var(--color-green-light);
+}

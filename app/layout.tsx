@@ -7,6 +7,8 @@ import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { AttributionCapture } from "@/components/layout/AttributionCapture";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { ConsentDefaultScript } from "@/components/analytics/ConsentDefaultScript";
+import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${karla.variable}`}>
       <body>
+        <ConsentDefaultScript />
         <GoogleAnalytics />
         <OrganizationSchema />
         <div style={{ position: "relative" }}>
@@ -49,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </ConditionalFooter>
           <WhatsAppButton />
         </div>
+        <CookieConsentBanner />
       </body>
     </html>
   );
