@@ -1,0 +1,84 @@
+/* Página inteira num único campo azul, sem parada branca — mesmo princípio do
+   ContatoHero (ver ContatoHero.module.css): aqui o motivo é ilustrar o "vazio"
+   do 404 com a cor institucional cheia, sem cartão ou textura de segunda cor. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* mesma folga do Hero (Hero.module.css) para a pílula de nav flutuante
+     passar por cima sem encostar no link/título */
+  padding: clamp(124px, 16vw, 184px) 0 clamp(48px, 6vw, 96px);
+  background: var(--color-blue);
+  color: var(--color-on-blue);
+}
+
+/* Pattern institucional girando devagar: única peça de movimento da página,
+   um giro completo a cada 90s. Pausa sozinho via a regra global de
+   prefers-reduced-motion em app/globals.css. */
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: min(1400px, 160vw);
+  pointer-events: none;
+  animation: girar 90s linear infinite;
+}
+
+@keyframes girar {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+  padding-bottom: 3px;
+  background: linear-gradient(var(--color-green-light), var(--color-green-light)) no-repeat left bottom / 0% 2px;
+  transition: background-size 0.18s ease-out, color 0.3s var(--ease-out);
+}
+
+.voltar:hover {
+  color: #fff;
+  background-size: 100% 2px;
+}
+
+.voltar svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.voltar:hover svg {
+  transform: translateX(-3px);
+}
+
+.headline {
+  margin: 28px 0 0;
+  font-size: clamp(40px, 6.4vw, 84px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #fff;
+  max-width: 22ch;
+  text-shadow: 0 1px 26px rgba(6, 20, 42, 0.45);
+}
