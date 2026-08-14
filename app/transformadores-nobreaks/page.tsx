@@ -169,7 +169,7 @@ export default function TransformadoresNobreaksPage() {
         lead="Um nobreak não falha por falta de energia. Falha por instabilidade: carga que varia, calor que acumula no gabinete, ruído que atravessa a eletrônica de controle. É aí que o transformador toroidal para nobreak deixa de ser linha de lista de material e passa a ser decisão de engenharia."
         prova={PROVA}
         ctaPrimario="Enviar a especificação do nobreak"
-        ctaWhatsapp="Falar com um engenheiro"
+        ctaWhatsapp="Falar com nosso time"
         arte={<NucleoIsolado />}
       />
 

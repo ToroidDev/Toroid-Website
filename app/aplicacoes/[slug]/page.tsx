@@ -87,7 +87,7 @@ export default async function AplicacaoPage({
         lead={aplicacao.dorSegmento}
         prova={["São José dos Pinhais · PR", "ISO 9001", "Fabricação nacional"]}
         ctaPrimario="Solicitar Orçamento Técnico"
-        ctaWhatsapp="Falar com um engenheiro"
+        ctaWhatsapp="Falar com nosso time"
       />
 
       <PillarBody pattern>

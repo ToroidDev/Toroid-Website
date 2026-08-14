@@ -65,7 +65,7 @@ export function PillarHero({
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
             <WhatsAppLink className={styles.onDarkSecondary}>
-              Falar com um engenheiro
+              Falar com nosso time
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>
           </div>

@@ -93,7 +93,7 @@ export function OrcamentoForm() {
       <div className={styles.sucessoBloco}>
         <div className={styles.sucesso}>
           <CheckCircle2 size={22} strokeWidth={2} aria-hidden="true" />
-          <p>Recebemos sua solicitação. A engenharia responde em breve pelo e-mail ou WhatsApp informado.</p>
+          <p>Recebemos sua solicitação. Nosso time responde em breve pelo e-mail ou WhatsApp informado.</p>
         </div>
         <WhatsAppLink
           className={styles.whatsappPosEnvio}
@@ -110,7 +110,7 @@ export function OrcamentoForm() {
             }).catch(() => {});
           }}
         >
-          Prefere agilizar agora? Fale com a engenharia pelo WhatsApp
+          Prefere agilizar agora? Fale com nosso time pelo WhatsApp
         </WhatsAppLink>
       </div>
     );
