@@ -11,6 +11,7 @@ import { ConsentDefaultScript } from "@/components/analytics/ConsentDefaultScrip
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import { SITE_URL } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 // Montserrat só nos títulos (600/700). O peso 400 saiu porque corpo de texto,
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </div>
         <CookieConsentBanner />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
