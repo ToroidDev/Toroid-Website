@@ -1,7 +1,40 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { EVENTO_ABRIR_CONSENTIMENTO, EVENTO_CONSENTIMENTO_SALVO, getSavedConsent } from "@/lib/consent";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./WhatsAppButton.module.css";
 
 export function WhatsAppButton() {
+  // O banner de cookies (CookieConsentBanner.tsx) é fixed/bottom:0/full-width
+  // com z-index maior que este botão, e cobre exatamente o canto inferior
+  // direito onde ele fica — sem isso, o botão fica inacessível ao clique pra
+  // todo visitante novo até ele decidir sobre os cookies. Em vez de chutar
+  // um deslocamento em pixels (a altura do banner varia com o texto e com o
+  // modo "Personalizar"), o botão some enquanto o banner estiver na tela.
+  const [bannerAberto, setBannerAberto] = useState(false);
+
+  useEffect(() => {
+    setBannerAberto(!getSavedConsent());
+
+    function aoReabrirBanner() {
+      setBannerAberto(true);
+    }
+
+    function aoSalvarConsentimento() {
+      setBannerAberto(false);
+    }
+
+    window.addEventListener(EVENTO_ABRIR_CONSENTIMENTO, aoReabrirBanner);
+    window.addEventListener(EVENTO_CONSENTIMENTO_SALVO, aoSalvarConsentimento);
+    return () => {
+      window.removeEventListener(EVENTO_ABRIR_CONSENTIMENTO, aoReabrirBanner);
+      window.removeEventListener(EVENTO_CONSENTIMENTO_SALVO, aoSalvarConsentimento);
+    };
+  }, []);
+
+  if (bannerAberto) return null;
+
   return (
     <div className={styles.wrapper}>
       <span className={styles.tooltip}>Fale com um especialista</span>

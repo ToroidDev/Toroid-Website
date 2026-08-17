@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSavedConsent, saveConsent } from "@/lib/consent";
+import { EVENTO_ABRIR_CONSENTIMENTO, getSavedConsent, saveConsent } from "@/lib/consent";
 import styles from "./CookieConsentBanner.module.css";
-
-// Evento global para reabrir o banner em modo de edição sem perder a escolha
-// atual — disparado pelo link "Preferências de cookies" no rodapé (Footer.tsx).
-const EVENTO_ABRIR = "toroid:open-consent-settings";
 
 export function CookieConsentBanner() {
   const [visivel, setVisivel] = useState(false);
@@ -25,8 +21,8 @@ export function CookieConsentBanner() {
       setVisivel(true);
     }
 
-    window.addEventListener(EVENTO_ABRIR, abrirPreferencias);
-    return () => window.removeEventListener(EVENTO_ABRIR, abrirPreferencias);
+    window.addEventListener(EVENTO_ABRIR_CONSENTIMENTO, abrirPreferencias);
+    return () => window.removeEventListener(EVENTO_ABRIR_CONSENTIMENTO, abrirPreferencias);
   }, []);
 
   function aceitarTodos() {

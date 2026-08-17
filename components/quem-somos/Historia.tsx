@@ -3,7 +3,7 @@ import { getAnosDeMercado } from "@/lib/institucional";
 import styles from "./Historia.module.css";
 
 const LINHA_DO_TEMPO = [
-  { ano: "1994", marco: "Fundação em São José dos Pinhais, PR — uma máquina, três pessoas, uma garagem." },
+  { ano: "1994", marco: "Fundação em São José dos Pinhais, PR: uma máquina, três pessoas, uma garagem." },
   { ano: "2004", marco: "Mudança para uma sede própria de aproximadamente 600 m²." },
   { ano: "2016", marco: "Mudança para a sede atual, de aproximadamente 1.600 m², onde a fábrica opera hoje." },
 ];
@@ -47,8 +47,8 @@ export function Historia() {
           </ol>
 
           <p className={styles.nota}>
-            A Toroid do Brasil nasceu em 1994, em uma garagem, com uma máquina e três pessoas — parte de um grupo com
-            raízes na engenharia sueca.
+            A Toroid do Brasil nasceu em 1994, em uma garagem, com uma máquina e três pessoas, como parte de um grupo
+            com raízes na engenharia sueca.
           </p>
         </div>
 

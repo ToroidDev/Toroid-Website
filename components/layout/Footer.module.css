@@ -77,23 +77,15 @@
   margin-top: 16px;
 }
 
-.seloRina {
-  display: block;
-  height: 96px;
-  width: auto;
-  mix-blend-mode: multiply;
-}
-
-.seloIso {
-  display: block;
-  height: 34px;
-  width: auto;
-  mix-blend-mode: multiply;
-}
-
+/* Os três selos ficam com a mesma altura de exibição: a imagem RINA foi
+   recortada (removida a margem em branco embutida no arquivo original, que
+   fazia o conteúdo real dela parecer bem menor que ISO/ESG mesmo com uma
+   altura de CSS maior) — ver public/images/cert-rina-iso9001.jpg. */
+.seloRina,
+.seloIso,
 .seloEsg {
   display: block;
-  height: 36px;
+  height: 52px;
   width: auto;
   mix-blend-mode: multiply;
 }

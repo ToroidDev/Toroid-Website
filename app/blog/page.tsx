@@ -46,7 +46,7 @@ export default async function BlogPage() {
       <section className={styles.section}>
         <InstitutionalPattern opacity={0.06} className={styles.pattern} />
         <div className={styles.inner}>
-          <SectionHeading eyebrow="Blog">Conteúdo técnico direto da engenharia.</SectionHeading>
+          <SectionHeading eyebrow="Blog">Conteúdo técnico.</SectionHeading>
 
           {posts.length > 0 ? (
             <div className={styles.grid}>

@@ -1,5 +1,6 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./ContatoInfo.module.css";
 
 const CONTATOS = [
@@ -42,13 +43,13 @@ export function ContatoInfo() {
                 +55 (41) 3035-8282
               </span>
             </a>
-            <a href="tel:+554130358263" className={styles.item}>
+            <WhatsAppLink className={styles.item}>
               <WhatsappIcon size={16} />
               <span>
                 <span className={styles.itemLabel}>WhatsApp</span>
-                +55 (41) 3035-8263
+                +55 (41) 3035-8258
               </span>
-            </a>
+            </WhatsAppLink>
           </div>
         </div>
 

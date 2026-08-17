@@ -16,7 +16,7 @@ Site institucional da Toroid do Brasil (fabricante de transformadores de corrent
 
 - **Frontend:** Next.js (App Router), TypeScript, Server Components por padrão
 - **Deploy:** Vercel
-- **CMS:** WordPress headless via REST API (`wp-json/wp/v2/`), custom post types via ACF + Custom Post Type UI
+- **CMS:** WordPress headless via REST API (`wp-json/wp/v2/`), custom post types via ACF + [Pods](https://pods.io/) (confirmado em 2026-08-17 via `wpcom-mcp-plugin-management`; documentação anterior deste arquivo citava "Custom Post Type UI", que não está instalado no site real — corrigido, ver ROADMAP.md)
 - **Analytics:** GA4
 - **Formulários:** API Routes do Next.js (nunca client-side puro)
 - **Repo:** GitHub, `ToroidDev/Toroid-Website`
@@ -27,7 +27,7 @@ Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configu
 
 ```
 WP_API_URL=https://toroid.com.br/wp-json/wp/v2
-WHATSAPP_NUMBER=554130358263
+WHATSAPP_NUMBER=554130358258
 GA4_MEASUREMENT_ID=G-XXXXXXXXXX
 MONGODB_URI=mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/toroid?retryWrites=true&w=majority
 LEAD_IP_HASH_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>

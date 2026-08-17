@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
 import { CookieSettingsLink } from "@/components/layout/CookieSettingsLink";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -23,10 +24,10 @@ export function Footer() {
                 <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
                 +55 (41) 3035-8282
               </a>
-              <a href="tel:+554130358263">
+              <WhatsAppLink>
                 <WhatsappIcon size={15} />
-                WhatsApp +55 (41) 3035-8263
-              </a>
+                +55 (41) 3035-8258
+              </WhatsAppLink>
               <a href="mailto:vendas@toroid.com.br">
                 <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
                 vendas@toroid.com.br
@@ -70,12 +71,24 @@ export function Footer() {
               <Image
                 src="/images/cert-rina-iso9001.jpg"
                 alt="Sistema de gestão certificado RINA ISO 9001"
-                width={1701}
-                height={1382}
+                width={1710}
+                height={1110}
                 className={styles.seloRina}
               />
-              <Image src="/images/cert-iso.png" alt="ISO" width={269} height={188} className={styles.seloIso} />
-              <Image src="/images/cert-esg.png" alt="ESG" width={269} height={188} className={styles.seloEsg} />
+              <Image
+                src="/images/cert-iso.png"
+                alt="Certificação ISO 9001"
+                width={269}
+                height={188}
+                className={styles.seloIso}
+              />
+              <Image
+                src="/images/cert-esg.png"
+                alt="Certificação ESG"
+                width={269}
+                height={188}
+                className={styles.seloEsg}
+              />
             </div>
           </div>
         </div>

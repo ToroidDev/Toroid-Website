@@ -13,7 +13,7 @@ const ROTAS_ESTATICAS = [
   "/indutores-filtros-e-chokes",
   "/quem-somos",
   "/contato",
-  "/transformadores-nobreaks",
+  "/aplicacoes/nobreaks",
   "/blog",
 ];
 
@@ -22,20 +22,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: absoluteUrl(rota),
   }));
 
-  // /blog/[slug] e /aplicacoes/[slug] já existem como rotas (ROADMAP.md, item
-  // A.5/A.6, concluído em 2026-08-12). Falta só a segunda condição: WP_API_URL
-  // validado (Trilha B, ainda pendente). Até lá o bloco fica comentado —
-  // chamar getPosts()/getAplicacoesPorIds() sem a env var configurada lançaria
-  // erro no build do sitemap, e habilitar antes do tempo anunciaria URL que
-  // ainda volta 404.
-  //
-  // const { getPosts } = await import("@/lib/wordpress");
-  // const posts = await getPosts();
-  // const postsSitemap: MetadataRoute.Sitemap = posts.map((post) => ({
-  //   url: absoluteUrl(`/blog/${post.slug}`),
-  //   lastModified: new Date(post.publicadoEm),
-  // }));
-  // return [...estaticas, ...postsSitemap];
+  // WP_API_URL confirmado em produção (2026-08-17, ver ROADMAP.md) — os posts
+  // já aparecem de fato em /blog. Antes disso este bloco ficava comentado
+  // porque chamar getPosts() sem a env var configurada quebraria o build do
+  // sitemap, e habilitar antes do tempo anunciaria URL que ainda voltava 404.
+  // Try/catch pelo mesmo motivo de app/blog/page.tsx: uma instabilidade
+  // pontual do WP não pode derrubar o sitemap inteiro, só o bloco de posts.
+  const { getPosts } = await import("@/lib/wordpress");
+  const posts = await getPosts().catch(() => []);
+  const postsSitemap: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.publicadoEm),
+  }));
 
-  return estaticas;
+  return [...estaticas, ...postsSitemap];
 }

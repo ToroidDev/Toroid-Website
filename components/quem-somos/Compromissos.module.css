@@ -50,14 +50,11 @@
   mix-blend-mode: multiply;
 }
 
-.seloRina {
-  height: clamp(96px, 9vw, 128px);
-}
-
-.seloIso {
-  height: clamp(40px, 4vw, 50px);
-}
-
+/* Mesma altura pros três: a imagem RINA foi recortada (removida a margem em
+   branco embutida no arquivo original — ver public/images/cert-rina-iso9001.jpg),
+   então já não precisa de uma altura de CSS maior pra compensar. */
+.seloRina,
+.seloIso,
 .seloEsg {
-  height: clamp(42px, 4vw, 52px);
+  height: clamp(64px, 6vw, 80px);
 }

@@ -33,24 +33,22 @@ import styles from "./page.module.css";
 // no segmento. Se a dor real for outra (prazo, custo unitário, aprovação de
 // amostra), o H1 muda e a página muda com ele.
 //
-// ROTA: esta página fica em /transformadores-nobreaks, a URL definida no
-// briefing, no padrão plano herdado do WordPress antigo. Se a decisão for migrar
-// para o padrão /aplicacoes/[slug] do CLAUDE.md, são três mudanças: mover a
-// pasta, ajustar o canonical abaixo e adicionar o 301 da URL antiga em
-// next.config.ts. Enquanto a página viver aqui, NÃO incluir
-// /transformadores-nobreaks na lista de redirects: o redirect passaria na frente
-// da rota e a página nunca renderizaria.
-//
-// Conteúdo estático por decisão do projeto, já que o WordPress ainda não está
-// confirmado. Fase seguinte: trocar por lib/wordpress.ts (CPT `aplicacao`) sem
-// mudar URL nem estrutura desta página.
+// ROTA: migrada de /transformadores-nobreaks para /aplicacoes/nobreaks
+// (2026-08-17), seguindo o padrão de URL do CLAUDE.md — a antiga vive como 301
+// em next.config.ts. Continua estática, fora do padrão dinâmico de
+// app/aplicacoes/[slug]/page.tsx (que é 100% dado do CPT `aplicacao`, ainda
+// bloqueado — ver ROADMAP.md/Trilha B): esta é uma rota irmã fixa dentro de
+// /aplicacoes, e o Next.js já prioriza a rota estática sobre a dinâmica no
+// mesmo nível, então as duas convivem sem conflito. A troca do conteúdo
+// estático abaixo por lib/wordpress.ts (CPT `aplicacao`) continua sendo uma
+// fase seguinte separada, sem mudar URL nem estrutura desta página.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: "Transformador Toroidal para Nobreak | Toroid do Brasil",
   description:
     "Transformador toroidal para nobreak com isolação galvânica, baixa irradiação de campo e eficiência até 98%. Fale com a engenharia e peça seu orçamento.",
-  alternates: { canonical: "/transformadores-nobreaks" },
+  alternates: { canonical: "/aplicacoes/nobreaks" },
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -120,7 +118,7 @@ const JSON_LD = [
     },
     description:
       "Transformador toroidal para nobreaks e condicionadores de energia, com isolação galvânica, blindagem eletrostática e eletromagnética, construção tipo seco conforme ABNT NBR5356-11 e faixa de 5 VA a 15 kVA.",
-    url: "https://toroid.com.br/transformadores-nobreaks",
+    url: "https://toroid.com.br/aplicacoes/nobreaks",
     additionalProperty: ESPECIFICACOES.map(([name, value]) => ({
       "@type": "PropertyValue",
       name,
@@ -136,7 +134,7 @@ const JSON_LD = [
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para nobreaks",
-        item: "https://toroid.com.br/transformadores-nobreaks",
+        item: "https://toroid.com.br/aplicacoes/nobreaks",
       },
     ],
   },

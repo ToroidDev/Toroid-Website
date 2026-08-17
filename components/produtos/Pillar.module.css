@@ -171,7 +171,7 @@
   gap: 10px;
   font-size: 16px;
   font-weight: 600;
-  padding: 16px 26px;
+  padding: 17px 28px;
   border-radius: 10px;
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s var(--ease-out),
     border-color 0.2s var(--ease-out);

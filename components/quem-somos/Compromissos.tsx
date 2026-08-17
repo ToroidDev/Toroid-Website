@@ -5,8 +5,8 @@ import styles from "./Compromissos.module.css";
 
 const SELOS = [
   { src: "/images/cert-rina-iso9001.jpg", alt: "Sistema de gestão certificado RINA ISO 9001", classe: "seloRina" },
-  { src: "/images/cert-iso.png", alt: "ISO", classe: "seloIso" },
-  { src: "/images/cert-esg.png", alt: "ESG", classe: "seloEsg" },
+  { src: "/images/cert-iso.png", alt: "Certificação ISO 9001", classe: "seloIso" },
+  { src: "/images/cert-esg.png", alt: "Certificação ESG", classe: "seloEsg" },
 ] as const;
 
 const BADGES = ["RoHS Compliant", "Garantia de 3 anos", "Produto 100% brasileiro"];
@@ -37,8 +37,8 @@ export function Compromissos() {
               key={src}
               src={src}
               alt={alt}
-              width={classe === "seloRina" ? 1701 : 269}
-              height={classe === "seloRina" ? 1382 : 188}
+              width={classe === "seloRina" ? 1710 : 269}
+              height={classe === "seloRina" ? 1110 : 188}
               className={`${styles.selo} ${styles[classe]}`}
             />
           ))}

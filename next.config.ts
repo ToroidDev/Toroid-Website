@@ -50,6 +50,16 @@ const nextConfig = {
   // das campanhas de Google Ads ativas.
   async redirects() {
     return [
+      // Migração interna de URL (2026-08-17): página de nobreaks movida de
+      // /transformadores-nobreaks para /aplicacoes/nobreaks, para entrar no
+      // padrão de URL de aplicação/segmento do CLAUDE.md. Preserva o sinal de
+      // ranking da URL antiga (ver ROADMAP.md).
+      {
+        source: '/transformadores-nobreaks',
+        destination: '/aplicacoes/nobreaks',
+        permanent: true,
+      },
+
       // Defensivo: as três páginas de produto viveram em /produtos/... durante
       // o desenvolvimento e podem ter sido indexadas nesse caminho antes da
       // migração para rota de topo.

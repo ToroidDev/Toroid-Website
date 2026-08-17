@@ -18,7 +18,7 @@ Nunca hardcodar estes valores em código: sempre `process.env.X`. Criar um `.env
 | Variável | Para quê serve |
 |---|---|
 | `WP_API_URL` | Base da REST API do WordPress (`https://toroid.com.br/wp-json/wp/v2`). Usada por `lib/wordpress.ts` para buscar produtos, aplicações e posts. Sem ela, as funções de fetch lançam erro explícito. |
-| `WHATSAPP_NUMBER` | Número usado em `lib/whatsapp.ts` para montar o link de contato. Valor confirmado: `554130358263`. |
+| `WHATSAPP_NUMBER` | Número usado em `lib/whatsapp.ts` para montar o link de contato. Valor confirmado: `554130358258`. |
 | `GA4_MEASUREMENT_ID` | ID de medição do GA4, para os eventos de conversão (`whatsapp_click`, `form_submit`). |
 | `SMTP_HOST` | Host do SMTP interno usado por `lib/orcamento-mailer.ts` para notificar cada pedido do formulário de orçamento. |
 | `SMTP_PORT` | Porta do SMTP (465 usa TLS implícito; outras portas usam STARTTLS). |

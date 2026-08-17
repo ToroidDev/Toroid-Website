@@ -16,7 +16,7 @@ const JSON_LD = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: "+554130358263",
+      telephone: "+554130358258",
       contactType: "sales",
       areaServed: "BR",
     },

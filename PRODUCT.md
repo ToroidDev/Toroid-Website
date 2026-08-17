@@ -44,7 +44,7 @@ Engenharia sob medida a partir da aplicação do cliente, com especificação ve
 - Certificações reais disponíveis como imagem: `cert-iso.png`, `cert-esg.png`, `cert-rina-iso9001.jpg`.
 - Foto real da fábrica: `fabrica.jpg` (produto/planta reais, nunca produto sobre fundo branco flutuando, por diretriz de CLAUDE.md).
 - **Sem cases ou depoimentos de cliente liberados ainda.** `Segmentos.tsx` marca isso explicitamente como `[CASE PENDENTE: aguardando aprovação comercial]`, placeholder real, não conteúdo a substituir por invenção. Nenhum case, depoimento ou nome de cliente deve ser fabricado até liberação comercial.
-- **Contato oficial confirmado**: telefone (41) 3035-8282, WhatsApp (41) 3035-8263, e-mails vendas@/engenharia@/rh@toroid.com.br, endereço Rua Antônio Bianchetti, 541 - Iná, São José dos Pinhais, PR, CEP 83065-370, perfis reais de LinkedIn/Instagram/YouTube. Já refletido em `Footer.tsx`, `ContatoInfo.tsx`, `lib/whatsapp.ts` e no schema `Organization` (`components/seo/OrganizationSchema.tsx`). Nome legal: Indústria e Comércio de Transformadores Toroidais Ltda.
+- **Contato oficial confirmado**: telefone (41) 3035-8282, WhatsApp (41) 3035-8258, e-mails vendas@/engenharia@/rh@toroid.com.br, endereço Rua Antônio Bianchetti, 541 - Iná, São José dos Pinhais, PR, CEP 83065-370, perfis reais de LinkedIn/Instagram/YouTube. Já refletido em `Footer.tsx`, `ContatoInfo.tsx`, `lib/whatsapp.ts` e no schema `Organization` (`components/seo/OrganizationSchema.tsx`). Nome legal: Indústria e Comércio de Transformadores Toroidais Ltda.
 
 ## Product Principles
 

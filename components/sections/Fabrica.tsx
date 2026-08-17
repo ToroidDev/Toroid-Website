@@ -27,7 +27,7 @@ export function Fabrica() {
       <div className={styles.inner}>
         <SectionHeading
           eyebrow="Fabricação própria"
-          lead="Bobinagem, encapsulamento e ensaio elétrico feitos na planta de São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado."
+          lead="Bobinagem, encapsulamento e ensaio elétrico feitos em São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado."
         >
           Há <span className={styles.headingAccent}>{getAnosDeMercado()} anos</span> transformando energia e vidas.
         </SectionHeading>

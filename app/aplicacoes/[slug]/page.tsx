@@ -13,9 +13,11 @@ import { getAplicacaoPorSlug, getProdutosPorIds, type CategoriaProduto } from "@
 // `next build` até a env var existir. Cada slug renderiza por request, com o
 // cache/revalidate/tags normais de lib/wordpress.ts.
 //
-// `/transformadores-nobreaks` continua estática e fora deste padrão — migrar
-// essa página pra `/aplicacoes/[slug]` é uma decisão futura separada (ver
-// aviso no próprio arquivo dela).
+// `/aplicacoes/nobreaks` (migrada de `/transformadores-nobreaks` em
+// 2026-08-17, ver next.config.ts) é uma rota irmã estática dentro desta mesma
+// pasta, fora deste padrão dinâmico — conteúdo próprio, não vem do CPT
+// `aplicacao` (ver aviso no arquivo dela). O Next.js prioriza a rota estática
+// sobre `[slug]` no mesmo nível, então as duas convivem sem conflito.
 
 const HREF_POR_CATEGORIA: Record<CategoriaProduto, string> = {
   "transformador-de-corrente": "/transformador-de-corrente",

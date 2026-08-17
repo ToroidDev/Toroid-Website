@@ -1,4 +1,5 @@
-import { BatteryCharging, Cpu, FlaskConical, HeartPulse, Network } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BatteryCharging, Cpu, FlaskConical, HeartPulse, Network } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import styles from "./Segmentos.module.css";
@@ -15,6 +16,10 @@ const SEGMENTOS = [
     texto:
       "Menor perda a vazio e dispersão magnética contida: menos calor dentro do gabinete, autonomia preservada em campo e menos acionamento de garantia.",
     icon: BatteryCharging,
+    // Único segmento com página própria hoje (ver ROADMAP.md) — os outros 4
+    // ainda não têm dor validada nem conteúdo, então ficam sem link de
+    // propósito em vez de apontar pra página que não existe.
+    href: "/aplicacoes/nobreaks",
   },
   {
     titulo: "Automação industrial",
@@ -46,15 +51,33 @@ export function Segmentos() {
         </SectionHeading>
 
         <div className={styles.grid}>
-          {SEGMENTOS.map(({ titulo, texto, icon: Icon }) => (
-            <article key={titulo} className={styles.card}>
-              <span className={styles.iconWrap} aria-hidden="true">
-                <Icon size={22} strokeWidth={1.7} />
-              </span>
-              <h3 className={styles.cardTitle}>{titulo}</h3>
-              <p className={styles.cardText}>{texto}</p>
-            </article>
-          ))}
+          {SEGMENTOS.map(({ titulo, texto, icon: Icon, href }) => {
+            const conteudo = (
+              <>
+                <span className={styles.iconWrap} aria-hidden="true">
+                  <Icon size={22} strokeWidth={1.7} />
+                </span>
+                <h3 className={styles.cardTitle}>{titulo}</h3>
+                <p className={styles.cardText}>{texto}</p>
+                {href && (
+                  <span className={styles.cardLink}>
+                    Ver aplicação
+                    <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+                  </span>
+                )}
+              </>
+            );
+
+            return href ? (
+              <Link key={titulo} href={href} className={styles.card}>
+                {conteudo}
+              </Link>
+            ) : (
+              <article key={titulo} className={styles.card}>
+                {conteudo}
+              </article>
+            );
+          })}
           {/* Dentro do grid, não abaixo dele: são 5 segmentos em 3 colunas, e o
               banner ocupa exatamente a célula que sobrava na segunda linha. */}
           <div className={styles.pendingBanner}>
