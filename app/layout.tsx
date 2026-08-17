@@ -10,6 +10,7 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { ConsentDefaultScript } from "@/components/analytics/ConsentDefaultScript";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import { SITE_URL } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // Montserrat só nos títulos (600/700). O peso 400 saiu porque corpo de texto,
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <WhatsAppButton />
         </div>
         <CookieConsentBanner />
+        <Analytics />
       </body>
     </html>
   );
