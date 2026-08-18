@@ -10,7 +10,7 @@ export function SectionHeading({
   lead,
   tone = "light",
 }: {
-  eyebrow: string;
+  eyebrow: ReactNode;
   children: ReactNode;
   lead?: ReactNode;
   tone?: "light" | "dark";

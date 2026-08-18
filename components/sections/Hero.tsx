@@ -3,6 +3,7 @@ import { ArrowRight, ClipboardCheck, Factory, MapPin, MessageCircle } from "luci
 import { HeroToroid } from "@/components/ui/HeroToroid";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { T } from "@/components/i18n/T";
 import styles from "./Hero.module.css";
 
 // Barra do pé do hero. Ocupa o lugar do `contactInfo` do componente de referência,
@@ -10,9 +11,9 @@ import styles from "./Hero.module.css";
 // e-mail e WhatsApp como placeholders não confirmados. Também não repete o que a
 // seção de prova logo abaixo já carrega (anos, projetos, certificações).
 const FATOS = [
-  { icon: MapPin, texto: "São José dos Pinhais · PR" },
-  { icon: Factory, texto: "Produtos 100% personalizados" },
-  { icon: ClipboardCheck, texto: "Garantia de 3 anos" },
+  { id: "local", icon: MapPin, pt: "São José dos Pinhais · PR", es: "São José dos Pinhais · PR", en: "São José dos Pinhais · PR" },
+  { id: "custom", icon: Factory, pt: "Produtos 100% personalizados", es: "Productos 100% personalizados", en: "100% customized products" },
+  { id: "garantia", icon: ClipboardCheck, pt: "Garantia de 3 anos", es: "Garantía de 3 años", en: "3-year warranty" },
 ];
 
 export function Hero() {
@@ -36,29 +37,39 @@ export function Hero() {
         <div className={styles.copy}>
           <p className={styles.slogan}>
             <span className={styles.sloganRule} aria-hidden="true" />
-            Engenharia nacional · ISO 9001
+            <T pt="Engenharia nacional · ISO 9001" es="Ingeniería nacional · ISO 9001" en="National engineering · ISO 9001" />
           </p>
 
           {/* O verde entra só em "o desempenho", duas palavras. Espalhado pela
               frase inteira ele empatava em peso visual com o azul, o que a
               identidade proíbe: azul é base, verde é detalhe. */}
           <h1 className={styles.headline}>
-            Pouco espaço no painel não deveria comprometer{" "}
-            <span className={styles.headlineAccent}>o desempenho</span> do sistema.
+            <T
+              pt="Pouco espaço no painel não deveria comprometer "
+              es="Poco espacio en el panel no debería comprometer "
+              en="Limited panel space shouldn't compromise "
+            />
+            <span className={styles.headlineAccent}>
+              <T pt="o desempenho" es="el rendimiento" en="performance" />
+            </span>
+            <T pt=" do sistema." es=" del sistema." en=" of the system." />
           </h1>
 
           <p className={styles.subtitle}>
-            Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação,
-            não de um catálogo. Especificação conferida antes de produzir, mais de 30 anos fabricando no Brasil.
+            <T
+              pt="Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação, não de um catálogo. Especificação conferida antes de produzir, mais de 30 anos fabricando no Brasil."
+              es="Transformadores de corriente, transformadores de potencia e inductores diseñados a partir de tu aplicación, no de un catálogo. Especificación verificada antes de producir, más de 30 años fabricando en Brasil."
+              en="Current transformers, power transformers and inductors engineered from your application, not a catalog. Specification checked before production, more than 30 years manufacturing in Brazil."
+            />
           </p>
 
           <div className={styles.actions}>
             <a href="#orcamento" className={styles.primary}>
-              Solicitar Orçamento Técnico
+              <T pt="Solicitar Orçamento Técnico" es="Solicitar Presupuesto Técnico" en="Request a Technical Quote" />
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
             <WhatsAppLink className={styles.secondary}>
-              Falar com nosso time
+              <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>
           </div>
@@ -70,10 +81,10 @@ export function Hero() {
       </div>
 
       <ul className={styles.fatos}>
-        {FATOS.map(({ icon: Icon, texto }) => (
-          <li key={texto} className={styles.fato}>
+        {FATOS.map(({ id, icon: Icon, pt, es, en }) => (
+          <li key={id} className={styles.fato}>
             <Icon size={17} strokeWidth={1.8} aria-hidden="true" className={styles.fatoIcon} />
-            {texto}
+            <T pt={pt} es={es} en={en} />
           </li>
         ))}
       </ul>

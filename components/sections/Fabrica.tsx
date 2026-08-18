@@ -4,6 +4,7 @@ import { getAnosDeMercado } from "@/lib/institucional";
 import { produtos } from "@/lib/produtos";
 import { ProductPlaceholder } from "@/components/ui/ProductPlaceholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { T } from "@/components/i18n/T";
 import styles from "./Fabrica.module.css";
 
 const STATS = [
@@ -26,10 +27,24 @@ export function Fabrica() {
     <section id="fabrica" className={styles.section}>
       <div className={styles.inner}>
         <SectionHeading
-          eyebrow="Fabricação própria"
-          lead="Bobinagem, encapsulamento e ensaio elétrico feitos em São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado."
+          eyebrow={<T pt="Fabricação própria" es="Fabricación propia" en="In-house manufacturing" />}
+          lead={
+            <T
+              pt="Bobinagem, encapsulamento e ensaio elétrico feitos em São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado."
+              es="Bobinado, encapsulado y ensayo eléctrico realizados en São José dos Pinhais, con trazabilidad de lote y sistema de gestión certificado."
+              en="Winding, encapsulation and electrical testing done in São José dos Pinhais, with batch traceability and a certified management system."
+            />
+          }
         >
-          Há <span className={styles.headingAccent}>{getAnosDeMercado()} anos</span> transformando energia e vidas.
+          <T pt="Há " es="Hace " en="" />
+          <span className={styles.headingAccent}>
+            {getAnosDeMercado()} <T pt="anos" es="años" en="years" />
+          </span>
+          <T
+            pt=" transformando energia e vidas."
+            es=" transformando energía y vidas."
+            en=" transforming energy and lives."
+          />
         </SectionHeading>
 
         <div className={styles.mosaic}>
@@ -70,7 +85,9 @@ export function Fabrica() {
               className={styles.tileImg}
             />
             <div className={styles.tileOverlay} />
-            <figcaption className={styles.tileCaption}>Desde 1994 no Brasil.</figcaption>
+            <figcaption className={styles.tileCaption}>
+              <T pt="Desde 1994 no Brasil." es="Desde 1994 en Brasil." en="In Brazil since 1994." />
+            </figcaption>
           </figure>
         </div>
 
