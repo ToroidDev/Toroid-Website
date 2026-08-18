@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { produtos } from "@/lib/produtos";
 import { ProdutoIconeSvg } from "@/components/ui/ProductIcons";
+import { useLocale } from "@/components/layout/LocaleProvider";
+import { navDictionary } from "@/lib/i18n";
 import styles from "./Nav.module.css";
 
 export function Nav() {
@@ -15,6 +17,8 @@ export function Nav() {
   const [produtosOpen, setProdutosOpen] = useState(false);
   const produtosRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const { locale } = useLocale();
+  const t = navDictionary[locale];
   // /contato é a única página sem <CTA id="orcamento">: âncora local vira 404
   // silencioso (nada acontece). Nessa página o link precisa navegar até a home
   // e rolar; nas demais, a âncora local mantém o usuário no lugar.
@@ -64,7 +68,7 @@ export function Nav() {
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
         <div className={styles.bar}>
-          <Link href="/" aria-label="Toroid do Brasil, ir para a página inicial" className={styles.logoLink}>
+          <Link href="/" aria-label={t.irParaHome} className={styles.logoLink}>
             <span className={styles.logoPlate}>
               <Image
                 src="/images/logo-toroid-trim.png"
@@ -77,7 +81,7 @@ export function Nav() {
             </span>
           </Link>
 
-          <nav className={styles.desktopNav} aria-label="Principal">
+          <nav className={styles.desktopNav} aria-label={t.principal}>
             <div className={styles.navItem} ref={produtosRef} data-open={produtosOpen || undefined}>
               <button
                 type="button"
@@ -87,7 +91,7 @@ export function Nav() {
                 aria-controls="nav-produtos"
                 onClick={() => setProdutosOpen((open) => !open)}
               >
-                Produtos
+                {t.produtos}
                 <ChevronDown size={16} strokeWidth={2} aria-hidden="true" className={styles.chevron} />
               </button>
               <div className={styles.dropdown} id="nav-produtos">
@@ -110,21 +114,21 @@ export function Nav() {
                 só `Solicitar Orçamento` continua sendo âncora local
                 (`#orcamento`), porque esse bloco existe em toda página. */}
             <Link href="/quem-somos" className={styles.navLink}>
-              Sobre
+              {t.sobre}
             </Link>
             <Link href="/blog" className={styles.navLink}>
-              Blog
+              {t.blog}
             </Link>
             <Link href="/contato" className={styles.navLink}>
-              Contato
+              {t.contato}
             </Link>
             <Link href={orcamentoHref} className={styles.cta} onClick={abrirOrcamento}>
-              Solicitar Orçamento
+              {t.orcamento}
               <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
             </Link>
           </nav>
 
-          <button type="button" className={styles.burger} aria-label="Abrir menu" onClick={() => setMobileOpen(true)}>
+          <button type="button" className={styles.burger} aria-label={t.abrirMenu} onClick={() => setMobileOpen(true)}>
             <Menu size={24} strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
@@ -141,14 +145,14 @@ export function Nav() {
               height={349}
               className={styles.mobileLogo}
             />
-            <button type="button" className={styles.closeButton} aria-label="Fechar menu" onClick={closeMobile}>
+            <button type="button" className={styles.closeButton} aria-label={t.fecharMenu} onClick={closeMobile}>
               <X size={26} strokeWidth={2} aria-hidden="true" />
             </button>
           </div>
           <nav className={styles.mobileNav}>
             <details className={styles.mobileAccordion}>
               <summary>
-                Produtos
+                {t.produtos}
                 <ChevronDown size={20} strokeWidth={2.2} aria-hidden="true" className={styles.mobileChevron} />
               </summary>
               <div className={styles.mobileSubLinks}>
@@ -161,13 +165,13 @@ export function Nav() {
               </div>
             </details>
             <Link href="/quem-somos" className={styles.mobileLink} onClick={closeMobile}>
-              Sobre
+              {t.sobre}
             </Link>
             <Link href="/blog" className={styles.mobileLink} onClick={closeMobile}>
-              Blog
+              {t.blog}
             </Link>
             <Link href="/contato" className={styles.mobileLink} onClick={closeMobile}>
-              Contato
+              {t.contato}
             </Link>
           </nav>
           <Link
@@ -178,7 +182,7 @@ export function Nav() {
               abrirOrcamento();
             }}
           >
-            Solicitar Orçamento
+            {t.orcamento}
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </Link>
         </div>

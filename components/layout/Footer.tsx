@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
 import { CookieSettingsLink } from "@/components/layout/CookieSettingsLink";
+import { FooterText } from "@/components/layout/FooterText";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./Footer.module.css";
 
@@ -13,12 +15,14 @@ export function Footer() {
           <div>
             <Image src="/images/logo-toroid-trim.png" alt="Toroid do Brasil" width={808} height={349} className={styles.logo} />
             <p className={styles.about}>
-              Transformadores de corrente, transformadores de potência e indutores sob medida. Fabricação nacional, ISO 9001.
+              <FooterText k="about" />
             </p>
           </div>
 
           <div>
-            <p className={styles.columnTitle}>Contato</p>
+            <p className={styles.columnTitle}>
+              <FooterText k="contato" />
+            </p>
             <div className={styles.columnList}>
               <a href="tel:+554130358282">
                 <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
@@ -48,7 +52,9 @@ export function Footer() {
           </div>
 
           <div>
-            <p className={styles.columnTitle}>Redes</p>
+            <p className={styles.columnTitle}>
+              <FooterText k="redes" />
+            </p>
             <div className={styles.columnList}>
               <a href="https://www.linkedin.com/company/toroidbrasil/" target="_blank" rel="noopener">
                 <LinkedinIcon size={15} />
@@ -66,7 +72,9 @@ export function Footer() {
           </div>
 
           <div>
-            <p className={styles.columnTitle}>Selos</p>
+            <p className={styles.columnTitle}>
+              <FooterText k="selos" />
+            </p>
             <div className={styles.selos}>
               <Image
                 src="/images/cert-rina-iso9001.jpg"
@@ -98,7 +106,10 @@ export function Footer() {
 
       <div className={styles.band}>
         <div className={styles.bandInner}>
-          <p className={styles.tagline}>Transformando energia e vidas.</p>
+          <p className={styles.tagline}>
+            <FooterText k="tagline" />
+          </p>
+
 
           {/* três listras onduladas: única aparição do amarelo institucional na UI */}
           <svg
@@ -118,9 +129,12 @@ export function Footer() {
             />
           </svg>
 
+          <LanguageSwitcher />
+
           <p className={styles.copyright}>
-            &copy; 2026 Toroid do Brasil · Todos os direitos reservados ·{" "}
-            <CookieSettingsLink className={styles.preferenciasCookies} />
+            &copy; 2026 Toroid do Brasil · <FooterText k="direitos" /> 
+            {/* ·{" "} */}
+            {/* <CookieSettingsLink className={styles.preferenciasCookies} /> */}
           </p>
         </div>
       </div>

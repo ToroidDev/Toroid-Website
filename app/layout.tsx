@@ -3,6 +3,7 @@ import { Montserrat, Karla } from "next/font/google";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
+import { LocaleProvider } from "@/components/layout/LocaleProvider";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { AttributionCapture } from "@/components/layout/AttributionCapture";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
@@ -47,12 +48,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <OrganizationSchema />
         <div style={{ position: "relative" }}>
           <AttributionCapture />
-          <Nav />
-          {children}
-          <ConditionalFooter>
-            <Footer />
-          </ConditionalFooter>
-          <WhatsAppButton />
+          <LocaleProvider>
+            <Nav />
+            {children}
+            <ConditionalFooter>
+              <Footer />
+            </ConditionalFooter>
+            <WhatsAppButton />
+          </LocaleProvider>
         </div>
         <CookieConsentBanner />
         <Analytics />

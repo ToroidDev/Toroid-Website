@@ -1,0 +1,28 @@
+.switcher {
+  display: flex;
+  gap: 8px;
+}
+
+.flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.flag:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.flag[aria-pressed="true"] {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.24);
+}
