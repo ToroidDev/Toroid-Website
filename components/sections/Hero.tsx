@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { ArrowRight, ClipboardCheck, Factory, MapPin, MessageCircle } from "lucide-react";
-import { HeroToroid } from "@/components/ui/HeroToroid";
+// import { HeroToroid } from "@/components/ui/HeroToroid"; // animação anterior (render isométrico do núcleo), mantida no repo, ver HeroToroidLogo abaixo
+import { HeroToroidLogo } from "@/components/ui/HeroToroidLogo";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { T } from "@/components/i18n/T";
@@ -19,17 +19,11 @@ const FATOS = [
 export function Hero() {
   return (
     <section id="top" className={styles.hero}>
-      <Image
-        src="/images/sede-toroid.webp"
-        alt="Sede e fábrica da Toroid do Brasil em São José dos Pinhais"
-        fill
-        priority
-        sizes="100vw"
-        className={styles.bgImage}
-      />
+      {/* Gradiente azul institucional. Era o scrim que velava a foto da sede;
+          sem a foto, é o próprio fundo do hero. */}
       <div className={styles.scrim} aria-hidden="true" />
       {/* Pattern institucional espiral, em traço claro por estar sobre azul profundo:
-          dá textura ao chapado sem competir com a foto nem com o texto. */}
+          dá textura ao chapado sem competir com o texto. */}
       {/* <InstitutionalPattern spiral opacity={0.055} stroke="#9FC2EA" className={styles.pattern} /> */}
       <div className={styles.grain} aria-hidden="true" />
 
@@ -76,7 +70,8 @@ export function Hero() {
         </div>
 
         <div className={styles.art}>
-          <HeroToroid variant="dark" />
+          {/* <HeroToroid variant="dark" /> */}
+          <HeroToroidLogo />
         </div>
       </div>
 
