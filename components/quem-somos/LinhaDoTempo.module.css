@@ -1,0 +1,272 @@
+/* Estado base (toque e prefers-reduced-motion): carrossel de scroll nativo com
+   snap. A classe `.pinned` só entra quando o componente confirma que pode
+   animar — ver comentário em LinhaDoTempo.tsx. */
+.wrap {
+  position: relative;
+  background: var(--color-blue-ink);
+}
+
+.sticky {
+  position: relative;
+  overflow: hidden;
+}
+
+.pinned .sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  max-width: var(--shell);
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(76px, 10vw, 108px) var(--gutter) clamp(20px, 3vw, 30px);
+}
+
+.pinned .header {
+  flex: none;
+  padding-top: clamp(92px, 11vw, 124px);
+  padding-bottom: clamp(16px, 2.4vw, 26px);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-faint);
+}
+
+.eyebrowRule {
+  width: 32px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+}
+
+.heading {
+  margin: 12px 0 0;
+  font-size: clamp(19px, 2vw, 26px);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  color: #fff;
+  max-width: 26ch;
+}
+
+/* Fora do modo pinado: scroll nativo com snap, para o painel sempre parar
+   alinhado e o texto nunca ser cortado entre dois painéis. */
+.viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.pinned .viewport {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  scroll-snap-type: none;
+}
+
+.track {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  padding: 0 var(--gutter) clamp(56px, 7vw, 84px);
+  list-style: none;
+  width: max-content;
+}
+
+/* `--painel-w` fica declarada aqui e é herdada pelo painel: assim a largura do
+   cartão e o recuo lateral saem do mesmo número. O recuo de cada lado é
+   exatamente a metade do que falta para a viewport, e é ele que faz o primeiro
+   cartão nascer centralizado e o último terminar centralizado, sem posição
+   intermediária esquisita nas pontas. */
+.pinned .track {
+  --painel-w: min(80vw, 1180px);
+  gap: clamp(18px, 2vw, 28px);
+  padding: 0 calc((100vw - var(--painel-w)) / 2);
+  height: auto;
+  will-change: transform;
+}
+
+.painel {
+  position: relative;
+  flex: none;
+  width: min(90vw, 900px);
+  height: clamp(460px, 76vh, 680px);
+  overflow: hidden;
+  border-radius: 20px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.pinned .painel {
+  width: var(--painel-w);
+  height: clamp(330px, 62svh, 640px);
+  border-radius: clamp(16px, 1.6vw, 24px);
+  box-shadow: 0 34px 80px rgba(3, 11, 24, 0.5);
+  scroll-snap-align: none;
+}
+
+.painelImg {
+  object-fit: cover;
+}
+
+/* Véu de contraste discreto: o suficiente para o texto branco na base manter
+   contraste AA sobre trechos claros das fotos (a parede da oficina de 1994, o
+   céu nas fachadas), sem transformar a foto num fundo escuro. O reforço
+   lateral cobre só a faixa onde o texto vive, à esquerda. */
+.painelVeu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      0deg,
+      rgba(5, 17, 34, 0.8) 0%,
+      rgba(5, 17, 34, 0.62) 22%,
+      rgba(5, 17, 34, 0.24) 46%,
+      rgba(5, 17, 34, 0.06) 68%,
+      rgba(5, 17, 34, 0.16) 100%
+    ),
+    linear-gradient(90deg, rgba(5, 17, 34, 0.42) 0%, rgba(5, 17, 34, 0.06) 58%, rgba(5, 17, 34, 0) 100%);
+}
+
+.painelConteudo {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 clamp(24px, 3.4vw, 52px) clamp(30px, 4.4vw, 52px);
+}
+
+.painelAno {
+  display: block;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(40px, 6.4vw, 82px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(3, 11, 24, 0.6);
+}
+
+.painelTitulo {
+  margin: clamp(10px, 1.4vw, 16px) 0 0;
+  font-size: clamp(18px, 2vw, 27px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-green-light);
+  max-width: 24ch;
+  text-shadow: 0 2px 18px rgba(3, 11, 24, 0.55);
+}
+
+.painelTexto {
+  margin: clamp(8px, 1vw, 14px) 0 0;
+  font-size: clamp(14.5px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.94);
+  max-width: 48ch;
+  text-shadow: 0 1px 14px rgba(3, 11, 24, 0.72);
+}
+
+/* No canto superior direito do próprio cartão: fora do caminho do botão
+   flutuante de WhatsApp (fixed, canto inferior direito da viewport). */
+.painelIndice {
+  position: absolute;
+  z-index: 2;
+  top: clamp(18px, 2.2vw, 28px);
+  right: clamp(20px, 2.6vw, 34px);
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 14px rgba(3, 11, 24, 0.8);
+}
+
+/* Barra de progresso: dá a noção de "onde estou" que o scroll vertical
+   normalmente daria e que o pin remove. Fica em 0 durante a folga de entrada e
+   em 1 durante a de saída, o que também sinaliza começo e fim do percurso. */
+.progresso {
+  flex: none;
+  height: 3px;
+  margin: 0 calc((100vw - min(80vw, 1180px)) / 2) clamp(26px, 3.4vw, 40px);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.progressoBarra {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-light) 100%);
+}
+
+.wrap:not(.pinned) .progresso {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .painelIndice {
+    display: none;
+  }
+
+  /* Folga extra na base: o botão flutuante de WhatsApp (fixed, canto inferior
+     direito) passa por cima das últimas linhas do texto se o conteúdo encostar
+     no rodapé do painel. */
+  .painelConteudo {
+    padding-bottom: 104px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinned .sticky {
+    position: relative;
+    height: auto;
+    display: block;
+  }
+
+  .pinned .viewport {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: auto;
+  }
+
+  .pinned .track {
+    gap: 14px;
+    padding: 0 var(--gutter) clamp(56px, 7vw, 84px);
+    transform: none !important;
+  }
+
+  .pinned .painel {
+    width: min(90vw, 900px);
+    height: clamp(460px, 76vh, 680px);
+    box-shadow: none;
+  }
+}

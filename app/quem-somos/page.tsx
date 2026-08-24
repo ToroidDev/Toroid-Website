@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CTA } from "@/components/sections/CTA";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { HeroStack } from "@/components/quem-somos/HeroStack";
+import { LinhaDoTempo } from "@/components/quem-somos/LinhaDoTempo";
 import { MissaoDestaque } from "@/components/quem-somos/MissaoDestaque";
 import { Valores } from "@/components/quem-somos/Valores";
 import { Compromissos } from "@/components/quem-somos/Compromissos";
@@ -69,6 +70,7 @@ export default function QuemSomosPage() {
   return (
     <>
       <HeroStack />
+      <LinhaDoTempo />
       <MissaoDestaque />
       <Valores />
       <Compromissos />

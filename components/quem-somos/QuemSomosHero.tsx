@@ -7,7 +7,7 @@ import styles from "./QuemSomosHero.module.css";
 
 const FATOS = [
   { icon: MapPin, texto: "São José dos Pinhais · PR" },
-  { icon: Factory, texto: "Fundada em 1994, em uma garagem" },
+  { icon: Factory, texto: "Fundada em 1994" },
   { icon: ShieldCheck, texto: "ISO 9001 certificada pela RINA" },
 ];
 
@@ -43,7 +43,7 @@ export function QuemSomosHero() {
         </p>
 
         <h1 className={styles.headline}>
-          De uma garagem em São José dos Pinhais a <span className={styles.headlineAccent}>{anos} anos</span> de
+          De 1994, em São José dos Pinhais, a <span className={styles.headlineAccent}>{anos} anos</span> de
           engenharia nacional.
         </h1>
 

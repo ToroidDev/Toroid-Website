@@ -110,10 +110,14 @@
   max-width: 58ch;
 }
 
+/* Coluna única, não 2×2: com apenas duas fotos, um grid de duas colunas com a
+   primeira em `span 1/-1` deixava a segunda ocupando meia linha, e o vazio ao
+   lado lia como "faltou uma foto". Empilhadas, as duas ficam full-width da
+   coluna e maiores. */
 .media {
   display: grid;
   gap: 14px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-self: start;
 }
 
@@ -121,13 +125,12 @@
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  min-height: clamp(180px, 20vw, 240px);
+  min-height: clamp(200px, 22vw, 270px);
   background: var(--color-blue-ink);
 }
 
 .tileMain {
-  grid-column: 1 / -1;
-  min-height: clamp(200px, 22vw, 260px);
+  min-height: clamp(220px, 25vw, 310px);
 }
 
 .tileImg {
@@ -172,4 +175,25 @@
 .numeroRotulo {
   font-size: 13.5px;
   color: var(--color-text-secondary);
+}
+
+.capacidadeLink {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(28px, 3.6vw, 44px);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-blue);
+  border-bottom: 1.5px solid var(--color-border-green);
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out, gap 0.16s ease-out;
+}
+
+.capacidadeLink:hover {
+  color: var(--color-blue-deep);
+  border-color: var(--color-blue-soft);
+  gap: 13px;
 }
