@@ -38,12 +38,13 @@ const SECOES: SecaoPilar[] = [
   { id: "o-que-resolve", titulo: "O que um transformador de potência resolve no seu projeto" },
   { id: "isolacao-e-eficiencia", titulo: "Isolação galvânica e eficiência" },
   { id: "nucleo-toroidal-ou-convencional", titulo: "Núcleo toroidal ou convencional" },
+  { id: "materias-primas", titulo: "Matérias-primas: aço e cobre" },
   { id: "acabamentos", titulo: "Encapsulado, resinado ou simples" },
   { id: "medico", titulo: "Equipamento médico" },
   { id: "solar", titulo: "Energia solar e geração distribuída" },
   { id: "como-especificar", titulo: "Como especificar um transformador de potência" },
   { id: "especificacoes", titulo: "Tabela de especificações" },
-  { id: "objecoes", titulo: "Objeções mais comuns" },
+  // { id: "objecoes", titulo: "Objeções mais comuns" },
 ];
 
 const FATOS = [
@@ -208,6 +209,18 @@ export default function TransformadorDePotenciaPage() {
       </PillarBody>
 
       <PillarBody tone="tint">
+        <Prose id="materias-primas" titulo="Matérias-primas: aço silício e cobre esmaltado">
+          <p>
+            O núcleo parte de aço silício de grão orientado, nas espessuras M3 (0,23 mm) e M4 (0,27 mm), cortado em
+            larguras de 10 mm a 80 mm conforme a especificação do projeto. É essa lâmina de alta permeabilidade
+            magnética que sustenta o desempenho declarado na tabela de especificações.
+          </p>
+          <p>
+            O enrolamento usa cobre esmaltado G2, com bitola de 5 AWG a 36 AWG, para suportar desde correntes baixas
+            de instrumentação até cargas mais exigentes, sem trocar de fornecedor entre uma faixa e outra da linha.
+          </p>
+        </Prose>
+
         <Prose id="acabamentos" titulo="Encapsulado, resinado ou simples: qual acabamento protege o projeto">
           <p>
             O acabamento muda o que o transformador resiste no ambiente de instalação, não a tecnologia em si. O

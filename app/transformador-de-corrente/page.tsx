@@ -42,9 +42,10 @@ const SECOES: SecaoPilar[] = [
   { id: "toroidal-ou-convencional", titulo: "Núcleo toroidal ou convencional" },
   { id: "tc-em-scada", titulo: "TC em sistemas SCADA" },
   { id: "religadores", titulo: "TC para religadores automáticos" },
+  { id: "como-testamos", titulo: "Como testamos cada TC" },
   { id: "como-especificar", titulo: "Como especificar um TC" },
   { id: "especificacoes", titulo: "Tabela de especificações" },
-  { id: "objecoes", titulo: "Objeções mais comuns" },
+  // { id: "objecoes", titulo: "Objeções mais comuns" },
 ];
 
 const FATOS = [
@@ -307,6 +308,19 @@ export default function TransformadorDeCorrentePage() {
           <p>
             É um dos casos em que a robustez frente a curto-circuito pesa tanto quanto a classe de exatidão na decisão
             de especificação.
+          </p>
+        </Prose>
+
+        <Prose id="como-testamos" titulo="Como testamos cada TC antes do embarque">
+          <p>
+            100% dos transformadores de corrente produzidos passam por teste elétrico antes de sair da fábrica, não
+            por amostragem. O laboratório mede tensão e corrente a vazio, erro e comportamento em saturação, ângulo de
+            defasagem, indutância, isolação e polaridade.
+          </p>
+          <p>
+            São os mesmos parâmetros que definem se um TC vai se comportar como previsto em campo: erro e saturação
+            confirmam a classe de exatidão declarada, e o ângulo de defasagem e a polaridade evitam retrabalho de
+            instalação em painel e em malha de proteção.
           </p>
         </Prose>
       </PillarBody>

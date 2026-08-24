@@ -34,11 +34,12 @@ export const metadata: Metadata = {
 
 const SECOES: SecaoPilar[] = [
   { id: "o-que-muda", titulo: "O que muda com um núcleo toroidal" },
+  { id: "como-fabricamos", titulo: "Como fabricamos o núcleo toroidal" },
   { id: "toroidal-ou-convencional", titulo: "Toroidal ou convencional E/I" },
   { id: "iluminacao", titulo: "Iluminação arquitetônica" },
   { id: "audio", titulo: "Áudio profissional" },
   { id: "como-escolher", titulo: "Como decidir entre toroidal e convencional" },
-  { id: "objecoes", titulo: "Objeções mais comuns" },
+  // { id: "objecoes", titulo: "Objeções mais comuns" },
 ];
 
 const FATOS = [
@@ -133,6 +134,19 @@ export default function TransformadoresToroidaisPage() {
           <p>
             Para quem especifica, isso aparece como três características mensuráveis: menos ruído audível em operação,
             menos calor dissipado para o mesmo nível de potência, e volume físico menor para a mesma faixa de trabalho.
+          </p>
+        </Prose>
+
+        <Prose id="como-fabricamos" titulo="Como fabricamos o núcleo toroidal">
+          <p>
+            O núcleo toroidal da Toroid é fabricado internamente, com diâmetro externo de 15 mm a 350 mm, o que
+            permite cobrir desde componentes pequenos até núcleos de maior porte sem depender de fornecedor externo
+            para essa etapa.
+          </p>
+          <p>
+            Depois de enrolado, o núcleo passa por tratamento térmico em atmosfera de nitrogênio, com rampa de
+            aquecimento de até 820 °C. O processo expulsa o oxigênio, fixa a geometria do núcleo e restabelece as
+            propriedades elétricas e magnéticas do aço, alteradas pelo próprio processo de corte e enrolamento.
           </p>
         </Prose>
 
