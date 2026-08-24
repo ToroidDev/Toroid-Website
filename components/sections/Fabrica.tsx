@@ -1,24 +1,12 @@
 import Image from "next/image";
-import { ClipboardCheck, MapPin, Ruler } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { produtos } from "@/lib/produtos";
 import { ProductPlaceholder } from "@/components/ui/ProductPlaceholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { T } from "@/components/i18n/T";
 import styles from "./Fabrica.module.css";
-
-const STATS = [
-  {
-    value: "100%",
-    texto: "das peças ensaiadas eletricamente antes do embarque",
-    icon: ClipboardCheck,
-  },
-  {
-    value: "Projeto técnico gratuito",
-    texto: "dimensionamento incluído no orçamento, sem custo adicional",
-    icon: Ruler,
-  }
-];
 
 const marqueeItems = [...produtos, ...produtos];
 
@@ -30,9 +18,9 @@ export function Fabrica() {
           eyebrow={<T pt="Fabricação própria" es="Fabricación propia" en="In-house manufacturing" />}
           lead={
             <T
-              pt="Bobinagem, encapsulamento e ensaio elétrico feitos em São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado."
-              es="Bobinado, encapsulado y ensayo eléctrico realizados en São José dos Pinhais, con trazabilidad de lote y sistema de gestión certificado."
-              en="Winding, encapsulation and electrical testing done in São José dos Pinhais, with batch traceability and a certified management system."
+              pt="Bobinagem, encapsulamento e teste elétrico feitos em São José dos Pinhais, com rastreabilidade de lote e sistema de gestão certificado. Atendemos empresas líderes globais dos setores elétrico e industrial."
+              es="Bobinado, encapsulado y prueba eléctrica realizados en São José dos Pinhais, con trazabilidad de lote y sistema de gestión certificado. Atendemos a empresas líderes globales de los sectores eléctrico e industrial."
+              en="Winding, encapsulation and electrical testing done in São José dos Pinhais, with batch traceability and a certified management system. We supply global leaders in the electrical and industrial sectors."
             />
           }
         >
@@ -50,7 +38,7 @@ export function Fabrica() {
         <div className={styles.mosaic}>
           <figure className={`${styles.tile} ${styles.tileMain}`}>
             <Image
-              src="/images/fabrica-interna.webp"
+              src="/images/fabrica-interna-tratada.webp"
               alt="Vista do chão de fábrica da Toroid, com postos de bobinagem e montagem em operação"
               fill
               sizes="(min-width: 860px) 60vw, 100vw"
@@ -64,7 +52,7 @@ export function Fabrica() {
 
           <figure className={styles.tile}>
             <Image
-              src="/images/fabrica.jpg"
+              src="/images/bobinando.webp"
               alt="Operador bobinando um núcleo toroidal na fábrica da Toroid"
               fill
               sizes="(min-width: 860px) 38vw, 100vw"
@@ -91,17 +79,14 @@ export function Fabrica() {
           </figure>
         </div>
 
-        {/* <div className={styles.stats}>
-          {STATS.map(({ value, texto, icon: Icon }) => (
-            <div key={value} className={styles.statCard}>
-              <span className={styles.statIcon} aria-hidden="true">
-                <Icon size={19} strokeWidth={1.8} />
-              </span>
-              <p className={styles.statValue}>{value}</p>
-              <p className={styles.statText}>{texto}</p>
-            </div>
-          ))}
-        </div> */}
+        <Link href="/capacidade-fabril" className={styles.capacidadeLink}>
+          <T
+            pt="Da matéria-prima ao teste elétrico: conheça nossa capacidade fabril"
+            es="De la materia prima a la prueba eléctrica: conozca nuestra capacidad fabril"
+            en="From raw material to electrical testing: see our manufacturing capability"
+          />
+          <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
+        </Link>
       </div>
 
       <div className={styles.marqueeWrapper}>
