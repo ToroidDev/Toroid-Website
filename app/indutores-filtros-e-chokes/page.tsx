@@ -39,7 +39,7 @@ const SECOES: SecaoPilar[] = [
   { id: "limitacao", titulo: "Limitação de corrente" },
   { id: "nucleo", titulo: "Escolha do núcleo" },
   { id: "como-especificar", titulo: "Como especificar" },
-  { id: "objecoes", titulo: "Objeções mais comuns" },
+  // { id: "objecoes", titulo: "Objeções mais comuns" },
 ];
 
 const FATOS = [
@@ -181,6 +181,11 @@ export default function IndutoresFiltrosEChokesPage() {
           <p>
             Cada tecnologia atende necessidades diferentes. A decisão é sempre sobre qual delas gera mais valor para os
             objetivos deste projeto, e ela vem depois de conhecer a faixa de operação, nunca antes.
+          </p>
+          <p>
+            Quando o núcleo toroidal é a escolha certa, ele é fabricado internamente, com diâmetro externo de 15 mm a
+            350 mm, e o isolamento e o enrolamento também acontecem sob o mesmo teto, sem depender de fornecedor
+            externo em nenhuma dessas etapas.
           </p>
         </Prose>
       </PillarBody>

@@ -10,6 +10,7 @@ const JSON_LD = {
   legalName: "Indústria e Comércio de Transformadores Toroidais Ltda",
   url: SITE_URL,
   logo: absoluteUrl("/images/logo-toroid-trim.png"),
+  slogan: "Engenharia aplicada e fabricação sob medida de transformadores toroidais.",
   description:
     "Fabricante de transformadores toroidais, transformadores de corrente e indutores sob medida. Fabricação nacional, ISO 9001 certificada pela RINA.",
   telephone: "+554130358282",

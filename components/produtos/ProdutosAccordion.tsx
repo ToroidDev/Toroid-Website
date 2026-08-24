@@ -20,7 +20,12 @@ export function ProdutosAccordion() {
     <section id="produtos" className={styles.section}>
       <InstitutionalPattern opacity={0.06} className={styles.pattern} />
       <div className={styles.inner}>
-        <SectionHeading eyebrow="Produtos">Três famílias, todas projetadas sob medida.</SectionHeading>
+        <SectionHeading
+          eyebrow="Produtos"
+          lead="Busca transformadores? Até mesmo sob medida? Consulte a Toroid do Brasil."
+        >
+          Três famílias, todas projetadas sob medida.
+        </SectionHeading>
 
         <div className={styles.accordion}>
           {produtos.map((produto) => (

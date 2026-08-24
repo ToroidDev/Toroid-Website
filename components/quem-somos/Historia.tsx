@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getAnosDeMercado } from "@/lib/institucional";
 import styles from "./Historia.module.css";
 
 const LINHA_DO_TEMPO = [
-  { ano: "1994", marco: "Fundação em São José dos Pinhais, PR: uma máquina, três pessoas, uma garagem." },
+  { ano: "1994", marco: "Fundação em São José dos Pinhais, PR: uma máquina, três pessoas." },
   { ano: "2004", marco: "Mudança para uma sede própria de aproximadamente 600 m²." },
   { ano: "2016", marco: "Mudança para a sede atual, de aproximadamente 1.600 m², onde a fábrica opera hoje." },
 ];
@@ -32,8 +34,8 @@ export function Historia() {
           <h2 className={styles.heading}>Trajetória de inovação e qualidade desde 1994</h2>
           <p className={styles.lead}>
             Localizada em São José dos Pinhais, PR, a Toroid do Brasil fabrica transformadores e indutores desde
-            1994. Começou como um projeto ambicioso: uma única máquina, três pessoas, em uma garagem. Hoje, {anos}{" "}
-            anos depois, é uma planta com bobinagem, encapsulamento e ensaio elétrico sob o mesmo teto, com
+            1994. Começou como um projeto ambicioso: uma única máquina, três pessoas. Hoje, {anos}{" "}
+            anos depois, é uma planta com bobinagem, encapsulamento e teste elétrico sob o mesmo teto, com
             rastreabilidade de lote e sistema de gestão certificado.
           </p>
 
@@ -47,16 +49,19 @@ export function Historia() {
           </ol>
 
           <p className={styles.nota}>
-            A Toroid do Brasil nasceu em 1994, em uma garagem, com uma máquina e três pessoas, como parte de um grupo
-            com raízes na engenharia sueca.
+            A Toroid do Brasil nasceu em 1994, com uma máquina e três pessoas, como parte de um grupo com raízes na
+            engenharia sueca.
           </p>
         </div>
 
+        {/* Fotos de ofício, não de fachada/planta: a linha do tempo logo abaixo
+            já mostra as sedes e o chão de fábrica em tela cheia, e repetir as
+            mesmas imagens a poucos pixels de distância enfraquecia as duas. */}
         <div className={styles.media}>
           <figure className={`${styles.tile} ${styles.tileMain}`}>
             <Image
-              src="/images/fachada-placa.webp"
-              alt="Placa na fachada da fábrica da Toroid com a inscrição Desde 1994 no Brasil"
+              src="/images/bobinando.webp"
+              alt="Operador bobinando um núcleo toroidal na fábrica da Toroid"
               fill
               sizes="(min-width: 900px) 40vw, 100vw"
               className={styles.tileImg}
@@ -64,8 +69,8 @@ export function Historia() {
           </figure>
           <figure className={styles.tile}>
             <Image
-              src="/images/fabrica-interna.webp"
-              alt="Vista do chão de fábrica da Toroid, com postos de bobinagem e montagem em operação"
+              src="/images/nucleo.webp"
+              alt="Núcleo toroidal em processo de fabricação na planta da Toroid"
               fill
               sizes="(min-width: 900px) 40vw, 100vw"
               className={styles.tileImg}
@@ -81,6 +86,11 @@ export function Historia() {
             </div>
           ))}
         </div>
+
+        <Link href="/capacidade-fabril" className={styles.capacidadeLink}>
+          Conheça nossa capacidade fabril, da matéria-prima ao teste elétrico
+          <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );

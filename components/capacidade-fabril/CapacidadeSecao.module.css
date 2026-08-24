@@ -1,0 +1,119 @@
+.secao {
+  background: #fff;
+  padding: clamp(52px, 7vw, 96px) 0;
+}
+
+.tint {
+  background: #f6f8fb;
+}
+
+.grid {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: clamp(36px, 5vw, 64px);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* Inverte a ordem visual sem duplicar marcação: a imagem "muda de lado"
+     alternando o sentido de leitura entre capítulos, efeito de apresentação
+     sem precisar de duas versões do componente. */
+  .ladoEsquerda .texto {
+    order: 2;
+  }
+
+  .ladoEsquerda .media,
+  .ladoEsquerda .mediaDuo {
+    order: 1;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green);
+}
+
+.titulo {
+  margin: 16px 0 0;
+  font-size: clamp(24px, 2.6vw, 32px);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+.prosa {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.prosa p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+.prosa strong {
+  color: var(--color-text);
+}
+
+/* Coluna única, não 2×2: com duas fotos, a primeira em `span 1/-1` deixava a
+   segunda ocupando meia linha e o vazio ao lado lia como foto faltando.
+   Empilhadas, as duas ficam full-width e ganham escala. */
+.mediaDuo {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  min-height: clamp(200px, 24vw, 340px);
+  background: var(--color-blue-ink);
+}
+
+.media .tile {
+  min-height: clamp(280px, 32vw, 440px);
+  box-shadow: 0 24px 60px rgba(9, 28, 56, 0.14);
+}
+
+.mediaDuo .tile {
+  min-height: clamp(210px, 25vw, 320px);
+  box-shadow: 0 18px 44px rgba(9, 28, 56, 0.12);
+}
+
+.tileImg {
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.tile:hover .tileImg {
+  transform: scale(1.03);
+}

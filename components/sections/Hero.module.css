@@ -8,42 +8,23 @@
   /* folga para a pílula de nav flutuante passar por cima sem encostar no texto */
   padding-top: clamp(124px, 16vw, 184px);
   padding-bottom: clamp(24px, 3vw, 38px);
-  /* pintado antes da imagem resolver, evita flash branco */
   background: var(--color-blue-abyss);
   color: var(--color-on-blue);
 }
 
-.bgImage {
-  z-index: 0;
-  object-fit: cover;
-  object-position: 50% 44%;
-  /* A foto é 680px de largura. Dessaturada e puxada para o azul ela lê como
-     atmosfera, não como fotografia nítida, e o upscale deixa de ser perceptível.
-     Trocar por um export de ~2400px é drop-in: mesmo arquivo, mesmo nome. */
-  filter: saturate(0.62) contrast(1.08) brightness(0.86);
-}
-
-/* Scrim azul→azul, sem nenhuma parada branca: o gradiente institucional
-   azul→branco é proibido atrás de texto.
-   As opacidades são dimensionadas para o PIOR caso, não para esta foto: a coluna
-   de texto termina em ~58% da largura, e mesmo que ali o pixel da foto fosse
-   branco puro o branco do h1 fica em ~6.5:1 e o subtítulo em ~6:1. Isso importa
-   porque a foto vai ser trocada por um export de 2400px, e o contraste não pode
-   depender de qual imagem está por baixo. O terço direito segue claro (0.44),
-   que é onde o toroide mora e não há texto. */
+/* Fundo azul→azul, sem nenhuma parada branca: o gradiente institucional
+   azul→branco é proibido atrás de texto. O stop mais claro para em #1a4b8c
+   (--color-blue) de propósito, que é o teto onde os tokens --color-on-blue-*
+   ainda entregam AA (ver globals.css). Clarear além disso quebra o contraste do
+   subtítulo. A camada vertical vem primeiro porque em `background` a primeira
+   fica em cima: ela é translúcida e escurece topo e base sobre a diagonal. */
 .scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(
-      104deg,
-      rgba(9, 28, 56, 0.95) 0%,
-      rgba(14, 46, 90, 0.9) 38%,
-      rgba(18, 60, 116, 0.74) 68%,
-      rgba(26, 75, 140, 0.44) 100%
-    ),
-    linear-gradient(180deg, rgba(9, 28, 56, 0.62) 0%, rgba(9, 28, 56, 0) 26%, rgba(9, 28, 56, 0.7) 100%);
+    linear-gradient(180deg, rgba(9, 28, 56, 0.55) 0%, rgba(9, 28, 56, 0) 30%, rgba(9, 28, 56, 0.6) 100%),
+    linear-gradient(104deg, #091c38 0%, #0d2b52 40%, #123c74 72%, #1a4b8c 100%);
 }
 
 /* Centro do radial bem acima da borda: aparecem só as pontas dos raios, que é o
@@ -59,8 +40,8 @@
   pointer-events: none;
 }
 
-/* Grão fino sobre o scrim. Tile de 160px rasterizado uma vez e repetido:
-   dissimula a interpolação do upscale e dá matéria à área lisa do azul. */
+/* Grão fino sobre o gradiente. Tile de 160px rasterizado uma vez e repetido:
+   dá matéria à área lisa do azul e disfarça o banding do gradiente. */
 .grain {
   position: absolute;
   inset: 0;
@@ -255,20 +236,5 @@
 
   .headline {
     max-width: 22ch;
-  }
-
-  /* Num viewport estreito o gradiente de 104deg cobria a tela inteira com a ponta
-     escura e a foto desaparecia. Aqui o escurecimento passa a ser vertical, então
-     a fachada volta a aparecer sem perder contraste sob o texto. */
-  .scrim {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(9, 28, 56, 0.9) 0%,
-        rgba(12, 40, 78, 0.84) 34%,
-        rgba(16, 52, 100, 0.76) 62%,
-        rgba(9, 28, 56, 0.82) 100%
-      ),
-      linear-gradient(100deg, rgba(9, 28, 56, 0.5), rgba(26, 75, 140, 0.16));
   }
 }

@@ -18,8 +18,8 @@ export function ContatoHero() {
         </p>
         <h1 className={styles.titulo}>Fale conosco</h1>
         <p className={styles.lead}>
-          Vendas, engenharia ou uma dúvida sobre um projeto em andamento. A equipe responde pelo canal que for mais
-          rápido para você.
+          Vendas, engenharia ou uma dúvida sobre um projeto em andamento. Compartilhe seu projeto com a Toroid do
+          Brasil e avalie nossa engenharia de aplicação.
         </p>
       </div>
     </section>

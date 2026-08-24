@@ -144,6 +144,26 @@
   color: var(--color-text-secondary);
 }
 
+.capacidadeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(28px, 3.6vw, 44px);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-blue);
+  border-bottom: 1.5px solid var(--color-border-green);
+  padding-bottom: 2px;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out, gap 0.16s ease-out;
+}
+
+.capacidadeLink:hover {
+  color: var(--color-blue-deep);
+  border-color: var(--color-blue-soft);
+  gap: 13px;
+}
+
+
 /* ── carrossel ── */
 
 .marqueeWrapper {
