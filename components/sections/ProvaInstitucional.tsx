@@ -3,7 +3,7 @@ import { getAnosDeMercado } from "@/lib/institucional";
 import { T } from "@/components/i18n/T";
 import styles from "./ProvaInstitucional.module.css";
 
-const BADGES = ["ISO 9001", "ESG", "RoHS Compliant"];
+const BADGES = ["ISO 9001", "RoHS Compliant"];
 
 export function ProvaInstitucional() {
   const STATS = [

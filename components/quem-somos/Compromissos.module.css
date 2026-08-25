@@ -34,6 +34,19 @@
   color: var(--color-green);
 }
 
+.badgeDestaque {
+  padding: 11px 20px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.badgeDestaque svg {
+  color: #fff;
+}
+
 .selos {
   display: flex;
   flex-wrap: wrap;
@@ -50,11 +63,6 @@
   mix-blend-mode: multiply;
 }
 
-/* Mesma altura pros três: a imagem RINA foi recortada (removida a margem em
-   branco embutida no arquivo original — ver public/images/cert-rina-iso9001.jpg),
-   então já não precisa de uma altura de CSS maior pra compensar. */
-.seloRina,
-.seloIso,
-.seloEsg {
+.seloIso {
   height: clamp(64px, 6vw, 80px);
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
 import { PillarBody, PillarChecklist, PillarSpecTable, Prose } from "@/components/produtos/Pillar";
@@ -60,7 +59,6 @@ const ESPECIFICACOES: [string, string][] = [
   ["Tensão de isolamento", "até 4 kV"],
   ["Eficiência", "até 98%"],
   ["Regulação", "até 1%"],
-  ["Redução de tamanho e peso frente ao E/I", "30% a 60%"],
   ["Acabamentos disponíveis", "Mylar ou resina epóxi"],
   ["Norma de referência (tipo seco)", "ABNT NBR5356-11"],
   ["Norma de referência (curto-circuito)", "ABNT NBR5356-5:2015"],
@@ -85,7 +83,7 @@ const PERGUNTAS: Pergunta[] = [
   {
     pergunta: "Toroidal reduz EMI dentro do gabinete?",
     resposta:
-      "A irradiação de campo magnético é baixíssima em relação ao E/I, e a blindagem eletrostática e eletromagnética reforça isso. Requisito de ensaio específico entra na especificação.",
+      "A irradiação de campo magnético do núcleo toroidal é muito baixa, e a blindagem eletrostática e eletromagnética reforça isso. Requisito de ensaio específico entra na especificação.",
   },
   {
     pergunta: "Mylar ou resina epóxi?",
@@ -201,7 +199,7 @@ export default function TransformadoresNobreaksPage() {
             segurança do equipamento final. Para o negócio, homologação com menos idas e vindas.
           </p>
           <p>
-            <strong>Tamanho e peso reduzidos frente ao E/I.</strong> Espaço que volta para o projeto: bateria, dissipação
+            <strong>Tamanho e peso reduzidos.</strong> Espaço que volta para o projeto: bateria, dissipação
             ou um gabinete menor. Para o negócio, custo de embalagem e frete menor por unidade.
           </p>
         </Prose>
@@ -228,26 +226,6 @@ export default function TransformadoresNobreaksPage() {
             a tensão de saída permanece dentro da faixa. Os valores de especificação estão na tabela desta página.
           </p>
         </div>
-      </PillarBody>
-
-      <PillarBody>
-        <Prose id="toroidal-ou-ei" titulo="Toroidal ou E/I: a pergunta certa">
-          <p>
-            Cada tecnologia atende necessidades diferentes. A questão não é qual é melhor, é qual gera mais valor para os
-            objetivos deste projeto.
-          </p>
-          <p>
-            O toroidal costuma decidir quando o gabinete é apertado, quando há eletrônica sensível perto do transformador
-            ou quando ruído audível e aquecimento incomodam o usuário final. O E/I segue adequado quando o custo unitário
-            pesa mais que o ganho de espaço, ou quando o projeto já está consolidado em torno dele e mudar exigiria
-            requalificar o conjunto.
-          </p>
-          <p>
-            Ainda nessa decisão? A engenharia compara os dois cenários com os seus números antes de você fechar a
-            especificação. O fundamento técnico completo da linha está em{" "}
-            <Link href="/transformadores-toroidais">Transformadores Toroidais</Link>.
-          </p>
-        </Prose>
       </PillarBody>
 
       <PillarBody tone="tint">

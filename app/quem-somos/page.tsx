@@ -37,7 +37,7 @@ const PERGUNTAS = [
   {
     pergunta: "Quais certificações a Toroid do Brasil possui?",
     resposta:
-      "ISO 9001, certificada pela RINA, além de certificação ESG. Os produtos também atendem RoHS Compliant e têm garantia de 3 anos.",
+      "ISO 9001, certificada pela RINA. Os produtos também atendem RoHS Compliant e têm garantia de 3 anos.",
   },
   {
     pergunta: "A Toroid do Brasil fabrica produtos sob medida?",

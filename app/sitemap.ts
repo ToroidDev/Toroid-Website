@@ -18,10 +18,74 @@ const ROTAS_ESTATICAS = [
   "/blog",
 ];
 
+// Só a home tem espelho em espanhol hoje (ver app/es/page.tsx e
+// lib/i18n.ts). Alternates aqui é o mesmo hreflang das páginas, só que no
+// formato que o sitemap espera.
+const ALTERNADAS: Record<string, Record<string, string>> = {
+  "/": { "pt-BR": absoluteUrl("/"), es: absoluteUrl("/es") },
+  "/transformador-de-corrente": {
+    "pt-BR": absoluteUrl("/transformador-de-corrente"),
+    es: absoluteUrl("/es/transformador-de-corrente"),
+  },
+  "/transformador-de-potencia": {
+    "pt-BR": absoluteUrl("/transformador-de-potencia"),
+    es: absoluteUrl("/es/transformador-de-potencia"),
+  },
+  "/transformadores-toroidais": {
+    "pt-BR": absoluteUrl("/transformadores-toroidais"),
+    es: absoluteUrl("/es/transformadores-toroidais"),
+  },
+  "/indutores-filtros-e-chokes": {
+    "pt-BR": absoluteUrl("/indutores-filtros-e-chokes"),
+    es: absoluteUrl("/es/indutores-filtros-e-chokes"),
+  },
+};
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const estaticas: MetadataRoute.Sitemap = ROTAS_ESTATICAS.map((rota) => ({
     url: absoluteUrl(rota),
+    ...(ALTERNADAS[rota] ? { alternates: { languages: ALTERNADAS[rota] } } : {}),
   }));
+
+  const espelhos: MetadataRoute.Sitemap = [
+    { url: absoluteUrl("/es"), alternates: { languages: { "pt-BR": absoluteUrl("/"), es: absoluteUrl("/es") } } },
+    {
+      url: absoluteUrl("/es/transformador-de-corrente"),
+      alternates: {
+        languages: {
+          "pt-BR": absoluteUrl("/transformador-de-corrente"),
+          es: absoluteUrl("/es/transformador-de-corrente"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/es/transformador-de-potencia"),
+      alternates: {
+        languages: {
+          "pt-BR": absoluteUrl("/transformador-de-potencia"),
+          es: absoluteUrl("/es/transformador-de-potencia"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/es/transformadores-toroidais"),
+      alternates: {
+        languages: {
+          "pt-BR": absoluteUrl("/transformadores-toroidais"),
+          es: absoluteUrl("/es/transformadores-toroidais"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/es/indutores-filtros-e-chokes"),
+      alternates: {
+        languages: {
+          "pt-BR": absoluteUrl("/indutores-filtros-e-chokes"),
+          es: absoluteUrl("/es/indutores-filtros-e-chokes"),
+        },
+      },
+    },
+  ];
 
   // WP_API_URL confirmado em produção (2026-08-17, ver ROADMAP.md) — os posts
   // já aparecem de fato em /blog. Antes disso este bloco ficava comentado
@@ -36,5 +100,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(post.publicadoEm),
   }));
 
-  return [...estaticas, ...postsSitemap];
+  return [...estaticas, ...espelhos, ...postsSitemap];
 }

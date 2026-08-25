@@ -34,11 +34,11 @@ export function Footer() {
               </WhatsAppLink>
               <a href="mailto:vendas@toroid.com.br">
                 <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
-                vendas@toroid.com.br
+                Vendas
               </a>
               <a href="mailto:engenharia@toroid.com.br">
                 <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
-                engenharia@toroid.com.br
+                Engenharia
               </a>
               <a href="mailto:rh@toroid.com.br">
                 <Mail size={15} strokeWidth={1.8} aria-hidden="true" />
@@ -68,35 +68,6 @@ export function Footer() {
                 <YoutubeIcon size={15} />
                 YouTube
               </a>
-            </div>
-          </div>
-
-          <div>
-            <p className={styles.columnTitle}>
-              <FooterText k="selos" />
-            </p>
-            <div className={styles.selos}>
-              <Image
-                src="/images/cert-rina-iso9001.jpg"
-                alt="Sistema de gestão certificado RINA ISO 9001"
-                width={1710}
-                height={1110}
-                className={styles.seloRina}
-              />
-              <Image
-                src="/images/cert-iso.png"
-                alt="Certificação ISO 9001"
-                width={269}
-                height={188}
-                className={styles.seloIso}
-              />
-              <Image
-                src="/images/cert-esg.png"
-                alt="Certificação ESG"
-                width={269}
-                height={188}
-                className={styles.seloEsg}
-              />
             </div>
           </div>
         </div>

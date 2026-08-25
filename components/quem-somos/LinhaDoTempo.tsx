@@ -24,7 +24,7 @@ const MARCOS = [
   },
   {
     ano: "2004",
-    titulo: "Sede própria",
+    titulo: "Nova sede",
     texto:
       "Dez anos depois, a operação muda para uma sede de aproximadamente 600 m², com espaço para mais máquinas de enrolamento.",
     imagem: "/images/fachada-placa.webp",
