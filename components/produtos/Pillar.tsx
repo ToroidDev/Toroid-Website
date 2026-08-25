@@ -5,6 +5,7 @@ import type { ProdutoIcone } from "@/lib/produtos";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { T } from "@/components/i18n/T";
 import { PillarEmblem } from "./PillarEmblem";
 import styles from "./Pillar.module.css";
 
@@ -39,7 +40,9 @@ export function PillarHero({
         <div>
           <ol className={styles.breadcrumb}>
             <li>
-              <Link href="/">Início</Link>
+              <Link href="/">
+                <T pt="Início" es="Inicio" en="Home" />
+              </Link>
               <span className={styles.breadcrumbSep} aria-hidden="true">
                 /
               </span>
@@ -61,11 +64,11 @@ export function PillarHero({
 
           <div className={styles.heroActions}>
             <a href="#orcamento" className={styles.onDarkPrimary}>
-              Solicitar Orçamento Técnico
+              <T pt="Solicitar Orçamento Técnico" es="Solicitar Presupuesto Técnico" en="Request a Technical Quote" />
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
             <WhatsAppLink className={styles.onDarkSecondary}>
-              Falar com nosso time
+              <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>
           </div>
@@ -131,7 +134,9 @@ export function PillarIndex({ secoes }: { secoes: SecaoPilar[] }) {
     <nav className={styles.index} aria-label="Índice desta página">
       <div className={styles.indexInner}>
         <div className={styles.indexCard}>
-          <p className={styles.indexTitle}>Nesta página</p>
+          <p className={styles.indexTitle}>
+            <T pt="Nesta página" es="En esta página" en="On this page" />
+          </p>
           <ul className={styles.indexList}>
             {secoes.map((secao) => (
               <li key={secao.id}>

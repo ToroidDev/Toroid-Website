@@ -14,6 +14,7 @@
   background: rgba(255, 255, 255, 0.08);
   font-size: 16px;
   line-height: 1;
+  text-decoration: none;
   cursor: pointer;
   transition: background 0.16s ease-out, border-color 0.16s ease-out;
 }
@@ -22,7 +23,8 @@
   background: rgba(255, 255, 255, 0.18);
 }
 
-.flag[aria-pressed="true"] {
+.flag[aria-pressed="true"],
+.flag[aria-current="page"] {
   border-color: #fff;
   background: rgba(255, 255, 255, 0.24);
 }

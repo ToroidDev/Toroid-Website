@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
+import { absoluteUrl } from "@/lib/seo";
 import {
   PillarBody,
   PillarChecklist,
@@ -31,7 +32,14 @@ export const metadata: Metadata = {
   title: "Transformador de Potência sob Medida | Toroid do Brasil",
   description:
     "Transformador de potência com isolação galvânica, eficiência até 98% e núcleo toroidal ou convencional conforme o projeto. Peça orçamento técnico com a nossa engenharia.",
-  alternates: { canonical: "/transformador-de-potencia" },
+  alternates: {
+    canonical: "/transformador-de-potencia",
+    languages: {
+      "pt-BR": absoluteUrl("/transformador-de-potencia"),
+      es: absoluteUrl("/es/transformador-de-potencia"),
+      "x-default": absoluteUrl("/transformador-de-potencia"),
+    },
+  },
 };
 
 const SECOES: SecaoPilar[] = [

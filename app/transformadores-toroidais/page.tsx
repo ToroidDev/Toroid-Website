@@ -2,22 +2,18 @@ import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
-import {
-  PillarBody,
-  PillarChecklist,
-  PillarClosing,
-  PillarHero,
-  PillarIndex,
-  Prose,
-  Pullquote,
-  type SecaoPilar,
-} from "@/components/produtos/Pillar";
+import { absoluteUrl } from "@/lib/seo";
+import { PillarBody, PillarClosing, PillarHero, PillarIndex, Prose, type SecaoPilar } from "@/components/produtos/Pillar";
 
 // Esta página não é mais uma das 3 famílias de produto (essa família agora é
 // Transformador de Potência, ver app/transformador-de-potencia/page.tsx). O
 // núcleo toroidal é uma tecnologia que atravessa TC, TP e Indutores, não uma
-// linha própria — por isso esta página explica a tecnologia e compara com o
-// convencional, sem tabela de especificações e sem schema Product isolado.
+// linha própria — por isso esta página explica a tecnologia em si (como
+// funciona, como é fabricada, em que aplicações se destaca), sem tabela de
+// especificações e sem schema Product isolado. Por decisão comercial, o
+// conteúdo NÃO compara com o núcleo convencional E/I nem sugere que o
+// toroidal seja superior — cada linha de produto trata dessa escolha, quando
+// relevante, sem contrapor tecnologias.
 // A URL/canonical NÃO muda: já é indexada e ranqueia, então fica exatamente
 // aqui, só muda o papel do conteúdo.
 //
@@ -26,35 +22,30 @@ import {
 // quando WP_API_URL estiver validado, sem mudar URL nem estrutura desta página.
 
 export const metadata: Metadata = {
-  title: "Transformador Toroidal: Como Funciona e Quando Escolher | Toroid do Brasil",
+  title: "Transformador Toroidal: Como Funciona e Onde Aplicar | Toroid do Brasil",
   description:
-    "Entenda como funciona o núcleo toroidal, quando ele gera mais valor que o convencional E/I, e em quais linhas da Toroid essa tecnologia está disponível.",
-  alternates: { canonical: "/transformadores-toroidais" },
+    "Entenda como funciona o núcleo toroidal, como a Toroid fabrica esse núcleo, e em quais aplicações essa tecnologia faz mais diferença.",
+  alternates: {
+    canonical: "/transformadores-toroidais",
+    languages: {
+      "pt-BR": absoluteUrl("/transformadores-toroidais"),
+      es: absoluteUrl("/es/transformadores-toroidais"),
+      "x-default": absoluteUrl("/transformadores-toroidais"),
+    },
+  },
 };
 
 const SECOES: SecaoPilar[] = [
   { id: "o-que-muda", titulo: "O que muda com um núcleo toroidal" },
   { id: "como-fabricamos", titulo: "Como fabricamos o núcleo toroidal" },
-  { id: "toroidal-ou-convencional", titulo: "Toroidal ou convencional E/I" },
   { id: "iluminacao", titulo: "Iluminação arquitetônica" },
   { id: "audio", titulo: "Áudio profissional" },
-  { id: "como-escolher", titulo: "Como decidir entre toroidal e convencional" },
-  // { id: "objecoes", titulo: "Objeções mais comuns" },
 ];
 
 const FATOS = [
   { icon: MapPin, texto: "São José dos Pinhais · PR" },
   { icon: ShieldCheck, texto: "Tipo seco conforme ABNT NBR5356-11" },
-  { icon: Factory, texto: "Até 60% menos peso que o convencional E/I" },
-];
-
-const CHECKLIST = [
-  "Restrição de espaço ou peso no gabinete ou no produto final",
-  "Tolerância a ruído audível na aplicação",
-  "Sensibilidade do sistema a interferência eletromagnética no entorno",
-  "Se o restante do equipamento já está validado em torno de um núcleo convencional",
-  "Peso do custo por unidade frente ao ganho de espaço e peso",
-  "Volume do pedido e prazo do projeto",
+  { icon: Factory, texto: "Núcleo compacto e de baixo ruído audível" },
 ];
 
 const JSON_LD = [
@@ -77,18 +68,10 @@ const JSON_LD = [
     mainEntity: [
       {
         "@type": "Question",
-        name: "Transformador toroidal é melhor que o convencional E/I?",
+        name: "Como funciona um núcleo toroidal?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Cada tecnologia atende necessidades diferentes. O toroidal reduz tamanho, peso e ruído audível. O convencional pode ser mais adequado quando o custo por unidade pesa mais que o ganho de espaço, ou quando o projeto já está consolidado em torno dele.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Um núcleo toroidal é mais eficiente que um convencional E/I?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Tende a ser: a geometria toroidal reduz as perdas em vazio por distribuir o campo magnético de forma mais uniforme e não ter entreferro. Para os valores de eficiência e regulação da linha Toroid, veja Transformadores de Potência.",
+          text: "O núcleo toroidal tem formato de anel, com primário e secundário enrolados sobre ele. Essa geometria distribui o campo magnético de forma mais uniforme, o que reduz a irradiação para fora do equipamento e diminui as perdas em vazio.",
         },
       },
       {
@@ -112,11 +95,11 @@ export default function TransformadoresToroidaisPage() {
         eyebrow="Isolação galvânica e baixa irradiação"
         titulo={
           <>
-            Transformador toroidal ou convencional? A resposta depende{" "}
-            <span style={{ color: "var(--color-green-light)" }}>da restrição do seu projeto</span>
+            Núcleo toroidal: como funciona, como fabricamos{" "}
+            <span style={{ color: "var(--color-green-light)" }}>e onde essa tecnologia faz mais diferença</span>
           </>
         }
-        lead="Se o seu projeto já roda com transformador convencional e alguém sugeriu migrar para um transformador toroidal, a pergunta que importa não é qual tecnologia é melhor. É qual delas resolve a restrição real do projeto: espaço no gabinete, peso do equipamento final, ruído audível, ou eficiência energética."
+        lead="Espaço no gabinete, peso do equipamento final, ruído audível ou eficiência energética: entenda como a geometria do núcleo toroidal responde a cada uma dessas restrições, e em que aplicações ela costuma fazer mais diferença."
         fatos={FATOS}
       />
 
@@ -149,28 +132,6 @@ export default function TransformadoresToroidaisPage() {
             propriedades elétricas e magnéticas do aço, alteradas pelo próprio processo de corte e enrolamento.
           </p>
         </Prose>
-
-        <Prose id="toroidal-ou-convencional" titulo="Toroidal ou convencional: qual gera mais valor para o projeto">
-          <p>
-            A construção toroidal reduz tamanho e peso de 30% a 60% em relação ao convencional E/I, elimina o gap de
-            entreferro do núcleo laminado e opera de forma mais silenciosa. São vantagens relevantes quando o projeto
-            tem restrição de espaço, limite de peso no produto final ou baixa tolerância a ruído audível.
-          </p>
-          <p>
-            A construção convencional continua sendo a escolha certa em outros cenários: quando o custo por unidade pesa
-            mais do que o ganho de espaço, ou quando o projeto já está validado em torno dela e migrar significaria
-            requalificar todo o restante do equipamento.
-          </p>
-          <p>
-            Cada tecnologia atende necessidades diferentes. A pergunta útil não é qual núcleo é superior em abstrato, e
-            sim qual gera mais valor para os objetivos específicos deste projeto. Essa resposta muda de aplicação para
-            aplicação.
-          </p>
-
-          <Pullquote fonte="Toroid do Brasil">
-            A pergunta certa não é qual núcleo é melhor. É qual gera mais valor para este projeto.
-          </Pullquote>
-        </Prose>
       </PillarBody>
 
       <PillarBody tone="tint">
@@ -193,14 +154,6 @@ export default function TransformadoresToroidaisPage() {
           </p>
         </Prose>
       </PillarBody>
-
-      <PillarChecklist
-        id="como-escolher"
-        eyebrow="Antes de decidir"
-        titulo="Como decidir entre toroidal e convencional"
-        lead="Estas são as perguntas que realmente separam um núcleo toroidal de um convencional para o seu projeto. A resposta raramente é sobre qual tecnologia é “melhor” em abstrato."
-        itens={CHECKLIST}
-      />
 
       {/* <PillarObjections id="objecoes" /> */}
 

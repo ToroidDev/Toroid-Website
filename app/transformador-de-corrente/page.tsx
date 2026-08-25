@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
+import { absoluteUrl } from "@/lib/seo";
 import {
   PillarBody,
   PillarChecklist,
@@ -28,7 +29,14 @@ export const metadata: Metadata = {
   title: "Transformador de Corrente (TC) sob Medida | Toroid",
   description:
     "Transformador de corrente para medição e proteção, com classe de exatidão a partir de 0,3%, fabricação nacional e garantia de 3 anos. Peça seu orçamento técnico.",
-  alternates: { canonical: "/transformador-de-corrente" },
+  alternates: {
+    canonical: "/transformador-de-corrente",
+    languages: {
+      "pt-BR": absoluteUrl("/transformador-de-corrente"),
+      es: absoluteUrl("/es/transformador-de-corrente"),
+      "x-default": absoluteUrl("/transformador-de-corrente"),
+    },
+  },
 };
 
 const SECOES: SecaoPilar[] = [

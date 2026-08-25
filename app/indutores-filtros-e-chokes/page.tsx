@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
+import { absoluteUrl } from "@/lib/seo";
 import {
   PillarBody,
   PillarChecklist,
@@ -30,7 +31,14 @@ export const metadata: Metadata = {
   title: "Indutores e Reatores sob Medida | Toroid do Brasil",
   description:
     "Indutores e reatores com indutância especificada pela faixa real de operação do circuito, fabricação nacional e garantia de 3 anos. Peça orçamento técnico.",
-  alternates: { canonical: "/indutores-filtros-e-chokes" },
+  alternates: {
+    canonical: "/indutores-filtros-e-chokes",
+    languages: {
+      "pt-BR": absoluteUrl("/indutores-filtros-e-chokes"),
+      es: absoluteUrl("/es/indutores-filtros-e-chokes"),
+      "x-default": absoluteUrl("/indutores-filtros-e-chokes"),
+    },
+  },
 };
 
 const SECOES: SecaoPilar[] = [
