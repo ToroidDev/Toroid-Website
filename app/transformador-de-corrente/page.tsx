@@ -47,7 +47,6 @@ const SECOES: SecaoPilar[] = [
   { id: "tc-compacto", titulo: "TC compacto para painel" },
   { id: "tc-bipartido", titulo: "TC bipartido" },
   { id: "tc-resinado", titulo: "TC resinado para ambiente agressivo" },
-  { id: "toroidal-ou-convencional", titulo: "Núcleo toroidal ou convencional" },
   { id: "tc-em-scada", titulo: "TC em sistemas SCADA" },
   { id: "religadores", titulo: "TC para religadores automáticos" },
   { id: "como-testamos", titulo: "Como testamos cada TC" },
@@ -280,20 +279,6 @@ export default function TransformadorDeCorrentePage() {
       </PillarBody>
 
       <PillarBody>
-        <Prose id="toroidal-ou-convencional" titulo="Núcleo toroidal ou bobinado convencional: qual atende o projeto">
-          <p>
-            A construção toroidal reduz o volume ocupado pelo núcleo e distribui o campo magnético de forma mais
-            uniforme, o que favorece exatidão em espaço reduzido de painel. A construção convencional pode ser a escolha
-            certa quando o projeto já está consolidado em torno dela, ou quando o custo por unidade pesa mais do que o
-            ganho de espaço.
-          </p>
-          <p>
-            Cada tecnologia atende necessidades diferentes. A pergunta útil não é qual núcleo é melhor em abstrato, e
-            sim qual gera mais valor para os objetivos deste projeto: espaço no painel, exatidão exigida, ou custo total
-            ao longo do ciclo de vida do equipamento.
-          </p>
-        </Prose>
-
         <Prose id="tc-em-scada" titulo="TC em SCADA: dado de campo em que a automação pode confiar">
           <p>
             Um sistema SCADA é tão bom quanto o dado que chega até ele. Um transformador de corrente com classe de

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
-import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
 import { absoluteUrl } from "@/lib/seo";
 import {
@@ -45,7 +44,6 @@ export const metadata: Metadata = {
 const SECOES: SecaoPilar[] = [
   { id: "o-que-resolve", titulo: "O que um transformador de potência resolve no seu projeto" },
   { id: "isolacao-e-eficiencia", titulo: "Isolação galvânica e eficiência" },
-  { id: "nucleo-toroidal-ou-convencional", titulo: "Núcleo toroidal ou convencional" },
   { id: "materias-primas", titulo: "Matérias-primas: aço e cobre" },
   { id: "acabamentos", titulo: "Encapsulado, resinado ou simples" },
   { id: "medico", titulo: "Equipamento médico" },
@@ -199,20 +197,6 @@ export default function TransformadorDePotenciaPage() {
           <Pullquote fonte="Toroid do Brasil">
             Operações críticas não esperam apenas energia. Esperam estabilidade.
           </Pullquote>
-        </Prose>
-
-        <Prose id="nucleo-toroidal-ou-convencional" titulo="Núcleo toroidal ou convencional: qual atende o projeto">
-          <p>
-            A linha de transformadores de potência Toroid pode ser fornecida em núcleo toroidal ou em construção
-            convencional E/I. A escolha entre as duas depende da restrição real do projeto: espaço no gabinete, peso
-            do produto final, ruído audível ou custo por unidade.
-          </p>
-          <p>
-            Cada tecnologia atende necessidades diferentes, e não existe resposta genérica que valha para todo
-            projeto. O comparativo completo entre núcleo toroidal e convencional, incluindo quando cada um gera mais
-            valor, está em{" "}
-            <Link href="/transformadores-toroidais">Transformadores Toroidais</Link>.
-          </p>
         </Prose>
       </PillarBody>
 

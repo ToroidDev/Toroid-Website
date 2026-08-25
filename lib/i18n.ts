@@ -82,7 +82,6 @@ type FooterDictionary = {
   about: string;
   contato: string;
   redes: string;
-  selos: string;
   tagline: string;
   direitos: string;
   cookiePrefs: string;
@@ -143,7 +142,6 @@ export const footerDictionary: Record<Locale, FooterDictionary> = {
       "Transformadores de corrente, transformadores de potência e indutores sob medida. Fabricação nacional, ISO 9001.",
     contato: "Contato",
     redes: "Redes",
-    selos: "Selos",
     tagline: "Transformando energia e vidas.",
     direitos: "Todos os direitos reservados",
     cookiePrefs: "Preferências de cookies",
@@ -154,7 +152,6 @@ export const footerDictionary: Record<Locale, FooterDictionary> = {
       "Transformadores de corriente, transformadores de potencia e inductores a medida. Fabricación nacional, ISO 9001.",
     contato: "Contacto",
     redes: "Redes",
-    selos: "Certificaciones",
     tagline: "Transformando energía y vidas.",
     direitos: "Todos los derechos reservados",
     cookiePrefs: "Preferencias de cookies",
@@ -165,7 +162,6 @@ export const footerDictionary: Record<Locale, FooterDictionary> = {
       "Current transformers, power transformers and custom inductors. Made in Brazil, ISO 9001 certified.",
     contato: "Contact",
     redes: "Social",
-    selos: "Certifications",
     tagline: "Transforming energy and lives.",
     direitos: "All rights reserved",
     cookiePrefs: "Cookie preferences",

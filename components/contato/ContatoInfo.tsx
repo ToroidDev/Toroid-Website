@@ -4,8 +4,8 @@ import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import styles from "./ContatoInfo.module.css";
 
 const CONTATOS = [
-  { label: "Vendas", href: "mailto:vendas@toroid.com.br", texto: "vendas@toroid.com.br" },
-  { label: "Engenharia", href: "mailto:engenharia@toroid.com.br", texto: "engenharia@toroid.com.br" },
+  { label: "Vendas", href: "mailto:vendas@toroid.com.br", texto: null },
+  { label: "Engenharia", href: "mailto:engenharia@toroid.com.br", texto: null },
   { label: "Trabalhe conosco", href: "mailto:rh@toroid.com.br", texto: "rh@toroid.com.br" },
 ];
 

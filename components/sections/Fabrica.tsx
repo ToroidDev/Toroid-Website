@@ -116,9 +116,8 @@ export function Fabrica() {
       </div>
 
       {/* A faixa de "Certificações e conformidade" que ficava aqui foi removida:
-          repetia ISO 9001 / ESG / RoHS que a faixa de prova no topo da página já
-          declara, e as imagens dos selos seguem no footer. Era a terceira aparição
-          da mesma informação na mesma página. */}
+          repetia ISO 9001 / RoHS que a faixa de prova no topo da página já
+          declara. Era a terceira aparição da mesma informação na mesma página. */}
     </section>
   );
 }
