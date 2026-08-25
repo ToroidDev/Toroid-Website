@@ -29,6 +29,14 @@ export function LanguageSwitcher() {
               aria-current={isActive ? "page" : undefined}
               aria-label={LOCALE_FLAGS[code].label}
               title={LOCALE_FLAGS[code].label}
+              // Precisa sincronizar cookie/estado aqui mesmo indo navegar:
+              // (1) se href já é a rota atual (ex.: em "/" mostrando espanhol
+              // por cookie salvo, clicar "pt" aponta pra "/" de novo), o
+              // Next não navega, e sem isso o clique não fazia nada; (2) ao
+              // navegar de /es pra /, sem isto o cookie antigo (es) ficava
+              // valendo e a página de destino voltava a mostrar espanhol
+              // depois de hidratar.
+              onClick={() => setLocale(code)}
             >
               <span aria-hidden="true">{LOCALE_FLAGS[code].flag}</span>
             </Link>
