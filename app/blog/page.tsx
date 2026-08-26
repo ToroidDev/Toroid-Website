@@ -52,10 +52,10 @@ export default async function BlogPage() {
             <div className={styles.grid}>
               {posts.map((post) => (
                 <article key={post.id} className={styles.card}>
-                  <h2 className={styles.cardTitle}>
-                    <Link href={`/blog/${post.slug}`}>{post.titulo}</Link>
-                  </h2>
-                  <div className={styles.cardResumo} dangerouslySetInnerHTML={{ __html: post.resumoHtml }} />
+                  <Link href={`/blog/${post.slug}`} className={styles.cardLink}>
+                    <h2 className={styles.cardTitle}>{post.titulo}</h2>
+                    <div className={styles.cardResumo} dangerouslySetInnerHTML={{ __html: post.resumoHtml }} />
+                  </Link>
                 </article>
               ))}
             </div>
