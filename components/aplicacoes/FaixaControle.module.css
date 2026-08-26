@@ -1,0 +1,68 @@
+.quadro {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #fff;
+  padding: clamp(16px, 2vw, 22px);
+  box-shadow: 0 2px 8px rgba(26, 75, 140, 0.05);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 720 / 190;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .svg {
+    aspect-ratio: 360 / 190;
+  }
+}
+
+.deriva {
+  animation: faixaControleDeriva 20s linear infinite;
+}
+
+@keyframes faixaControleDeriva {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-720px);
+  }
+}
+
+.legenda {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(18px, 2.4vw, 30px);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.chip {
+  flex: none;
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.chipRuido {
+  background: rgba(230, 150, 70, 0.55);
+}
+
+.chipControle {
+  background: var(--color-blue);
+}

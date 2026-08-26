@@ -105,9 +105,10 @@ export function montarLeadDocument(params: {
     },
     attribution,
     context,
-    // Sem checkbox de consentimento no formulário hoje (bloqueado até existir
-    // página de privacidade real — ver PRODUCT.md). Sempre false até lá, não
-    // é bug.
+    // Sem checkbox de consentimento no formulário, por decisão (2026-08-25):
+    // o site mantém só o consentimento básico de cookies, sem desenvolver
+    // política de privacidade completa nem este checkbox. Sempre false, por
+    // design permanente, não é bug. Ver CLAUDE.md.
     consent: { lgpd: false },
     status: "novo",
     // Preenchido depois, se o usuário clicar na CTA de WhatsApp da tela de

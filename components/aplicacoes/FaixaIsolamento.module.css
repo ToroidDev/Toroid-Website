@@ -1,0 +1,59 @@
+.quadro {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #fff;
+  padding: clamp(16px, 2vw, 22px);
+  box-shadow: 0 2px 8px rgba(26, 75, 140, 0.05);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rotuloBloco {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-title);
+}
+
+.rotuloFolga {
+  font-size: 11px;
+  fill: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.legenda {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(18px, 2.4vw, 30px);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.chip {
+  flex: none;
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.chipFolga {
+  background: rgba(94, 167, 94, 0.5);
+}
+
+.chipFuga {
+  background: rgba(179, 58, 58, 0.55);
+}

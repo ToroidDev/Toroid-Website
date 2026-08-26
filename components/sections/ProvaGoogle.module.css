@@ -1,0 +1,77 @@
+/* Seção pequena de propósito: um selo de prova, não um bloco institucional
+   completo (mesma lógica de "prova enxuta" já aplicada nas páginas de
+   aplicação). */
+.section {
+  padding: clamp(28px, 3.2vw, 40px) 0;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 26px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fff;
+  text-decoration: none;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(26, 75, 140, 0.1), 0 3px 8px rgba(26, 75, 140, 0.05);
+  border-color: var(--color-blue-soft);
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nota {
+  font-family: var(--font-title);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.estrelas {
+  position: relative;
+  display: inline-flex;
+  color: var(--color-blue);
+}
+
+.estrelasFundo,
+.estrelasPreenchidas {
+  display: flex;
+  gap: 1px;
+}
+
+.estrelasPreenchidas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.legenda {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}

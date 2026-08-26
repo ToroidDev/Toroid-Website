@@ -15,7 +15,14 @@ const ROTAS_ESTATICAS = [
   "/quem-somos",
   "/contato",
   "/aplicacoes/nobreaks",
+  "/aplicacoes/automacao-industrial",
+  "/aplicacoes/equipamentos-laboratoriais",
+  "/aplicacoes/integradores-de-sistemas",
+  // /aplicacoes/equipamentos-medicos fica de fora de propósito: ainda com
+  // `robots: noindex` (conteúdo normativo de equipamento regulado sem
+  // validação da engenharia, ver aviso no próprio arquivo).
   "/blog",
+  "/trabalhe-conosco",
 ];
 
 // Só a home tem espelho em espanhol hoje (ver app/es/page.tsx e

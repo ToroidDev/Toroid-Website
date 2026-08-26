@@ -19,6 +19,11 @@ const SEGMENTOS = [
       en: "Shielding between windings and low leakage current: less interference in the measured signal, a reliable report and test approval without redesign.",
     },
     icon: HeartPulse,
+    // Rascunho técnico ainda sem validação da engenharia/comercial (ver
+    // ROADMAP.md, item 1.5). Mantida como link interno mesmo assim, mas com
+    // `robots: noindex` na própria página até essa validação acontecer, por
+    // ser conteúdo normativo de equipamento regulado.
+    href: "/aplicacoes/equipamentos-medicos",
   },
   {
     id: "nobreaks",
@@ -33,9 +38,6 @@ const SEGMENTOS = [
       en: "Lower no-load loss and contained magnetic dispersion: less heat inside the enclosure, autonomy preserved in the field and fewer warranty claims.",
     },
     icon: BatteryCharging,
-    // Único segmento com página própria hoje (ver ROADMAP.md) — os outros 4
-    // ainda não têm dor validada nem conteúdo, então ficam sem link de
-    // propósito em vez de apontar pra página que não existe.
     href: "/aplicacoes/nobreaks",
   },
   {
@@ -51,6 +53,7 @@ const SEGMENTOS = [
       en: "Toroidal core with no air gap and reduced volume: fits the designed panel, stable cabinet temperature and fewer line stops from thermal failure.",
     },
     icon: Cpu,
+    href: "/aplicacoes/automacao-industrial",
   },
   {
     id: "laboratorio",
@@ -65,6 +68,7 @@ const SEGMENTOS = [
       en: "Reduced acoustic and magnetic noise: stable instrument reading, repeatability between tests and less unplanned recalibration.",
     },
     icon: FlaskConical,
+    href: "/aplicacoes/equipamentos-laboratoriais",
   },
   {
     id: "integradores",
@@ -79,6 +83,7 @@ const SEGMENTOS = [
       en: "Custom sizing per application: field installation with no on-site adaptation, project schedule kept and less overtime for your own team.",
     },
     icon: Network,
+    href: "/aplicacoes/integradores-de-sistemas",
   },
 ];
 
@@ -127,16 +132,6 @@ export function Segmentos() {
               </article>
             );
           })}
-          {/* Dentro do grid, não abaixo dele: são 5 segmentos em 3 colunas, e o
-              banner ocupa exatamente a célula que sobrava na segunda linha. */}
-          <div className={styles.pendingBanner}>
-            <p className={styles.pendingLabel}>
-              <T pt="Prova social" es="Prueba social" en="Social proof" />
-            </p>
-            <p className={styles.pendingText}>
-              <T pt="Em breve" es="Próximamente" en="Coming soon" />
-            </p>
-          </div>
         </div>
       </div>
     </section>

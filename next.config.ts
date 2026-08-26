@@ -92,6 +92,7 @@ const nextConfig = {
       // existe. ATENÇÃO: /blog/[slug] ainda não existe como rota (ver
       // ROADMAP.md), então até essa rota ser construída estes redirects
       // terminam em 404. Confirmar que /blog/[slug] existe antes do go-live.
+      { source: '/suporte-especializado-toroid', destination: '/blog/suporte-especializado-toroid', permanent: true },
       { source: '/o-que-realmente-difere-os-transformadores-toroidais-dos-modelos-convencionais', destination: '/blog/o-que-realmente-difere-os-transformadores-toroidais-dos-modelos-convencionais', permanent: true },
       { source: '/voce-sabe-o-que-e-classe-termica-em-transformadores-e-por-que-ela-importa', destination: '/blog/voce-sabe-o-que-e-classe-termica-em-transformadores-e-por-que-ela-importa', permanent: true },
       { source: '/religadores-automaticos-eficiencia-e-continuidade-com-transformadores-de-corrente-toroidais', destination: '/blog/religadores-automaticos-eficiencia-e-continuidade-com-transformadores-de-corrente-toroidais', permanent: true },

@@ -42,7 +42,7 @@ const MARCOS = [
     ano: "Hoje",
     titulo: "Engenharia aplicada, em escala",
     texto:
-      "Cerca de 80 colaboradores, mais de 18.000 projetos entregues e mais de 1,5 milhão de produtos fabricados, com rastreabilidade de lote e sistema de gestão certificado.",
+      "Cerca de 80 colaboradores, mais de 18.000 projetos entregues e mais de 1,5 milhão de produtos fabricados, com rastreabilidade de lote e sistema de gestão certificado. Da primeira máquina até aqui, o crescimento nunca parou.",
     imagem: "/images/fabrica-interna-tratada.webp",
     alt: "Vista do chão de fábrica da Toroid, com postos de bobinagem e montagem em operação",
   },

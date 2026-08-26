@@ -1,0 +1,33 @@
+.fluxo {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation-name: fluxoCircula;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fluxoCircula {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cintilação leve nos dentes de ruído: rápida e de baixa amplitude, pra ler
+   como "ruído elétrico" e não como algo piscando de propósito. Só opacity,
+   sem repaint de layout. */
+.jitter {
+  animation: ruidoJitter 1.8s ease-in-out infinite;
+}
+
+@keyframes ruidoJitter {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}

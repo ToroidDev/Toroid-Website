@@ -1,0 +1,34 @@
+/* Mesma técnica de NucleoIsolado.module.css: rotação pura, compositada na
+   GPU, sem repintura. */
+.fluxo {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation-name: fluxoCircula;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fluxoCircula {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fita do monitor correndo para a esquerda, mesma técnica de deriva de
+   BandaRegulacao.module.css: o traçado tem o dobro da largura visível e o
+   período (110) divide 440, então -440 emenda sem costura. */
+.deriva {
+  animation: pulsoDeriva 14s linear infinite;
+}
+
+@keyframes pulsoDeriva {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-440px);
+  }
+}

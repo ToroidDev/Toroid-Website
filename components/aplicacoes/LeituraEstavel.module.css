@@ -1,0 +1,46 @@
+.fluxo {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation-name: fluxoCircula;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fluxoCircula {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Leitura e marcas de escala correndo devagar: precisão lida como calma, não
+   como movimento chamativo. Mesma técnica de translação de BandaRegulacao.tsx. */
+.deriva {
+  animation: leituraDeriva 26s linear infinite;
+}
+
+@keyframes leituraDeriva {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-440px);
+  }
+}
+
+/* Ghost de deriva mais lento ainda: fica quase parado, porque a afirmação é
+   "isso não se move de verdade". */
+.derivaLenta {
+  animation: leituraDerivaLenta 60s linear infinite;
+}
+
+@keyframes leituraDerivaLenta {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-440px);
+  }
+}
