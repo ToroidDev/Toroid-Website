@@ -1,6 +1,6 @@
 # Toroid do Brasil: site institucional
 
-Site institucional da Toroid do Brasil (transformadores toroidais, transformadores de corrente e indutores/reatores), em Next.js (App Router), consumindo WordPress como CMS headless. Contexto completo do projeto em [`CLAUDE.md`](./CLAUDE.md) e [`PRODUCT.md`](./PRODUCT.md).
+Site institucional da Toroid do Brasil (transformadores toroidais, transformadores de corrente e indutores/reatores), em Next.js (App Router), consumindo WordPress como CMS headless. Contexto completo do projeto em [`CLAUDE.md`](./CLAUDE.md) (convenções/regras), [`PRODUCT.md`](./PRODUCT.md) (posicionamento) e [`ROADMAP.md`](./ROADMAP.md) (status/pendências). Para entender como o site é construído de fato — mapa de rotas, i18n, fluxo de dados, integrações — ver [`ARQUITETURA.md`](./ARQUITETURA.md).
 
 ## Getting Started
 
