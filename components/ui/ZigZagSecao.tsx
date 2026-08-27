@@ -1,13 +1,11 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import styles from "./CapacidadeSecao.module.css";
+import { ImagePlaceholder } from "./ImagePlaceholder";
+import styles from "./ZigZagSecao.module.css";
 
-interface Imagem {
-  src: string;
-  alt: string;
-}
+type ItemImagem = { src: string; alt: string } | { placeholder: string };
 
-export function CapacidadeSecao({
+export function ZigZagSecao({
   id,
   eyebrow,
   titulo,
@@ -19,7 +17,7 @@ export function CapacidadeSecao({
   id: string;
   eyebrow: string;
   titulo: string;
-  imagens: Imagem[];
+  imagens: ItemImagem[];
   lado?: "esquerda" | "direita";
   tone?: "light" | "tint";
   children: ReactNode;
@@ -42,17 +40,23 @@ export function CapacidadeSecao({
         </div>
 
         <div className={imagens.length > 1 ? styles.mediaDuo : styles.media}>
-          {imagens.map((imagem) => (
-            <figure key={imagem.src} className={styles.tile}>
-              <Image
-                src={imagem.src}
-                alt={imagem.alt}
-                fill
-                sizes="(min-width: 900px) 46vw, 100vw"
-                className={styles.tileImg}
-              />
-            </figure>
-          ))}
+          {imagens.map((imagem) =>
+            "placeholder" in imagem ? (
+              <figure key={imagem.placeholder} className={styles.tile}>
+                <ImagePlaceholder legenda={imagem.placeholder} />
+              </figure>
+            ) : (
+              <figure key={imagem.src} className={styles.tile}>
+                <Image
+                  src={imagem.src}
+                  alt={imagem.alt}
+                  fill
+                  sizes="(min-width: 900px) 46vw, 100vw"
+                  className={styles.tileImg}
+                />
+              </figure>
+            )
+          )}
         </div>
       </div>
     </section>

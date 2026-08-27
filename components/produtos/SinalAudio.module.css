@@ -1,0 +1,12 @@
+.onda {
+  animation: sinalFlui 3.4s linear infinite;
+}
+
+@keyframes sinalFlui {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-80px);
+  }
+}

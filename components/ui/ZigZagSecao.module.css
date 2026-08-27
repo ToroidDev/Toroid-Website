@@ -1,6 +1,9 @@
 .secao {
   background: #fff;
   padding: clamp(52px, 7vw, 96px) 0;
+  /* compensa o header fixo quando a seção é destino de âncora (ex.: link do
+     índice em Pillar.tsx apontando para #como-fabricamos) */
+  scroll-margin-top: clamp(96px, 10vw, 120px);
 }
 
 .tint {

@@ -123,6 +123,29 @@
   transform: translateX(4px);
 }
 
+/* Link discreto para a página que explica o núcleo toroidal em si — mesmo
+   padrão do link "conheça nossa capacidade fabril" em Fabrica.tsx (home).
+   Fica entre o heading e o accordion, de propósito fora dele: não é uma
+   4ª família de produto. */
+.toroidalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: clamp(18px, 2.2vw, 26px) 0 clamp(28px, 3.4vw, 40px);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-blue);
+  border-bottom: 1.5px solid var(--color-border-green);
+  padding-bottom: 2px;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out, gap 0.16s ease-out;
+}
+
+.toroidalLink:hover {
+  color: var(--color-blue-deep);
+  border-color: var(--color-blue-soft);
+  gap: 13px;
+}
+
 /* Sem hover em toque: abaixo de 700px o accordion vira lista empilhada com
    cada item já expandido, em vez de depender de um gesto que não existe. */
 @media (max-width: 700px) {

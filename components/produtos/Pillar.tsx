@@ -23,6 +23,7 @@ export function PillarHero({
   titulo,
   lead,
   fatos,
+  arte,
 }: {
   icone: ProdutoIcone;
   nomeCategoria: string;
@@ -30,6 +31,10 @@ export function PillarHero({
   titulo: ReactNode;
   lead: ReactNode;
   fatos: { icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>; texto: string }[];
+  /** Substitui o PillarEmblem padrão por uma arte própria (ex.: HeroToroid,
+   *  o render 3D girando usado antes na home). Sem ela, cai no emblema
+   *  estático de sempre — é o caso das 3 páginas de família. */
+  arte?: ReactNode;
 }) {
   return (
     <section className={styles.hero}>
@@ -74,8 +79,8 @@ export function PillarHero({
           </div>
         </div>
 
-        <div className={styles.heroArt}>
-          <PillarEmblem icone={icone} />
+        <div className={arte ? `${styles.heroArt} ${styles.heroArtCustom}` : styles.heroArt}>
+          {arte ?? <PillarEmblem icone={icone} />}
         </div>
       </div>
 
@@ -172,13 +177,40 @@ export function PillarBody({
   );
 }
 
-export function Prose({ id, titulo, children }: { id: string; titulo: string; children: ReactNode }) {
+export function Prose({
+  id,
+  titulo,
+  arte,
+  children,
+}: {
+  id: string;
+  titulo: string;
+  /** Arte lateral opcional (ex.: animação SVG). Sem ela, o bloco segue coluna
+   *  única de sempre — só as páginas que passam essa prop ganham a grade de
+   *  duas colunas. */
+  arte?: ReactNode;
+  children: ReactNode;
+}) {
+  if (!arte) {
+    return (
+      <div className={styles.prose}>
+        <h2 id={id} className={styles.proseHeading}>
+          {titulo}
+        </h2>
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.prose}>
-      <h2 id={id} className={styles.proseHeading}>
-        {titulo}
-      </h2>
-      {children}
+    <div className={styles.proseComArte}>
+      <div className={styles.prose}>
+        <h2 id={id} className={styles.proseHeading}>
+          {titulo}
+        </h2>
+        {children}
+      </div>
+      <div className={styles.proseArte}>{arte}</div>
     </div>
   );
 }
@@ -319,9 +351,25 @@ const OBJECOES = [
 
 /* ══════════ Fecho antes do CTA ══════════ */
 
-export function PillarClosing({ id, titulo, children }: { id: string; titulo: string; children: ReactNode }) {
+export function PillarClosing({
+  id,
+  titulo,
+  tone = "light",
+  children,
+}: {
+  id: string;
+  titulo: string;
+  /** "dark" reaproveita o mesmo fundo em gradiente azul + padrão espiral do
+   *  PillarChecklist, pra fechos que precisam de mais peso visual (ex.: a
+   *  página que amarra as 3 famílias de volta). Default "light" mantém o
+   *  fundo branco de sempre nas páginas de família. */
+  tone?: "light" | "dark";
+  children: ReactNode;
+}) {
+  const dark = tone === "dark";
   return (
-    <section className={styles.closing}>
+    <section className={dark ? `${styles.closing} ${styles.closingDark}` : styles.closing}>
+      {dark ? <InstitutionalPattern spiral opacity={0.05} stroke="#9FC2EA" className={styles.closingPattern} /> : null}
       <div className={styles.closingInner}>
         <div className={styles.prose}>
           <h2 id={id} className={styles.proseHeading}>

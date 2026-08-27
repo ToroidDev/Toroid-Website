@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CTA } from "@/components/sections/CTA";
 import { CapacidadeHero } from "@/components/capacidade-fabril/CapacidadeHero";
-import { CapacidadeSecao } from "@/components/capacidade-fabril/CapacidadeSecao";
+import { ZigZagSecao } from "@/components/ui/ZigZagSecao";
 import { PillarChecklist } from "@/components/produtos/Pillar";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -28,7 +28,7 @@ export default function CapacidadeFabrilPage() {
     <>
       <CapacidadeHero />
 
-      <CapacidadeSecao
+      <ZigZagSecao
         id="materias-primas"
         eyebrow="Matérias-primas"
         titulo="Aço silício de grão orientado e cobre esmaltado, na especificação certa"
@@ -50,9 +50,9 @@ export default function CapacidadeFabrilPage() {
           até enrolamentos que precisam suportar carga mais pesada, sem trocar de fornecedor entre uma ponta e outra
           da linha.
         </p>
-      </CapacidadeSecao>
+      </ZigZagSecao>
 
-      <CapacidadeSecao
+      <ZigZagSecao
         id="nucleos"
         eyebrow="Núcleos e tratamento térmico"
         titulo="Núcleo fabricado internamente, com tratamento térmico próprio"
@@ -69,9 +69,9 @@ export default function CapacidadeFabrilPage() {
           aquecimento de até <strong>820 °C</strong>. O processo expulsa o oxigênio, fixa a geometria do núcleo e
           restabelece as propriedades elétricas e magnéticas do aço, alteradas pelo próprio corte e enrolamento.
         </p>
-      </CapacidadeSecao>
+      </ZigZagSecao>
 
-      <CapacidadeSecao
+      <ZigZagSecao
         id="isolamento-e-resinagem"
         eyebrow="Isolamento, enrolamento e resinagem"
         titulo="Do isolamento ao encapsulamento, célula por célula"
@@ -91,9 +91,9 @@ export default function CapacidadeFabrilPage() {
           Resinagem parcial ou total aumenta a resistência mecânica de transformadores de tensão, e o encapsulamento
           reforça a proteção dielétrica e ambiental dos transformadores de corrente.
         </p>
-      </CapacidadeSecao>
+      </ZigZagSecao>
 
-      <CapacidadeSecao
+      <ZigZagSecao
         id="cnc-e-pcp"
         eyebrow="CNC, ferramentaria e controle de produção"
         titulo="Ferramentaria própria e rastreabilidade de lote"
@@ -110,9 +110,9 @@ export default function CapacidadeFabrilPage() {
           O planejamento e controle da produção é automatizado, com leitura de código de barras em cada etapa, para
           rastreabilidade total do lote, do enrolamento ao teste elétrico final.
         </p>
-      </CapacidadeSecao>
+      </ZigZagSecao>
 
-      <CapacidadeSecao
+      <ZigZagSecao
         id="laboratorio"
         eyebrow="Laboratório de testes e qualidade"
         titulo="Teste elétrico rigoroso, peça por peça"
@@ -128,7 +128,7 @@ export default function CapacidadeFabrilPage() {
           dado de campo em que ela pode confiar sem margem de dúvida. Conheça a engenharia aplicada a cada
           transformador Toroid do Brasil.
         </p>
-      </CapacidadeSecao>
+      </ZigZagSecao>
 
       <PillarChecklist
         id="laboratorio-de-testes"

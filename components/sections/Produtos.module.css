@@ -19,6 +19,28 @@
   padding: 0 var(--gutter);
 }
 
+/* Link discreto para a página que explica o núcleo toroidal em si — mesmo
+   padrão do link "conheça nossa capacidade fabril" em Fabrica.tsx. Fica
+   entre o heading e o grid, de propósito fora dele: não é uma 4ª família. */
+.toroidalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-blue);
+  border-bottom: 1.5px solid var(--color-border-green);
+  padding-bottom: 2px;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out, gap 0.16s ease-out;
+}
+
+.toroidalLink:hover {
+  color: var(--color-blue-deep);
+  border-color: var(--color-blue-soft);
+  gap: 13px;
+}
+
 .grid {
   display: grid;
   gap: 20px;

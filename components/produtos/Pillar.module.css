@@ -220,6 +220,15 @@
   width: clamp(230px, 40vw, 400px);
 }
 
+/* Arte própria (ex.: HeroToroid) ganha mais espaço que o emblema padrão —
+   é uma peça maior e mais detalhada, pensada pra esse tamanho. Pequeno
+   deslocamento pra direita/cima: a peça tem bastante espaço vazio abaixo
+   (sombra de contato) e à esquerda, então centrada ela lia meio "baixa". */
+.heroArtCustom {
+  width: clamp(320px, 54vw, 540px);
+  transform: translate(calc(5% + 4rem), -7%);
+}
+
 @media (min-width: 1080px) {
   .heroArt {
     justify-self: end;
@@ -467,8 +476,42 @@
   max-width: 68ch;
 }
 
-.prose + .prose {
+.prose + .prose,
+.prose + .proseComArte,
+.proseComArte + .prose,
+.proseComArte + .proseComArte {
   margin-top: clamp(40px, 4.6vw, 60px);
+}
+
+/* Prose com arte lateral (animação SVG): mesma proporção 2 colunas do hero
+   (.heroInner), só ativa quando `arte` é passada — páginas de família que
+   não usam a prop continuam com `.prose` de coluna única. */
+.proseComArte {
+  display: grid;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.proseComArte .prose {
+  max-width: none;
+}
+
+@media (min-width: 1080px) {
+  .proseComArte {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  }
+}
+
+.proseArte {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1080px) {
+  .proseArte {
+    max-width: none;
+  }
 }
 
 .proseHeading {
@@ -822,6 +865,62 @@
   position: relative;
   background: #fff;
   padding: 0 0 clamp(20px, 3vw, 40px);
+}
+
+/* Mesmo tratamento do PillarChecklist: gradiente azul profundo + halo +
+   padrão espiral, pra fechos que precisam de mais peso visual. */
+.closingDark {
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--section-pad) 0;
+  background: linear-gradient(158deg, var(--color-blue-ink) 0%, var(--color-blue-deep) 54%, var(--color-blue) 100%);
+  color: var(--color-on-blue);
+}
+
+.closingDark::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -30%;
+  right: -12%;
+  width: min(900px, 92vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.16), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.closingPattern {
+  position: absolute;
+  z-index: 0;
+  top: -44%;
+  left: -22%;
+  width: min(1000px, 100vw);
+  pointer-events: none;
+}
+
+.closingDark .closingInner {
+  position: relative;
+  z-index: 1;
+}
+
+.closingDark .proseHeading {
+  color: #fff;
+}
+
+.closingDark .prose p {
+  color: var(--color-on-blue-muted);
+}
+
+.closingDark .prose a {
+  color: var(--color-green-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(143, 203, 143, 0.4);
+}
+
+.closingDark .prose a:hover {
+  color: #fff;
+  text-decoration-color: currentColor;
 }
 
 .closingInner {

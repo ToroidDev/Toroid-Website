@@ -8,7 +8,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { T } from "@/components/i18n/T";
 import styles from "./Fabrica.module.css";
 
-const marqueeItems = [...produtos, ...produtos];
+// Só 3 produtos reais: duas cópias (a técnica clássica de -50%) ficam mais
+// estreitas que a viewport em monitores largos, e o carrossel "acaba" antes
+// de reiniciar. Seis cópias (três por metade) cobrem telas largas comuns
+// sem quebrar a matemática do loop (a metade continua sendo exatamente 50%
+// da largura total, então o -50% → 0% continua sem salto).
+const MARQUEE_REPETICOES = 6;
+const marqueeItems = Array.from({ length: MARQUEE_REPETICOES }, () => produtos).flat();
 
 export function Fabrica() {
   return (
@@ -91,25 +97,36 @@ export function Fabrica() {
 
       <div className={styles.marqueeWrapper}>
         <div className={styles.track}>
-          {marqueeItems.map((produto, index) => (
-            <figure key={`${produto.id}-${index}`} className={styles.figure} aria-hidden={index >= produtos.length}>
-              {produto.imagem ? (
-                <Image
-                  src={produto.imagem}
-                  alt={produto.nome}
-                  fill
-                  sizes="344px"
-                  className={styles.figImg}
-                />
-              ) : (
-                <ProductPlaceholder produto={produto} />
-              )}
-              <figcaption className={styles.figCaption}>
-                <span className={styles.figTitle}>{produto.nome}</span>
-                <span className={styles.figSubtitle}>{produto.resumo}</span>
-              </figcaption>
-            </figure>
-          ))}
+          {marqueeItems.map((produto, index) => {
+            const duplicado = index >= produtos.length;
+            return (
+              <Link
+                key={`${produto.id}-${index}`}
+                href={produto.href}
+                className={styles.figure}
+                aria-hidden={duplicado}
+                tabIndex={duplicado ? -1 : undefined}
+              >
+                <figure>
+                  {produto.imagem ? (
+                    <Image
+                      src={produto.imagem}
+                      alt={produto.nome}
+                      fill
+                      sizes="344px"
+                      className={styles.figImg}
+                    />
+                  ) : (
+                    <ProductPlaceholder produto={produto} />
+                  )}
+                  <figcaption className={styles.figCaption}>
+                    <span className={styles.figTitle}>{produto.nome}</span>
+                    <span className={styles.figSubtitle}>{produto.resumo}</span>
+                  </figcaption>
+                </figure>
+              </Link>
+            );
+          })}
         </div>
         <div className={styles.edgeFadeLeft} aria-hidden="true" />
         <div className={styles.edgeFadeRight} aria-hidden="true" />

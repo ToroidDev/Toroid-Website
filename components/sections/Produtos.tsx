@@ -22,6 +22,15 @@ export function Produtos() {
           />
         </SectionHeading>
 
+        <Link href="/transformadores-toroidais" className={styles.toroidalLink}>
+          <T
+            pt="Conheça a tecnologia por trás do núcleo toroidal, presente nas três famílias"
+            es="Conozca la tecnología detrás del núcleo toroidal, presente en las tres familias"
+            en="See the technology behind the toroidal core, present in all three families"
+          />
+          <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+        </Link>
+
         <div className={styles.grid}>
           {produtos.map((produto) => (
             <Link key={produto.id} href={produto.href} className={styles.card}>

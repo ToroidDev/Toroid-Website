@@ -22,10 +22,15 @@ export function ProdutosAccordion() {
       <div className={styles.inner}>
         <SectionHeading
           eyebrow="Produtos"
-          lead="Busca transformadores? Até mesmo sob medida? Consulte a Toroid do Brasil."
+          lead="Busca transformadores? Consulte a Toroid do Brasil."
         >
           Três famílias, todas projetadas sob medida.
         </SectionHeading>
+
+        <Link href="/transformadores-toroidais" className={styles.toroidalLink}>
+          Conheça a tecnologia por trás do núcleo toroidal, presente nas três famílias
+          <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+        </Link>
 
         <div className={styles.accordion}>
           {produtos.map((produto) => (
