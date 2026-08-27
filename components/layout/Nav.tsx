@@ -11,6 +11,17 @@ import { useLocale } from "@/components/layout/LocaleProvider";
 import { navDictionary } from "@/lib/i18n";
 import styles from "./Nav.module.css";
 
+// Só /produtos e /blog (listagem e post) têm fundo claro colado no topo, sem
+// hero escuro por baixo do header: nelas a logo fica preta o tempo todo,
+// como sempre foi. Nas demais (home, quem-somos, contato, as 3 famílias de
+// produto, transformadores-toroidais, capacidade-fabril, trabalhe-conosco,
+// e os espelhos /es/*) o header em repouso fica sobre hero escuro, então usa
+// a versão branca até o primeiro scroll, quando a pílula branca assume e a
+// logo volta para a preta tradicional.
+function heroClaroPath(pathname: string): boolean {
+  return pathname === "/produtos" || pathname === "/blog" || pathname.startsWith("/blog/");
+}
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,6 +34,7 @@ export function Nav() {
   // silencioso (nada acontece). Nessa página o link precisa navegar até a home
   // e rolar; nas demais, a âncora local mantém o usuário no lugar.
   const orcamentoHref = pathname === "/contato" ? "/#orcamento" : "#orcamento";
+  const heroClaro = heroClaroPath(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -69,16 +81,40 @@ export function Nav() {
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
         <div className={styles.bar}>
           <Link href="/" aria-label={t.irParaHome} className={styles.logoLink}>
-            <span className={styles.logoPlate}>
-              <Image
-                src="/images/logo-toroid-trim.png"
-                alt="Toroid do Brasil"
-                width={808}
-                height={349}
-                priority
-                className={styles.logo}
-              />
-            </span>
+            {heroClaro ? (
+              <span className={styles.logoPlate}>
+                <Image
+                  src="/images/logo-toroid-trim.png"
+                  alt="Toroid do Brasil"
+                  width={808}
+                  height={349}
+                  priority
+                  className={styles.logo}
+                />
+              </span>
+            ) : (
+              <span className={styles.logoStack}>
+                <Image
+                  src="/images/logo-toroid-trim-branco.png"
+                  alt="Toroid do Brasil"
+                  width={808}
+                  height={349}
+                  priority
+                  className={`${styles.logo} ${styles.logoWhite}`}
+                />
+                {/* Sem `priority`: só fica visível depois do primeiro scroll,
+                    não é LCP. A branca acima é a que precisa carregar cedo. */}
+                <span className={styles.logoPlate}>
+                  <Image
+                    src="/images/logo-toroid-trim.png"
+                    alt="Toroid do Brasil"
+                    width={808}
+                    height={349}
+                    className={styles.logo}
+                  />
+                </span>
+              </span>
+            )}
           </Link>
 
           <nav className={styles.desktopNav} aria-label={t.principal}>

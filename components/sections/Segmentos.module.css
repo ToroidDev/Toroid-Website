@@ -25,7 +25,15 @@
 /* Flex, não grid: com 5 cards a última linha fica com 2, e flexbox permite
    que cresçam do mesmo jeito que os da primeira linha e ainda centralizem
    (justify-content), em vez de deixar uma célula vazia à direita como um
-   grid de colunas fixas faria. */
+   grid de colunas fixas faria.
+
+   flex-basis em % (não px fixo) abaixo: com base fixa em px, existe uma
+   faixa de largura de container (~630–910px, ou seja, janelas de laptop/
+   tablet comuns) onde só 2 cards cabem por linha em vez de 3, quebrando o
+   padrão 3+2 em 2+2+1. Base percentual (100%/3 menos a fatia do gap)
+   garante exatamente 3 por linha em qualquer largura de container acima do
+   breakpoint mobile — nunca 2, nunca 4 — porque a base escala com o
+   container em vez de competir com ele. */
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -37,13 +45,20 @@
 .card {
   display: flex;
   flex-direction: column;
-  flex: 1 1 290px;
-  max-width: 360px;
+  flex: 1 1 100%;
+  max-width: 480px;
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 14px;
   padding: 30px;
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+@media (min-width: 900px) {
+  .card {
+    flex: 1 1 calc(33.333% - 13.334px);
+    max-width: 360px;
+  }
 }
 
 a.card {

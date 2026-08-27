@@ -60,10 +60,13 @@
   flex-shrink: 0;
 }
 
-/* Placa branca atrás do logo. Existe porque o PNG do logo tem fundo branco
-   chapado e não há versão negativa do arquivo: sobre o hero azul escuro, sem a
-   placa, o retângulo branco do próprio arquivo apareceria solto. Em repouso ela
-   é uma placa deliberada; com a pílula branca aberta ela desaparece dentro dela. */
+/* Placa branca atrás da logo preta. Existe porque logo-toroid-trim.png tem
+   fundo branco chapado: sem a placa, sobre um fundo que não seja branco, o
+   retângulo do próprio arquivo apareceria solto. Nas páginas de fundo claro
+   (heroClaro) é a única logo, sempre visível. Nas de hero escuro ela mora
+   dentro de .logoStack e só aparece depois do primeiro scroll, quando a
+   pílula branca assume. Antes disso é logo-toroid-trim-branco.png (fundo
+   transparente, traço branco de verdade) que fica visível. */
 .logoPlate {
   display: flex;
   align-items: center;
@@ -71,7 +74,8 @@
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 3px 12px rgba(9, 28, 56, 0.16);
-  transition: padding 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-radius 0.3s var(--ease-out);
+  transition: padding 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-radius 0.3s var(--ease-out),
+    opacity 0.3s var(--ease-out);
 }
 
 .header.scrolled .logoPlate {
@@ -80,16 +84,55 @@
   box-shadow: none;
 }
 
+/* Empilha a logo branca (fundo transparente, traço branco real, ver
+   logo-toroid-trim-branco.png) sobre a preta tradicional na mesma célula de
+   grid, e crossfade por opacidade quando `scrolled` muda. Só usado nas
+   páginas com hero escuro no topo (ver heroClaroPath em Nav.tsx); nas de
+   fundo claro a logo continua só a preta, sem stack. */
+.logoStack {
+  position: relative;
+  display: inline-grid;
+  /* a placa da logo preta tem padding e a branca não, então sem centralizar
+     explicitamente as duas divergem: o grid alinharia cada uma no início da
+     célula em vez de sobrepor as marcas de verdade. */
+  place-items: center;
+}
+
+.logoStack > * {
+  grid-area: 1 / 1;
+}
+
+.logoStack .logoWhite {
+  opacity: 1;
+  /* sem mix-blend-mode: o PNG branco já tem alfa real, e multiply com branco
+     puro deixaria o traço transparente contra o hero escuro (branco*cor =
+     cor, o traço "sumiria" mostrando o fundo através dele). */
+  mix-blend-mode: normal;
+  transition: opacity 0.3s var(--ease-out), height 0.3s var(--ease-out);
+}
+
+.header.scrolled .logoStack .logoWhite {
+  opacity: 0;
+}
+
+.logoStack .logoPlate {
+  opacity: 0;
+}
+
+.header.scrolled .logoStack .logoPlate {
+  opacity: 1;
+}
+
 .logo {
   display: block;
-  height: clamp(38px, 3.9vw, 46px);
+  height: clamp(42px, 4.3vw, 51px);
   width: auto;
   mix-blend-mode: multiply;
   transition: height 0.3s var(--ease-out);
 }
 
 .header.scrolled .logo {
-  height: clamp(40px, 4.2vw, 48px);
+  height: clamp(44px, 4.6vw, 53px);
 }
 
 /* filete sob a barra em repouso, some quando a pílula abre */
