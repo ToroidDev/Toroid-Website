@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
 import { dataISO, formatarData, temaDoPost } from "@/lib/blog";
 import type { PostResumo } from "@/lib/wordpress";
 import { PostCover } from "./PostCover";
@@ -8,11 +8,11 @@ import styles from "./PostDestaque.module.css";
 
 /**
  * Abertura da listagem: o post mais recente aberto na coluna principal (capa,
- * etiqueta, data, título, resumo e CTA) e as três leituras seguintes numa
- * coluna lateral compacta.
+ * etiqueta, data, título, resumo e CTA) e as quatro leituras seguintes numa
+ * coluna lateral compacta, que tem a altura exata do destaque ao lado.
  *
  * O bloco só existe na primeira página (ver app/blog/page.tsx): a partir da
- * página 2 o visitante já está navegando o acervo, e repetir os mesmos quatro
+ * página 2 o visitante já está navegando o acervo, e repetir os mesmos cinco
  * posts no topo empurraria a grade para fora da tela em toda paginação.
  */
 export function PostDestaque({ destaque, sugestoes }: { destaque: PostResumo; sugestoes: PostResumo[] }) {
@@ -96,6 +96,11 @@ export function PostDestaque({ destaque, sugestoes }: { destaque: PostResumo; su
                 );
               })}
             </ol>
+
+            <Link href="#artigos" className={styles.lateralRodape}>
+              Ver o acervo completo
+              <ArrowDown size={15} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
           </aside>
         </div>
       </div>

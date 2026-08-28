@@ -22,11 +22,13 @@
   white-space: nowrap;
 }
 
+/* `align-items: stretch` (padrão) e não `start`: é o que faz a coluna lateral
+   ter exatamente a altura do destaque ao lado, em vez de terminar no meio e
+   deixar um degrau na base do bloco. */
 .grid {
   display: grid;
   gap: clamp(20px, 2.6vw, 30px);
   grid-template-columns: 1fr;
-  align-items: start;
 }
 
 @media (min-width: 1040px) {
@@ -167,20 +169,18 @@
 
 /* ── coluna lateral ── */
 
+/* Coluna fixa, sem `position: sticky`: grudada, ela deslizava por cima do
+   bloco enquanto o resto da página rolava, e o cartão descolava do destaque
+   que ele acompanha. Agora fica parado e a altura sobrando é absorvida pelos
+   próprios itens (`.item { flex: 1 }`), não por um vão no fim da lista. */
 .lateral {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 18px;
   padding: clamp(18px, 2vw, 24px);
   box-shadow: 0 10px 30px rgba(9, 28, 56, 0.06);
-}
-
-@media (min-width: 1040px) {
-  /* acompanha a leitura do destaque, que é mais alto que a lista */
-  .lateral {
-    position: sticky;
-    top: clamp(88px, 9vw, 104px);
-  }
 }
 
 .lateralTitulo {
@@ -204,9 +204,21 @@
 }
 
 .lista {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  /* `1 1 0`: os itens repartem a altura sobrando em partes iguais, então os
+     filetes entre eles ficam equidistantes. Com `space-between` na lista, a
+     sobra viraria vão e o filete encostaria no item de baixo. */
+  flex: 1 1 0;
 }
 
 .item + .item {
@@ -215,8 +227,11 @@
 
 .itemLink {
   display: grid;
+  flex: 1;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
+  /* o conteúdo do item fica centrado na altura que sobrou pra ele */
+  align-content: center;
   gap: 14px;
   padding: 18px 0;
   color: inherit;
@@ -276,4 +291,34 @@
 .itemLink:hover .itemSeta {
   color: var(--color-blue);
   transform: translate(2px, -2px);
+}
+
+/* Fecha a coluna e absorve parte da altura sobrando com algo útil, em vez de
+   esticar ainda mais os quatro itens. */
+.lateralRodape {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  transition: color 0.16s ease-out;
+}
+
+.lateralRodape:hover {
+  color: var(--color-blue-deep);
+}
+
+.lateralRodape svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.lateralRodape:hover svg {
+  transform: translateY(2px);
 }

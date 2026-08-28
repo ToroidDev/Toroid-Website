@@ -18,8 +18,8 @@ import styles from "./page.module.css";
 // lib/wordpress.ts. Se o WP cair, buscar() devolve vazio e a página mostra o
 // estado sem conteúdo em vez de um 500.
 
-/** 1 destaque + 3 sugestões na coluna lateral. */
-const DESTAQUES = 4;
+/** 1 destaque + 4 sugestões na coluna lateral. */
+const DESTAQUES = 5;
 /** 3 colunas × 3 linhas na grade. */
 const POR_PAGINA = 9;
 
@@ -61,23 +61,29 @@ export default async function BlogPage({
 }) {
   const pagina = lerPagina((await searchParams).page);
 
-  // O bloco de destaque só existe na primeira página, então nas demais essa
-  // chamada nem sai. A grade sempre pula os DESTAQUES: usar `offset` em vez de
-  // `page` no WP é o que impede o corte de 4 posts de cair no meio das páginas
-  // seguintes (ver getPostsPagina em lib/wordpress.ts).
-  const [emDestaque, grade] = await Promise.all([
-    pagina === 1 ? buscar(0, DESTAQUES) : Promise.resolve({ posts: [], total: 0 }),
-    buscar(DESTAQUES + (pagina - 1) * POR_PAGINA, POR_PAGINA),
-  ]);
+  // UMA chamada por página, nunca duas. Na primeira, os DESTAQUES e a grade
+  // saem da mesma sequência de posts e são fatiados aqui. Duas chamadas em
+  // paralelo criavam um estado incoerente: bastava a da grade falhar para a
+  // página mostrar o destaque cheio e anunciar que o acervo tinha acabado,
+  // com 59 posts ainda por listar. Com uma chamada só, ou a página tem tudo
+  // ou não tem nada.
+  //
+  // A grade sempre pula os DESTAQUES: usar `offset` em vez de `page` no WP é
+  // o que impede esse corte de cair no meio das páginas seguintes (ver
+  // getPostsPagina em lib/wordpress.ts).
+  const { posts, total } =
+    pagina === 1
+      ? await buscar(0, DESTAQUES + POR_PAGINA)
+      : await buscar(DESTAQUES + (pagina - 1) * POR_PAGINA, POR_PAGINA);
 
-  const total = grade.total;
+  const [destaque, ...sugestoes] = pagina === 1 ? posts.slice(0, DESTAQUES) : [];
+  const grade = pagina === 1 ? posts.slice(DESTAQUES) : posts;
+
   const totalPaginas = Math.max(1, Math.ceil(Math.max(0, total - DESTAQUES) / POR_PAGINA));
 
   // Página fora da faixa é 404 de verdade, não uma grade vazia: uma URL que
   // responde 200 sem conteúdo é sinal ruim para o índice.
-  if (pagina > 1 && grade.posts.length === 0) notFound();
-
-  const [destaque, ...sugestoes] = emDestaque.posts;
+  if (pagina > 1 && grade.length === 0) notFound();
 
   const JSON_LD = [
     {
@@ -95,7 +101,7 @@ export default async function BlogPage({
       url: absoluteUrl("/blog"),
       inLanguage: "pt-BR",
       publisher: { "@type": "Organization", name: "Toroid do Brasil" },
-      blogPost: [...emDestaque.posts, ...grade.posts].map((post) => ({
+      blogPost: posts.map((post) => ({
         "@type": "BlogPosting",
         headline: decodificarEntidades(post.titulo),
         url: absoluteUrl(`/blog/${post.slug}`),
@@ -121,10 +127,10 @@ export default async function BlogPage({
             Todos os artigos.
           </SectionHeading>
 
-          {grade.posts.length > 0 ? (
+          {grade.length > 0 ? (
             <>
               <div className={styles.grid}>
-                {grade.posts.map((post) => (
+                {grade.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
