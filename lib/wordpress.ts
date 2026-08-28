@@ -56,13 +56,22 @@ export interface Aplicacao {
 
 export type CategoriaPost = "especificacao-tecnica" | "engenharia-manutencao" | "aplicacoes-segmento" | "cases";
 
-export interface Post {
+/**
+ * O que a listagem de /blog precisa de cada post. Separado de `Post` de
+ * propósito: `content.rendered` é o campo mais pesado da resposta do WP e a
+ * listagem nunca o usa, então nem chega a ser pedido (ver CAMPOS_RESUMO).
+ */
+export interface PostResumo {
   id: number;
   slug: string;
   titulo: string;
   resumoHtml: string;
-  conteudoHtml: string;
   publicadoEm: string;
+  imagemDestaque: WPImagem | null;
+}
+
+export interface Post extends PostResumo {
+  conteudoHtml: string;
 }
 
 // --- Formato bruto retornado pela REST API do WP (wp-json/wp/v2/*) ---------
@@ -101,13 +110,21 @@ interface WPRawAplicacao {
   };
 }
 
-interface WPRawPost {
+interface WPRawPostResumo {
   id: number;
   slug: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  content: { rendered: string };
   date: string;
+  /** Só presente com `_embed=wp:featuredmedia` E post com imagem destacada:
+   *  quando `featured_media` é 0 o WP omite a chave inteira (confirmado via
+   *  curl em 2026-08-28, post 4624). Quando a mídia existe mas está
+   *  inacessível, o array vem com um objeto de erro sem `source_url`. */
+  _embedded?: { "wp:featuredmedia"?: Array<Partial<WPRawImagem>> };
+}
+
+interface WPRawPost extends WPRawPostResumo {
+  content: { rendered: string };
 }
 
 function mapImagem(raw: WPRawImagem | null): WPImagem | null {
@@ -158,18 +175,53 @@ function limparResiduoDoWord(html: string): string {
     .replace(/<span data-contrast="[^"]*">([\s\S]*?)<\/span>/g, "$1");
 }
 
-function mapPost(raw: WPRawPost): Post {
+// O excerpt automático do WP termina com um link "Continuar lendo …" apontando
+// para a URL do WordPress antigo, fora do Next. No card ele seria um segundo
+// link dentro de um card que já é inteiro clicável, e ainda levaria o visitante
+// para fora do site novo. Fica só o texto, com as reticências que o WP já pôs.
+function limparResumo(html: string): string {
+  return limparResiduoDoWord(html).replace(/<a class="more-link"[\s\S]*?<\/a>/g, "");
+}
+
+function imagemDestacada(raw: WPRawPostResumo): WPImagem | null {
+  const media = raw._embedded?.["wp:featuredmedia"]?.[0];
+  if (!media?.id || !media.source_url) return null;
+  return {
+    id: media.id,
+    url: media.source_url,
+    alt: media.alt_text ?? "",
+    largura: media.media_details?.width,
+    altura: media.media_details?.height,
+  };
+}
+
+function mapPostResumo(raw: WPRawPostResumo): PostResumo {
   return {
     id: raw.id,
     slug: raw.slug,
     titulo: raw.title.rendered,
-    resumoHtml: limparResiduoDoWord(raw.excerpt.rendered),
-    conteudoHtml: limparResiduoDoWord(raw.content.rendered),
+    resumoHtml: limparResumo(raw.excerpt.rendered),
     publicadoEm: raw.date,
+    imagemDestaque: imagemDestacada(raw),
   };
 }
 
-async function wpFetch<T>(path: string, revalidate: number, tags: string[]): Promise<T> {
+function mapPost(raw: WPRawPost): Post {
+  return {
+    ...mapPostResumo(raw),
+    conteudoHtml: limparResiduoDoWord(raw.content.rendered),
+  };
+}
+
+// `total` sai do header X-WP-Total, que o WP devolve em toda resposta de
+// coleção (e mantém a contagem completa mesmo com `offset` aplicado —
+// confirmado via curl em 2026-08-28). É o que permite paginar /blog sem uma
+// segunda chamada só para contar.
+async function wpFetchColecao<T>(
+  path: string,
+  revalidate: number,
+  tags: string[],
+): Promise<{ dados: T; total: number }> {
   if (!WP_API_URL) {
     throw new Error("WP_API_URL não configurada. Ver CLAUDE.md, seção 'Variáveis de ambiente'.");
   }
@@ -177,7 +229,12 @@ async function wpFetch<T>(path: string, revalidate: number, tags: string[]): Pro
   if (!res.ok) {
     throw new Error(`WordPress respondeu ${res.status} para ${path}`);
   }
-  return res.json() as Promise<T>;
+  return { dados: (await res.json()) as T, total: Number(res.headers.get("x-wp-total") ?? 0) };
+}
+
+async function wpFetch<T>(path: string, revalidate: number, tags: string[]): Promise<T> {
+  const { dados } = await wpFetchColecao<T>(path, revalidate, tags);
+  return dados;
 }
 
 export async function getProdutoPorSlug(categoria: CategoriaProduto, slug: string): Promise<Produto | null> {
@@ -213,12 +270,39 @@ export async function getAplicacoesPorIds(ids: number[]): Promise<Aplicacao[]> {
   return raw.map(mapAplicacao);
 }
 
-export async function getPosts(): Promise<Post[]> {
-  const raw = await wpFetch<WPRawPost[]>(`/posts?per_page=20`, 3600, ["posts"]);
-  return raw.map(mapPost);
+// `_embed=wp:featuredmedia` traz a imagem destacada junto da listagem, em vez
+// de uma chamada por post. O `_links.wp:featuredmedia` dentro de `_fields` não
+// é decorativo: sem ele o WP descarta `_embedded` da resposta filtrada e a
+// imagem some (comportamento conhecido do WP REST, confirmado via curl).
+const CAMPOS_RESUMO = "id,slug,title,excerpt,date,_links.wp:featuredmedia,_embedded";
+
+/**
+ * Uma página da listagem de /blog. `offset` (e não `page`) porque os posts em
+ * destaque no topo saem da mesma sequência e precisam ser pulados na grade:
+ * com `page` o corte de 4 posts cairia no meio das páginas seguintes.
+ */
+export async function getPostsPagina(
+  offset: number,
+  porPagina: number,
+): Promise<{ posts: PostResumo[]; total: number }> {
+  const { dados, total } = await wpFetchColecao<WPRawPostResumo[]>(
+    `/posts?per_page=${porPagina}&offset=${offset}&_embed=wp:featuredmedia&_fields=${CAMPOS_RESUMO}`,
+    3600,
+    ["posts", `posts-${offset}-${porPagina}`],
+  );
+  return { posts: dados.map(mapPostResumo), total };
+}
+
+/** Listagem enxuta para o sitemap: sem conteúdo e sem imagem, só o que o
+ *  `MetadataRoute.Sitemap` consome (slug + data). */
+export async function getPosts(): Promise<PostResumo[]> {
+  const raw = await wpFetch<WPRawPostResumo[]>(`/posts?per_page=100&_fields=id,slug,title,excerpt,date`, 3600, [
+    "posts",
+  ]);
+  return raw.map(mapPostResumo);
 }
 
 export async function getPostPorSlug(slug: string): Promise<Post | null> {
-  const raw = await wpFetch<WPRawPost[]>(`/posts?slug=${slug}`, 3600, [`post-${slug}`]);
+  const raw = await wpFetch<WPRawPost[]>(`/posts?slug=${slug}&_embed=wp:featuredmedia`, 3600, [`post-${slug}`]);
   return raw[0] ? mapPost(raw[0]) : null;
 }

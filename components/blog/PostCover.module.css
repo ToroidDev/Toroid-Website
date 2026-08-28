@@ -1,0 +1,76 @@
+.imagem {
+  object-fit: cover;
+}
+
+/* Cada tema tem um ângulo e uma profundidade de azul próprios, então dois
+   cards sem foto lado a lado não parecem o mesmo bloco repetido. Verde só
+   como detalhe no de indutores, nunca com o mesmo peso do azul. */
+.placa {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Descentralizado e em 128%: centralizado e ampliado, só o miolo do pattern
+   cabe no quadro e a placa vira um disco chapado. Assim as linhas irradiando
+   entram na diagonal e a placa fica com direção.
+   As quatro variantes de enquadramento (v0..v3) são escolhidas pelo id do
+   post, não por acaso: sem elas, dois posts do mesmo tema e sem foto viram
+   dois quadros idênticos lado a lado na grade. */
+.pattern {
+  position: absolute;
+  top: var(--placa-y, 50%);
+  left: var(--placa-x, 62%);
+  width: var(--placa-w, 128%);
+  transform: translate(-50%, -50%) rotate(var(--placa-rot, 0deg));
+  pointer-events: none;
+}
+
+.v0 {
+  --placa-x: 64%;
+  --placa-y: 44%;
+  --placa-w: 126%;
+  --placa-rot: 0deg;
+}
+
+.v1 {
+  --placa-x: 30%;
+  --placa-y: 62%;
+  --placa-w: 150%;
+  --placa-rot: 18deg;
+}
+
+.v2 {
+  --placa-x: 78%;
+  --placa-y: 70%;
+  --placa-w: 168%;
+  --placa-rot: -12deg;
+}
+
+.v3 {
+  --placa-x: 44%;
+  --placa-y: 30%;
+  --placa-w: 138%;
+  --placa-rot: 30deg;
+}
+
+.corrente {
+  background: linear-gradient(148deg, var(--color-blue-ink) 0%, var(--color-blue) 100%);
+}
+
+.potencia {
+  background: linear-gradient(122deg, var(--color-blue-abyss) 0%, var(--color-blue-deep) 100%);
+}
+
+.indutores {
+  background: linear-gradient(160deg, var(--color-blue-ink) 0%, #2f6a52 100%);
+}
+
+.toroidal {
+  background: linear-gradient(135deg, var(--color-blue-deep) 0%, var(--color-blue-soft) 100%);
+}
+
+.engenharia {
+  background: linear-gradient(168deg, var(--color-blue-deep) 0%, var(--color-blue-ink) 100%);
+}

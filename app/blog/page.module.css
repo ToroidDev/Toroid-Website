@@ -1,11 +1,16 @@
-.section {
+.acervo {
   position: relative;
-  padding: var(--section-pad) 0;
+  padding: clamp(56px, 6.5vw, 96px) 0 var(--section-pad);
+  /* branco quase imperceptível descendo do azul-tinta do destaque: a grade
+     respira sem virar mais um bloco de branco chapado */
+  background: linear-gradient(180deg, var(--color-bg-tint-2) 0%, #fff 34%);
 }
 
 .pattern {
   position: absolute;
-  inset: 0;
+  top: 4%;
+  right: -20%;
+  width: min(860px, 88vw);
   pointer-events: none;
 }
 
@@ -18,53 +23,9 @@
 
 .grid {
   display: grid;
-  gap: 24px;
+  gap: clamp(18px, 2.2vw, 26px);
   margin-top: clamp(32px, 4vw, 48px);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-}
-
-.card {
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  background: #fff;
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 34px rgba(26, 75, 140, 0.13), 0 3px 8px rgba(26, 75, 140, 0.05);
-  border-color: var(--color-blue-soft);
-}
-
-.cardLink {
-  display: block;
-  padding: 24px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.cardTitle {
-  margin: 0;
-  font-family: var(--font-title);
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--color-text);
-}
-
-.card:hover .cardTitle {
-  color: var(--color-blue);
-}
-
-.cardResumo {
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.cardResumo p {
-  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 292px), 1fr));
 }
 
 .vazio {

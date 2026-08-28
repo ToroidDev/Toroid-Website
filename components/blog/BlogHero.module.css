@@ -1,0 +1,196 @@
+/* Espelha AplicacaoHero: mesmo gradiente, mesmo grão, mesma curva. O que muda
+   é a proporção, mais baixa, porque a listagem não tem arte lateral e o
+   destaque logo abaixo é que precisa aparecer sem scroll. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(132px, 15vw, 176px) 0 clamp(64px, 7vw, 104px);
+  background: linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 46%, var(--color-blue-deep) 100%);
+  color: var(--color-on-blue);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -40%;
+  right: -12%;
+  width: min(860px, 92vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 192, 240, 0.18), rgba(143, 192, 240, 0) 68%);
+  pointer-events: none;
+}
+
+.pattern {
+  position: absolute;
+  z-index: 0;
+  top: -70%;
+  left: -18%;
+  width: min(1060px, 106vw);
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 clamp(20px, 2.6vw, 30px);
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--color-on-blue-faint);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--color-on-blue-muted);
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-green-light);
+  border-bottom-color: var(--color-green-light);
+}
+
+.sep {
+  color: rgba(206, 224, 244, 0.45);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-on-blue-muted);
+}
+
+.eyebrowRule {
+  width: 38px;
+  height: 2px;
+  margin-top: 0.72em;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green-light);
+  transform-origin: left center;
+  animation: ruleGrow 0.9s var(--ease-out) both;
+}
+
+/* Sem animação de entrada: é o elemento de LCP da rota. */
+.titulo {
+  margin: 20px 0 0;
+  font-size: clamp(30px, 3.7vw, 47px);
+  line-height: 1.09;
+  letter-spacing: -0.025em;
+  color: #fff;
+  max-width: 20ch;
+  text-shadow: 0 1px 26px rgba(6, 20, 42, 0.4);
+}
+
+.lead {
+  margin: 22px 0 0;
+  font-size: clamp(16.5px, 1.2vw, 18.5px);
+  line-height: 1.62;
+  color: var(--color-on-blue-muted);
+  max-width: 62ch;
+}
+
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+.contagem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-rule-on-blue);
+  font-size: 13.5px;
+  color: var(--color-on-blue-muted);
+}
+
+.contagem strong {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.atalho {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-on-blue-muted);
+  border-bottom: 1px solid rgba(206, 224, 244, 0.32);
+  padding-bottom: 2px;
+  transition: color 0.16s ease-out, border-color 0.16s ease-out;
+}
+
+.atalho:hover {
+  color: var(--color-green-light);
+  border-bottom-color: var(--color-green-light);
+}
+
+.atalho svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.atalho:hover svg {
+  transform: translateX(3px);
+}
+
+.onda {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: clamp(38px, 4.6vw, 74px);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.onda svg {
+  display: block;
+}

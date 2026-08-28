@@ -11,15 +11,17 @@ import { useLocale } from "@/components/layout/LocaleProvider";
 import { navDictionary } from "@/lib/i18n";
 import styles from "./Nav.module.css";
 
-// Só /produtos e /blog (listagem e post) têm fundo claro colado no topo, sem
-// hero escuro por baixo do header: nelas a logo fica preta o tempo todo,
-// como sempre foi. Nas demais (home, quem-somos, contato, as 3 famílias de
-// produto, transformadores-toroidais, capacidade-fabril, trabalhe-conosco,
-// e os espelhos /es/*) o header em repouso fica sobre hero escuro, então usa
-// a versão branca até o primeiro scroll, quando a pílula branca assume e a
-// logo volta para a preta tradicional.
+// Só /produtos e o post de blog (/blog/[slug]) têm fundo claro colado no topo,
+// sem hero escuro por baixo do header. Nelas o header inteiro nasce no modo
+// claro: logo preta, links em cinza institucional, CTA azul sólido e filete
+// azulado. Sem isso o menu ficava branco sobre branco, invisível até o
+// primeiro scroll. Nas demais (home, quem-somos, contato, as 3 famílias de
+// produto, transformadores-toroidais, capacidade-fabril, trabalhe-conosco, a
+// listagem /blog — que ganhou hero azul próprio — e os espelhos /es/*) o
+// header em repouso fica sobre hero escuro, então usa a versão branca até o
+// primeiro scroll, quando a pílula branca assume e tudo volta para o escuro.
 function heroClaroPath(pathname: string): boolean {
-  return pathname === "/produtos" || pathname === "/blog" || pathname.startsWith("/blog/");
+  return pathname === "/produtos" || pathname.startsWith("/blog/");
 }
 
 export function Nav() {
@@ -78,7 +80,9 @@ export function Nav() {
 
   return (
     <>
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+      <header
+        className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${heroClaro ? styles.heroClaro : ""}`}
+      >
         <div className={styles.bar}>
           <Link href="/" aria-label={t.irParaHome} className={styles.logoLink}>
             {heroClaro ? (

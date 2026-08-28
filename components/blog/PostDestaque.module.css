@@ -1,0 +1,279 @@
+/* Azul-tinta, a mesma cor que fecha a curva do hero: o destaque não é um
+   segundo bloco branco, é a continuação da faixa azul em tom rebaixado. */
+.section {
+  position: relative;
+  padding: clamp(44px, 5vw, 72px) 0 clamp(56px, 6.5vw, 92px);
+  background: var(--color-bg-tint);
+  border-bottom: 1px solid #dfe8f5;
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.rotuloOculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(20px, 2.6vw, 30px);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 1040px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+  }
+}
+
+/* ── coluna principal ── */
+
+.destaque {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(9, 28, 56, 0.07);
+  transition: transform 0.24s var(--ease-out), box-shadow 0.24s var(--ease-out), border-color 0.24s var(--ease-out);
+}
+
+.destaque:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px rgba(26, 75, 140, 0.16), 0 4px 10px rgba(26, 75, 140, 0.06);
+  border-color: var(--color-blue-soft);
+}
+
+.destaqueLink {
+  display: block;
+  color: inherit;
+}
+
+/* 3/2 e não 16/9: a imagem destacada do acervo real é quadrada com texto
+   aplicado no topo (1080×1080, confirmado no WP). Num quadro 16/9 o `cover`
+   come justamente a linha de título da arte. */
+.capa {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: var(--color-blue-ink);
+  overflow: hidden;
+}
+
+.capaChip {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  left: 16px;
+}
+
+.corpo {
+  padding: clamp(22px, 2.6vw, 32px);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.marcador {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+/* ponto verde: o único acento fora do azul nesta grade */
+.marcador::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-green);
+  box-shadow: 0 0 0 3px rgba(94, 167, 94, 0.18);
+}
+
+.metaSep {
+  color: var(--color-border-strong);
+}
+
+.destaqueTitulo {
+  margin: 14px 0 0;
+  font-family: var(--font-title);
+  font-size: clamp(22px, 2.3vw, 31px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  transition: color 0.18s ease-out;
+}
+
+.destaque:hover .destaqueTitulo {
+  color: var(--color-blue);
+}
+
+.destaqueResumo {
+  margin-top: 14px;
+  font-size: 15.5px;
+  line-height: 1.66;
+  color: var(--color-text-secondary);
+  /* o excerpt do WP tem tamanho imprevisível: corta em 3 linhas para o card
+     não crescer além da coluna lateral e desalinhar a grade */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.destaqueResumo p {
+  margin: 0;
+}
+
+.destaqueCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+.destaqueCta svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.destaque:hover .destaqueCta svg {
+  transform: translateX(4px);
+}
+
+/* ── coluna lateral ── */
+
+.lateral {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: clamp(18px, 2vw, 24px);
+  box-shadow: 0 10px 30px rgba(9, 28, 56, 0.06);
+}
+
+@media (min-width: 1040px) {
+  /* acompanha a leitura do destaque, que é mais alto que a lista */
+  .lateral {
+    position: sticky;
+    top: clamp(88px, 9vw, 104px);
+  }
+}
+
+.lateralTitulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+.lateralRule {
+  width: 26px;
+  height: 2px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--color-green);
+}
+
+.lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-border);
+}
+
+.itemLink {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
+  padding: 18px 0;
+  color: inherit;
+}
+
+.numero {
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+  color: var(--color-border-strong);
+  transition: color 0.18s ease-out;
+}
+
+.itemLink:hover .numero {
+  color: var(--color-blue-soft);
+}
+
+.itemCorpo {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.itemTitulo {
+  font-family: var(--font-title);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.34;
+  letter-spacing: -0.012em;
+  color: var(--color-text);
+  transition: color 0.18s ease-out;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.itemLink:hover .itemTitulo {
+  color: var(--color-blue);
+}
+
+.itemData {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+
+.itemSeta {
+  flex: none;
+  margin-top: 3px;
+  color: var(--color-border-strong);
+  transition: color 0.18s ease-out, transform 0.2s var(--ease-out);
+}
+
+.itemLink:hover .itemSeta {
+  color: var(--color-blue);
+  transform: translate(2px, -2px);
+}

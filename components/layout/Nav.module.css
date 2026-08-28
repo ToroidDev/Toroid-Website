@@ -144,6 +144,12 @@
   transition: opacity 0.3s var(--ease-out);
 }
 
+/* Sobre fundo claro o filete branco não existe: vira o mesmo azul rebaixado
+   da borda da pílula, senão a barra em repouso fica sem base nenhuma. */
+.header.heroClaro .hairline {
+  background: linear-gradient(90deg, rgba(26, 75, 140, 0.16), rgba(26, 75, 140, 0));
+}
+
 .header.scrolled .hairline {
   opacity: 0;
 }
@@ -184,7 +190,12 @@
   cursor: pointer;
 }
 
-.header.scrolled .navLink {
+/* `heroClaro` pareado com `scrolled` em toda regra de cor daqui pra baixo:
+   nas rotas de fundo claro (ver heroClaroPath em Nav.tsx) o header já nasce
+   com a paleta escura, em vez de esperar o primeiro scroll. Sem esse par o
+   texto branco ficava invisível sobre o branco da página. */
+.header.scrolled .navLink,
+.header.heroClaro .navLink {
   color: var(--color-text);
   background-image: linear-gradient(var(--color-green), var(--color-green));
 }
@@ -200,7 +211,11 @@
 .header.scrolled .navLink:hover,
 .header.scrolled .navItem:hover .navLink,
 .header.scrolled .navItem:focus-within .navLink,
-.header.scrolled .navItem[data-open] .navLink {
+.header.scrolled .navItem[data-open] .navLink,
+.header.heroClaro .navLink:hover,
+.header.heroClaro .navItem:hover .navLink,
+.header.heroClaro .navItem:focus-within .navLink,
+.header.heroClaro .navItem[data-open] .navLink {
   color: var(--color-blue);
 }
 
@@ -282,13 +297,15 @@
   color: var(--color-blue-deep);
 }
 
-.header.scrolled .cta {
+.header.scrolled .cta,
+.header.heroClaro .cta {
   background: var(--color-blue);
   color: #fff;
   box-shadow: 0 6px 18px rgba(26, 75, 140, 0.28);
 }
 
-.header.scrolled .cta:hover {
+.header.scrolled .cta:hover,
+.header.heroClaro .cta:hover {
   background: var(--color-blue-deep);
   box-shadow: 0 12px 26px rgba(26, 75, 140, 0.34);
   color: #fff;
@@ -322,11 +339,13 @@
   background: rgba(255, 255, 255, 0.14);
 }
 
-.header.scrolled .burger {
+.header.scrolled .burger,
+.header.heroClaro .burger {
   color: var(--color-blue);
 }
 
-.header.scrolled .burger:hover {
+.header.scrolled .burger:hover,
+.header.heroClaro .burger:hover {
   background: rgba(26, 75, 140, 0.07);
 }
 
