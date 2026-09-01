@@ -73,7 +73,17 @@ export function PillarHero({
               <T pt="Solicitar Orçamento Técnico" es="Solicitar Presupuesto Técnico" en="Request a Technical Quote" />
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <WhatsAppLink className={styles.onDarkSecondary}>
+            {/* A mensagem cita a família da página (`nomeCategoria` já chega
+                traduzida por página, inclusive nas de /es): é o dado que o
+                comercial precisa ver antes de responder. */}
+            <WhatsAppLink
+              className={styles.onDarkSecondary}
+              mensagem={{
+                pt: `Olá! Vim pela página de ${nomeCategoria} e gostaria de falar com a engenharia.`,
+                es: `¡Hola! Vine por la página de ${nomeCategoria} y me gustaría hablar con la ingeniería.`,
+                en: `Hi! I came from the ${nomeCategoria} page and I would like to talk to your engineering team.`,
+              }}
+            >
               <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>

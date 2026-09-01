@@ -43,7 +43,10 @@ export function ContatoInfo() {
                 +55 (41) 3035-8282
               </span>
             </a>
-            <WhatsAppLink className={styles.item}>
+            <WhatsAppLink
+              className={styles.item}
+              mensagem="Olá! Vim pela página de contato do site da Toroid e gostaria de falar com o time."
+            >
               <WhatsappIcon size={16} />
               <span>
                 <span className={styles.itemLabel}>WhatsApp</span>

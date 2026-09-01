@@ -167,7 +167,10 @@ export default function EquipamentosMedicosPage() {
           <p className={styles.ctaInlineTexto}>
             Já sabe a classificação do seu equipamento? Envie os dados e a engenharia dimensiona a isolação.
           </p>
-          <WhatsAppLink className={styles.ctaInlineLink}>
+          <WhatsAppLink
+            className={styles.ctaInlineLink}
+            mensagem="Olá! Preciso de um transformador para equipamento médico e gostaria de falar sobre isolação e homologação."
+          >
             Falar sobre isolação e homologação
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>

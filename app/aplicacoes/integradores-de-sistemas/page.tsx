@@ -152,7 +152,10 @@ export default function IntegradoresDeSistemasPage() {
           <p className={styles.ctaInlineTexto}>
             Tem um projeto em cotação agora? Envie os dados e a engenharia responde com o dimensionamento.
           </p>
-          <WhatsAppLink className={styles.ctaInlineLink}>
+          <WhatsAppLink
+            className={styles.ctaInlineLink}
+            mensagem="Olá! Tenho um projeto em cotação agora e gostaria de falar com a engenharia sobre o dimensionamento."
+          >
             Falar sobre o projeto
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>

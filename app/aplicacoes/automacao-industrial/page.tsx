@@ -149,7 +149,10 @@ export default function AutomacaoIndustrialPage() {
           <p className={styles.ctaInlineTexto}>
             Já sabe a tensão e a potência do circuito de controle? Envie os dados e a engenharia dimensiona.
           </p>
-          <WhatsAppLink className={styles.ctaInlineLink}>
+          <WhatsAppLink
+            className={styles.ctaInlineLink}
+            mensagem="Olá! Preciso do transformador de um painel de automação e gostaria de falar sobre tensão e potência do circuito de controle."
+          >
             Falar sobre o painel
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>

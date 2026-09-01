@@ -253,7 +253,10 @@ export default function TransformadoresNobreaksPage() {
             Precisa de previsibilidade de prazo para um programa de produção? Fale com a engenharia sobre volume, lote e
             cronograma.
           </p>
-          <WhatsAppLink className={styles.ctaInlineLink}>
+          <WhatsAppLink
+            className={styles.ctaInlineLink}
+            mensagem="Olá! Tenho um programa de produção de nobreaks e gostaria de falar sobre volume, lote e prazo de entrega."
+          >
             Falar sobre volume e prazo
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>

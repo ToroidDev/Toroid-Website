@@ -58,7 +58,10 @@ export function QuemSomosHero() {
             Solicitar Orçamento Técnico
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </a>
-          <WhatsAppLink className={styles.secondary}>
+          <WhatsAppLink
+            className={styles.secondary}
+            mensagem="Olá! Vim pela página Quem somos e gostaria de conhecer melhor a Toroid e falar com a engenharia."
+          >
             Falar com nosso time
             <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>

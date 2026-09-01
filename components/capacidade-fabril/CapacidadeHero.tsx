@@ -45,7 +45,10 @@ export function CapacidadeHero() {
               Solicitar Orçamento Técnico
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <WhatsAppLink className={styles.secondary}>
+            <WhatsAppLink
+              className={styles.secondary}
+              mensagem="Olá! Vim pela página de capacidade fabril e gostaria de falar sobre fabricação, volume e prazo."
+            >
               Falar com nosso time
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>

@@ -62,7 +62,14 @@ export function Hero() {
               <T pt="Solicitar Orçamento Técnico" es="Solicitar Presupuesto Técnico" en="Request a Technical Quote" />
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <WhatsAppLink className={styles.secondary}>
+            <WhatsAppLink
+              className={styles.secondary}
+              mensagem={{
+                pt: "Olá! Vim pelo site da Toroid e gostaria de falar com a engenharia sobre um transformador sob medida.",
+                es: "¡Hola! Vine por el sitio de Toroid y me gustaría hablar con la ingeniería sobre un transformador a medida.",
+                en: "Hi! I came from the Toroid website and I would like to talk to your engineering team about a custom transformer.",
+              }}
+            >
               <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>

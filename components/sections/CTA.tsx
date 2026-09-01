@@ -31,7 +31,16 @@ export function CTA() {
             </p>
             <div className={styles.actions}>
               <OrcamentoForm />
-              <WhatsAppLink className={styles.secondary}>
+              {/* Mesma promessa do bloco ao lado (enviar especificação, receber
+                  dimensionamento), já escrita na primeira mensagem. */}
+              <WhatsAppLink
+                className={styles.secondary}
+                mensagem={{
+                  pt: "Olá! Quero enviar uma especificação e receber o dimensionamento da engenharia.",
+                  es: "¡Hola! Quiero enviar una especificación y recibir el dimensionamiento de la ingeniería.",
+                  en: "Hi! I would like to send a specification and get the sizing from your engineering team.",
+                }}
+              >
                 <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />
                 <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
               </WhatsAppLink>

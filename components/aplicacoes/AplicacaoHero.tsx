@@ -87,7 +87,14 @@ export function AplicacaoHero({
               {ctaPrimario}
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <WhatsAppLink className={styles.secundario}>
+            {/* `trilha` é o nome do segmento no breadcrumb ("Transformadores
+                para nobreaks", ou o título vindo do CPT `aplicacao` na rota
+                dinâmica): serve como contexto da mensagem sem exigir mais uma
+                prop por página. */}
+            <WhatsAppLink
+              className={styles.secundario}
+              mensagem={`Olá! Vim pela página ${trilha} e gostaria de falar com a engenharia.`}
+            >
               {ctaWhatsapp}
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>

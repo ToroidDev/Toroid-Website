@@ -147,7 +147,10 @@ export default function EquipamentosLaboratoriaisPage() {
           <p className={styles.ctaInlineTexto}>
             Já sabe a tensão e a potência do seu instrumento? Envie os dados e a engenharia dimensiona.
           </p>
-          <WhatsAppLink className={styles.ctaInlineLink}>
+          <WhatsAppLink
+            className={styles.ctaInlineLink}
+            mensagem="Olá! Preciso do transformador de um instrumento de laboratório e gostaria de falar sobre tensão e potência."
+          >
             Falar sobre o instrumento
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
           </WhatsAppLink>
