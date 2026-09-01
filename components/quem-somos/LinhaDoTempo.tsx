@@ -27,8 +27,8 @@ const MARCOS = [
     titulo: "Nova sede",
     texto:
       "Dez anos depois, a operação muda para uma sede de aproximadamente 600 m², com espaço para mais máquinas de enrolamento.",
-    imagem: "/images/fachada-placa.webp",
-    alt: "Placa institucional na fachada da fábrica da Toroid, com a inscrição Desde 1994 no Brasil",
+    imagem: "/images/sede-2004.webp",
+    alt: "Fachada da segunda sede da Toroid do Brasil, com o nome da empresa pintado na parede do galpão",
   },
   {
     ano: "2016",
@@ -205,15 +205,21 @@ export function LinhaDoTempo() {
           <ol className={styles.track} ref={trackRef}>
             {MARCOS.map((marco, i) => (
               <li key={`${marco.ano}-${marco.titulo}`} className={styles.painel}>
-                <Image
-                  src={marco.imagem}
-                  alt={marco.alt}
-                  fill
-                  sizes="(min-width: 1475px) 1180px, (min-width: 761px) 80vw, 90vw"
-                  priority={i === 0}
-                  className={styles.painelImg}
-                />
-                <div className={styles.painelVeu} aria-hidden="true" />
+                {/* A foto vive num wrapper próprio, e não solta no cartão, porque
+                    no celular ela deixa de ser fundo do texto e passa a ser a
+                    faixa de cima do cartão (ver CSS): a moldura precisa de um
+                    elemento que troque de `absolute` para `relative`. */}
+                <div className={styles.painelFoto}>
+                  <Image
+                    src={marco.imagem}
+                    alt={marco.alt}
+                    fill
+                    sizes="(min-width: 1475px) 1180px, (min-width: 761px) 80vw, 90vw"
+                    priority={i === 0}
+                    className={styles.painelImg}
+                  />
+                  <div className={styles.painelVeu} aria-hidden="true" />
+                </div>
 
                 <div className={styles.painelConteudo}>
                   <span className={styles.painelAno}>{marco.ano}</span>

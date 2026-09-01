@@ -128,6 +128,14 @@
   scroll-snap-align: none;
 }
 
+/* No desktop a foto é o fundo do cartão inteiro. No celular ela vira a faixa
+   superior, com proporção própria (ver media query no fim do arquivo). */
+.painelFoto {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
 .painelImg {
   object-fit: cover;
 }
@@ -231,16 +239,46 @@
   display: none;
 }
 
+/* No celular o cartão deixa de ser foto com texto por cima. Um painel de
+   ~350x640 obriga a recortar uma foto deitada em retrato, e o recorte come
+   justamente o assunto: a casa de madeira de 1994, a fachada de 2004, a
+   máquina. Aqui a foto ocupa a faixa de cima inteira, na proporção em que foi
+   tirada, e o texto desce para um bloco sólido embaixo. */
 @media (max-width: 760px) {
   .painelIndice {
     display: none;
   }
 
-  /* Folga extra na base: o botão flutuante de WhatsApp (fixed, canto inferior
-     direito) passa por cima das últimas linhas do texto se o conteúdo encostar
-     no rodapé do painel. */
+  .painel {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .painelFoto {
+    position: relative;
+    inset: auto;
+    flex: none;
+    aspect-ratio: 16 / 10;
+  }
+
+  /* O véu existia para dar contraste ao texto sobre a foto. Sem texto por
+     cima, ele só escurece a imagem à toa. */
+  .painelVeu {
+    display: none;
+  }
+
   .painelConteudo {
-    padding-bottom: 104px;
+    position: static;
+    padding: clamp(20px, 5vw, 28px);
+  }
+
+  .painelAno,
+  .painelTitulo,
+  .painelTexto {
+    text-shadow: none;
   }
 }
 
