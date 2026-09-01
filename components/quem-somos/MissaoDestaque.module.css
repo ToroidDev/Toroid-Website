@@ -3,7 +3,12 @@
   isolation: isolate;
   overflow: hidden;
   padding: var(--section-pad) 0;
-  background: linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 55%, var(--color-blue-deep) 100%);
+  /* A primeira camada dissolve a borda com a linha do tempo, que termina em
+     --color-blue-ink chapado: sem ela, o topo desta seção começa direto no
+     abyss da diagonal e a emenda vira um risco horizontal entre dois azuis.
+     A diagonal continua igual do fim da dissolução para baixo. */
+  background: linear-gradient(180deg, var(--color-blue-ink) 0, rgba(14, 46, 90, 0) 240px),
+    linear-gradient(152deg, var(--color-blue-abyss) 0%, var(--color-blue-ink) 55%, var(--color-blue-deep) 100%);
   color: var(--color-on-blue);
   text-align: center;
 }
