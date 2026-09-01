@@ -697,7 +697,6 @@
 /* ══════════ 6. Tabela de especificação ══════════ */
 
 .specWrap {
-  max-width: 68ch;
   margin: 0;
 }
 
@@ -775,8 +774,65 @@
   }
 }
 
+/* Acima de 900px a tabela deixa de ser uma coluna de 68ch e passa a ocupar a
+   faixa inteira do corpo, em dois pares rótulo/valor por linha. Duas colunas,
+   e não uma tabela larga de duas células, porque valor curto ("1 A ou 5 A")
+   deixaria metade da largura vazia, que é justamente a lacuna que a coluna
+   estreita já criava na página.
+
+   O layout muda para grid, então tbody, tr, th e td perdem o papel nativo de
+   tabela no navegador. Os papéis vão explícitos no JSX (role="table" e
+   companhia), pelo mesmo motivo, no modo bloco do mobile logo acima. */
+@media (min-width: 900px) {
+  .specTable tbody {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .specTable tr {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  /* a primeira linha de cada uma das duas colunas é topo de tabela: sem filete */
+  .specTable tr:nth-child(-n + 2) th,
+  .specTable tr:nth-child(-n + 2) td {
+    border-top: 0;
+  }
+
+  /* filete vertical entre os dois pares */
+  .specTable tr:nth-child(even) {
+    border-left: 1px solid var(--color-border);
+  }
+
+  /* Número ímpar de linhas: a última sobra sem par. Ela atravessa a faixa
+     inteira para o zebrado não terminar pela metade, e a terceira pista vazia
+     mantém rótulo e valor alinhados com a coluna de cima. */
+  .specTable tr:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.9fr);
+  }
+
+  .specTable th {
+    width: auto;
+  }
+
+  /* o zebrado precisa atravessar as duas colunas, senão tinge a coluna
+     esquerda inteira em vez de alternar linha a linha */
+  .specTable tbody tr:nth-child(odd) {
+    background: none;
+  }
+
+  .specTable tbody tr:nth-child(4n + 1),
+  .specTable tbody tr:nth-child(4n + 2) {
+    background: var(--color-bg-tint-2);
+  }
+}
+
 .specNote {
   margin: 14px 0 0;
+  max-width: 68ch;
   font-size: 13.5px;
   line-height: 1.55;
   color: var(--color-text-muted);

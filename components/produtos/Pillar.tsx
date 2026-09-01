@@ -314,12 +314,18 @@ export function PillarSpecTable({
       <h2 id={id} className={styles.specHeading}>
         {titulo}
       </h2>
-      <table className={styles.specTable}>
-        <tbody>
+      {/* Os papéis ARIA vão explícitos porque o CSS troca o `display` da tabela
+          nos dois extremos: bloco no mobile e duas colunas de pares acima de
+          900px. Sem eles o navegador descarta a semântica de tabela junto com o
+          display nativo, e o leitor de tela perde a relação rótulo/valor. */}
+      <table className={styles.specTable} role="table">
+        <tbody role="rowgroup">
           {linhas.map(([rotulo, valor]) => (
-            <tr key={rotulo}>
-              <th scope="row">{rotulo}</th>
-              <td>{valor}</td>
+            <tr key={rotulo} role="row">
+              <th scope="row" role="rowheader">
+                {rotulo}
+              </th>
+              <td role="cell">{valor}</td>
             </tr>
           ))}
         </tbody>
