@@ -43,3 +43,6 @@ next-env.d.ts
 
 .impeccable
 .claude
+
+# fotos originais em alta (fonte dos webp em public/images/produtos)
+/fotos-originais

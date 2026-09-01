@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Check, Gauge, Layers, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Gauge, Layers, MessageCircle, ShieldCheck, TriangleAlert } from "lucide-react";
 import type { ProdutoIcone } from "@/lib/produtos";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { getAnosDeMercado } from "@/lib/institucional";
@@ -215,12 +216,83 @@ export function Prose({
   );
 }
 
+/* ══════════ Foto de produto na coluna lateral ══════════ */
+
+/**
+ * Foto real de produto para a prop `arte` do Prose. Existe porque o corpo das
+ * páginas de família é coluna única de texto: a foto ocupa a lateral vazia e
+ * mostra a peça de que o parágrafo está falando.
+ *
+ * Sempre `next/image` com width/height reais (o CLS vem de imagem sem
+ * proporção declarada, não do peso do arquivo). Nunca `priority`: o hero é o
+ * LCP dessas páginas, e essas fotos ficam todas abaixo da dobra.
+ */
+export function PillarFoto({
+  src,
+  alt,
+  legenda,
+  largura,
+  altura,
+}: {
+  src: string;
+  alt: string;
+  /** Linha curta abaixo da foto. Serve para nomear a peça, não para repetir o parágrafo ao lado. */
+  legenda?: string;
+  largura: number;
+  altura: number;
+}) {
+  return (
+    <figure className={styles.foto}>
+      <Image
+        src={src}
+        alt={alt}
+        width={largura}
+        height={altura}
+        sizes="(min-width: 1080px) 480px, (min-width: 640px) 460px, 92vw"
+        className={styles.fotoImg}
+      />
+      {legenda ? <figcaption className={styles.fotoLegenda}>{legenda}</figcaption> : null}
+    </figure>
+  );
+}
+
 export function Pullquote({ children, fonte }: { children: ReactNode; fonte: string }) {
   return (
     <blockquote className={styles.pullquote}>
       <p>{children}</p>
       <cite className={styles.pullquoteSource}>{fonte}</cite>
     </blockquote>
+  );
+}
+
+/* ══════════ Aviso técnico ══════════ */
+
+/**
+ * Regra de segurança operacional dentro do corpo da página (ex.: nunca deixar
+ * o secundário de um TC aberto). Existe como bloco próprio, e não como mais um
+ * parágrafo, porque é a única informação da página em que errar tem
+ * consequência física. O h2 leva `id` para poder entrar no PillarIndex como
+ * qualquer outra seção.
+ */
+export function PillarAviso({
+  id,
+  titulo,
+  children,
+}: {
+  id: string;
+  titulo: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className={styles.aviso}>
+      <div className={styles.avisoTopo}>
+        <TriangleAlert size={22} strokeWidth={2} aria-hidden="true" className={styles.avisoIcon} />
+        <h2 id={id} className={styles.avisoHeading}>
+          {titulo}
+        </h2>
+      </div>
+      <div className={styles.prose}>{children}</div>
+    </div>
   );
 }
 

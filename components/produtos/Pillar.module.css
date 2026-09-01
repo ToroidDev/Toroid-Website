@@ -514,6 +514,53 @@
   }
 }
 
+/* Foto de produto pede mais largura que a arte em SVG: 320px deixa ilegível o
+   detalhe de peça pequena (bornes, placa, acabamento), que é justamente o que
+   a foto está ali para mostrar. */
+.proseArte:has(.foto) {
+  max-width: 460px;
+}
+
+/* Ancorada no topo, e não centralizada como a arte em SVG: em seção de texto
+   longo, centralizar abre lacuna acima e abaixo da foto ao mesmo tempo, que é
+   justamente o vazio que ela está ali para preencher. */
+@media (min-width: 1080px) {
+  .proseArte:has(.foto) {
+    align-self: start;
+    margin-top: 6px;
+  }
+}
+
+/* ══════════ Foto de produto na lateral do texto ══════════ */
+
+/* Moldura clara, e não borda forte: o fundo cinza do estúdio já se separa do
+   branco da página, então a borda só precisa fechar o contorno. */
+.foto {
+  margin: 0;
+}
+
+.fotoImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg-tint-2);
+}
+
+/* Sobre o fundo azul-claro do PillarBody tint, a moldura branca some. Ali a
+   borda sobe um tom para o card continuar tendo contorno. */
+.bodyTint .fotoImg {
+  border-color: var(--color-border-badge);
+}
+
+.fotoLegenda {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
 .proseHeading {
   margin: 0;
   font-size: clamp(23px, 2.4vw, 30px);
@@ -592,7 +639,56 @@
   color: var(--color-text-muted);
 }
 
-/* ══════════ 5. Tabela de especificação ══════════ */
+/* ══════════ 5. Aviso técnico ══════════ */
+
+/* Bloco de segurança operacional (ex.: nunca deixar o secundário de um TC
+   aberto). Ganha mais peso visual que a prosa em volta porque é a única
+   informação da página em que errar tem consequência física, não comercial.
+   Usa azul institucional, e não uma cor de alerta: o amarelo do logo é
+   proibido em UI, e o sistema não tem token de warning. */
+.aviso {
+  max-width: 68ch;
+  padding: clamp(24px, 2.8vw, 32px);
+  border: 1px solid var(--color-border-strong);
+  border-left: 3px solid var(--color-blue);
+  border-radius: 10px;
+  background: var(--color-bg-tint);
+}
+
+/* O bloco entra no meio de uma sequência de .prose, então precisa das duas
+   pontas do respiro: a regra .prose + .prose não alcança um irmão de outra
+   classe. */
+.prose + .aviso,
+.proseComArte + .aviso,
+.aviso + .prose,
+.aviso + .proseComArte {
+  margin-top: clamp(40px, 4.6vw, 60px);
+}
+
+/* flex-start, e não center: quando o título quebra em duas linhas no mobile, o
+   ícone precisa acompanhar a primeira linha, não flutuar no meio do bloco. */
+.avisoTopo {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.avisoIcon {
+  flex: none;
+  margin-top: 0.18em;
+  color: var(--color-blue);
+}
+
+.avisoHeading {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 25px);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  scroll-margin-top: clamp(96px, 10vw, 120px);
+}
+
+/* ══════════ 6. Tabela de especificação ══════════ */
 
 .specWrap {
   max-width: 68ch;
@@ -680,7 +776,7 @@
   color: var(--color-text-muted);
 }
 
-/* ══════════ 6. Faixa azul de checklist ══════════
+/* ══════════ 7. Faixa azul de checklist ══════════
    O pico azul do meio da página, no mesmo lugar estrutural que a seção
    Performance ocupa na home. */
 
@@ -778,7 +874,7 @@
   color: var(--color-green-light);
 }
 
-/* ══════════ 7. Objeções ══════════ */
+/* ══════════ 8. Objeções ══════════ */
 
 .objections {
   position: relative;
@@ -859,7 +955,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ══════════ 8. Fecho antes do CTA ══════════ */
+/* ══════════ 9. Fecho antes do CTA ══════════ */
 
 .closing {
   position: relative;
