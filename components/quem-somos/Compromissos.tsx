@@ -3,7 +3,7 @@ import { BadgeCheck } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import styles from "./Compromissos.module.css";
 
-const SELOS = [{ src: "/images/cert-iso.png", alt: "Certificação ISO 9001", classe: "seloIso" }] as const;
+// const SELOS = [{ src: "/images/cert-iso.png", alt: "Certificação ISO 9001", classe: "seloIso" }] as const;
 
 const BADGES = ["Garantia de 3 anos"];
 
@@ -31,11 +31,11 @@ export function Compromissos() {
           ))}
         </div>
 
-        <div className={styles.selos}>
+        {/* <div className={styles.selos}>
           {SELOS.map(({ src, alt, classe }) => (
             <Image key={src} src={src} alt={alt} width={269} height={188} className={`${styles.selo} ${styles[classe]}`} />
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

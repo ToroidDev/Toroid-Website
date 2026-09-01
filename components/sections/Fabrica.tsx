@@ -95,7 +95,7 @@ export function Fabrica() {
         </Link>
       </div>
 
-      <div className={styles.marqueeWrapper}>
+      {/* <div className={styles.marqueeWrapper}>
         <div className={styles.track}>
           {marqueeItems.map((produto, index) => {
             const duplicado = index >= produtos.length;
@@ -130,11 +130,7 @@ export function Fabrica() {
         </div>
         <div className={styles.edgeFadeLeft} aria-hidden="true" />
         <div className={styles.edgeFadeRight} aria-hidden="true" />
-      </div>
-
-      {/* A faixa de "Certificações e conformidade" que ficava aqui foi removida:
-          repetia ISO 9001 / RoHS que a faixa de prova no topo da página já
-          declara. Era a terceira aparição da mesma informação na mesma página. */}
+      </div> */}
     </section>
   );
 }
