@@ -39,12 +39,6 @@
   align-items: center;
 }
 
-@media (min-width: 900px) {
-  .inner {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.85fr);
-  }
-}
-
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -168,16 +162,4 @@
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.72);
   color: #fff;
-}
-
-.media {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  min-height: clamp(240px, 30vw, 420px);
-  box-shadow: 0 30px 70px rgba(4, 14, 30, 0.4);
-}
-
-.mediaImg {
-  object-fit: cover;
 }

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
@@ -53,17 +52,6 @@ export function CapacidadeHero() {
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
             </WhatsAppLink>
           </div>
-        </div>
-
-        <div className={styles.media}>
-          <Image
-            src="/images/fabrica-interna-tratada.webp"
-            alt="Vista do chão de fábrica da Toroid, com postos de bobinagem e montagem em operação"
-            fill
-            sizes="(min-width: 900px) 44vw, 100vw"
-            priority
-            className={styles.mediaImg}
-          />
         </div>
       </div>
     </section>
