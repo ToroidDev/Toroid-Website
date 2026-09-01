@@ -523,11 +523,17 @@
 
 /* Ancorada no topo, e não centralizada como a arte em SVG: em seção de texto
    longo, centralizar abre lacuna acima e abaixo da foto ao mesmo tempo, que é
-   justamente o vazio que ela está ali para preencher. */
+   justamente o vazio que ela está ali para preencher.
+
+   O recuo de 40px afasta a foto da coluna de texto e só existe aqui, dentro
+   da grade de duas colunas: abaixo de 1080px a foto empilha centralizada, e
+   um recuo lateral só a tiraria do eixo. A largura é `width: 100%` da coluna,
+   então o recuo estreita a foto em vez de estourar a grade. */
 @media (min-width: 1080px) {
   .proseArte:has(.foto) {
     align-self: start;
     margin-top: 6px;
+    margin-left: 40px;
   }
 }
 
@@ -957,10 +963,15 @@
 
 /* ══════════ 9. Fecho antes do CTA ══════════ */
 
+/* O topo precisa de respiro próprio: na página de indutores o fecho vem logo
+   depois de um PillarBody em tinta, então sem padding o título encostava na
+   borda da faixa colorida. Fica abaixo do ritmo de .body (52-84px) porque o
+   fecho é continuação do assunto, não uma seção nova. O bottom segue curto
+   porque o CTA vem logo em seguida. */
 .closing {
   position: relative;
   background: #fff;
-  padding: 0 0 clamp(20px, 3vw, 40px);
+  padding: clamp(40px, 4.5vw, 64px) 0 clamp(20px, 3vw, 40px);
 }
 
 /* Mesmo tratamento do PillarChecklist: gradiente azul profundo + halo +
