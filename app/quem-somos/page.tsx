@@ -6,8 +6,10 @@ import { LinhaDoTempo } from "@/components/quem-somos/LinhaDoTempo";
 import { MissaoDestaque } from "@/components/quem-somos/MissaoDestaque";
 import { Valores } from "@/components/quem-somos/Valores";
 import { Compromissos } from "@/components/quem-somos/Compromissos";
+import { VideoInstitucional } from "@/components/quem-somos/VideoInstitucional";
 import { FAQSection } from "@/components/quem-somos/FAQSection";
 import { getAnosDeMercado } from "@/lib/institucional";
+import { absoluteUrl } from "@/lib/seo";
 
 // Layout desta página é deliberadamente diferente das demais (ver CLAUDE.md/
 // ROADMAP.md): hero azul cheio com `position: sticky`, e a seção seguinte
@@ -56,6 +58,23 @@ const JSON_LD = [
     ],
   },
   {
+    // Dados do vídeo conferidos na própria API do YouTube (oEmbed e página do
+    // vídeo) em 2026-09-01: publicado em 22/11/2022, 67 segundos. `thumbnailUrl`
+    // aponta para o poster local, não para o i.ytimg, para o Google ler a mesma
+    // imagem que a página serve.
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "Vídeo institucional da Toroid do Brasil",
+    // description:
+    //   "Visita à fábrica da Toroid do Brasil em São José dos Pinhais, PR: as pessoas, as máquinas e as etapas de fabricação de transformadores de corrente, transformadores de potência e indutores.",
+    thumbnailUrl: [absoluteUrl("/images/video-institucional-poster.webp")],
+    uploadDate: "2022-11-22T03:58:21-08:00",
+    duration: "PT1M7S",
+    embedUrl: "https://www.youtube.com/embed/mgUk-NY4QDo",
+    contentUrl: "https://www.youtube.com/watch?v=mgUk-NY4QDo",
+    publisher: { "@type": "Organization", name: "Toroid do Brasil" },
+  },
+  {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: PERGUNTAS.map(({ pergunta, resposta }) => ({
@@ -74,6 +93,7 @@ export default function QuemSomosPage() {
       <MissaoDestaque />
       <Valores />
       <Compromissos />
+      <VideoInstitucional />
       <FAQSection itens={PERGUNTAS} />
 
       <CTA />

@@ -1,0 +1,144 @@
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+  background: linear-gradient(168deg, var(--color-blue-ink) 0%, var(--color-blue-abyss) 100%);
+  color: var(--color-on-blue);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* O palco é mais estreito que o shell: o vídeo é 16:9 e, na largura cheia de
+   1200px, a altura passava de 675px e empurrava a seção seguinte para longe. */
+.palco {
+  position: relative;
+  max-width: 960px;
+  margin: clamp(36px, 4.4vw, 56px) auto 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-blue-abyss);
+  border: 1px solid var(--color-rule-on-blue);
+  box-shadow: 0 30px 70px rgba(9, 28, 56, 0.45);
+}
+
+.player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.capa {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.capaImg {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+/* Escurece a foto o suficiente para o botão e o rótulo passarem em contraste,
+   mais forte na base, onde fica o texto. */
+.veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(9, 28, 56, 0.82) 0%,
+    rgba(9, 28, 56, 0.35) 42%,
+    rgba(9, 28, 56, 0.18) 100%
+  );
+  transition: background 0.4s var(--ease-out);
+}
+
+.play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 7vw, 84px);
+  height: clamp(64px, 7vw, 84px);
+  border-radius: 50%;
+  background: var(--color-blue);
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(9, 28, 56, 0.5);
+  transition: transform 0.35s var(--ease-out), background 0.35s var(--ease-out);
+}
+
+/* Deslocamento óptico: o triângulo do play tem o centro de massa à esquerda do
+   centro geométrico e parece torto quando centralizado na régua. */
+.play svg {
+  margin-left: 3px;
+}
+
+.rotulo {
+  position: absolute;
+  left: clamp(20px, 3vw, 34px);
+  right: clamp(20px, 3vw, 34px);
+  bottom: clamp(18px, 2.6vw, 28px);
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.3;
+  color: #fff;
+}
+
+.rotuloNota {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13.5px;
+  color: var(--color-on-blue-faint);
+}
+
+.capa:hover .capaImg,
+.capa:focus-visible .capaImg {
+  transform: scale(1.03);
+}
+
+.capa:hover .play,
+.capa:focus-visible .play {
+  transform: translate(-50%, -50%) scale(1.07);
+  background: var(--color-blue-soft);
+}
+
+.capa:focus-visible {
+  outline: 3px solid var(--color-green-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capaImg,
+  .play,
+  .veu {
+    transition: none;
+  }
+
+  .capa:hover .capaImg,
+  .capa:focus-visible .capaImg {
+    transform: none;
+  }
+
+  .capa:hover .play,
+  .capa:focus-visible .play {
+    transform: translate(-50%, -50%);
+  }
+}
