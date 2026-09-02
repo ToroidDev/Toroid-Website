@@ -389,7 +389,7 @@ export default function TransformadorDeCorrentePageEs() {
           <p>
             La línea Toroid está construida en torno a las construcciones de ventana y partida, con o sin encapsulado
             en resina, dentro de la clase de tensión de hasta 1,5 kV. Las demás entran aquí como referencia de
-            especificación. Si tu proyecto pide otra construcción, describe la aplicación para que la ingeniería la
+            especificación. Si tu proyecto pide otra construcción, describe la aplicación para que el equipo la
             evalúe.
           </p>
         </Prose>
@@ -542,7 +542,7 @@ export default function TransformadorDeCorrentePageEs() {
       <PillarClosing id="fecho" titulo="Empieza por la restricción, no por el código del producto">
         <p>
           Si tu tablero tiene restricción de espacio, requisito de exactitud específico, o antecedentes de un TC que
-          no duró lo esperado, describe la restricción a nuestra ingeniería antes de cerrar la especificación. Es más
+          no duró lo esperado, describe la restricción a nuestro equipo antes de cerrar la especificación. Es más
           rápido que comparar catálogos.
         </p>
       </PillarClosing>

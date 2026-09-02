@@ -65,9 +65,9 @@ export function Hero() {
             <WhatsAppLink
               className={styles.secondary}
               mensagem={{
-                pt: "Olá! Vim pelo site da Toroid e gostaria de falar com a engenharia sobre um transformador sob medida.",
-                es: "¡Hola! Vine por el sitio de Toroid y me gustaría hablar con la ingeniería sobre un transformador a medida.",
-                en: "Hi! I came from the Toroid website and I would like to talk to your engineering team about a custom transformer.",
+                pt: "Olá! Vim pelo site da Toroid e gostaria de falar com o time sobre um transformador sob medida.",
+                es: "¡Hola! Vine por el sitio de Toroid y me gustaría hablar con el equipo sobre un transformador a medida.",
+                en: "Hi! I came from the Toroid website and I would like to talk to your team about a custom transformer.",
               }}
             >
               <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />

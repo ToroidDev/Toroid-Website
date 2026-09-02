@@ -93,7 +93,7 @@ export function AplicacaoHero({
                 prop por página. */}
             <WhatsAppLink
               className={styles.secundario}
-              mensagem={`Olá! Vim pela página ${trilha} e gostaria de falar com a engenharia.`}
+              mensagem={`Olá! Vim pela página ${trilha} e gostaria de falar com o time.`}
             >
               {ctaWhatsapp}
               <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />

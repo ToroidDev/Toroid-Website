@@ -394,8 +394,8 @@ export default function IndutoresFiltrosEChokesPageEs() {
       <PillarClosing id="fecho" titulo="Describe el circuito, no el componente">
         <p>
           Si todavía no tienes cerrada la inductancia objetivo, eso no impide la conversación. Describir el rango de
-          corriente, la frecuencia y lo que necesita ser atenuado o limitado ya es suficiente para que nuestra
-          ingeniería proponga un dimensionamiento y discuta alternativas.
+          corriente, la frecuencia y lo que necesita ser atenuado o limitado ya es suficiente para que nuestro
+          equipo proponga un dimensionamiento y discuta alternativas.
         </p>
       </PillarClosing>
 

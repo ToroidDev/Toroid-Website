@@ -17,9 +17,9 @@ export function CTA() {
             </p>
             <h2 className={styles.heading}>
               <T
-                pt="Envie a especificação, ou só a restrição do painel. A engenharia responde com o dimensionamento."
-                es="Envía la especificación, o solo la restricción del panel. La ingeniería responde con el dimensionamiento."
-                en="Send the specification, or just the panel's constraint. Our engineering team replies with the sizing."
+                pt="Envie a especificação, ou só a restrição do painel. O nosso time responde com o dimensionamento."
+                es="Envía la especificación, o solo la restricción del panel. Nuestro equipo responde con el dimensionamiento."
+                en="Send the specification, or just the panel's constraint. Our team replies with the sizing."
               />
             </h2>
             <p className={styles.lead}>
@@ -36,9 +36,9 @@ export function CTA() {
               <WhatsAppLink
                 className={styles.secondary}
                 mensagem={{
-                  pt: "Olá! Quero enviar uma especificação e receber o dimensionamento da engenharia.",
-                  es: "¡Hola! Quiero enviar una especificación y recibir el dimensionamiento de la ingeniería.",
-                  en: "Hi! I would like to send a specification and get the sizing from your engineering team.",
+                  pt: "Olá! Quero enviar uma especificação e receber o dimensionamento do time.",
+                  es: "¡Hola! Quiero enviar una especificación y recibir el dimensionamiento del equipo.",
+                  en: "Hi! I would like to send a specification and get the sizing from your team.",
                 }}
               >
                 <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />

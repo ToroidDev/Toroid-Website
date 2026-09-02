@@ -26,7 +26,7 @@ import {
 export const metadata: Metadata = {
   title: "Transformador de Potencia a Medida | Toroid do Brasil",
   description:
-    "Transformador de potencia con aislamiento galvánico, eficiencia hasta 98% y núcleo toroidal o convencional según el proyecto. Solicita presupuesto técnico con nuestra ingeniería.",
+    "Transformador de potencia con aislamiento galvánico, eficiencia hasta 98% y núcleo toroidal o convencional según el proyecto. Solicita presupuesto técnico con nuestro equipo.",
   alternates: {
     canonical: absoluteUrl("/es/transformador-de-potencia"),
     languages: {

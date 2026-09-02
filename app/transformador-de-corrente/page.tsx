@@ -401,7 +401,7 @@ export default function TransformadorDeCorrentePage() {
           <p>
             A linha Toroid é construída em torno das construções janela e bipartida, com ou sem encapsulamento em
             resina, dentro da classe de tensão de até 1,5 kV. As demais entram aqui como referência de especificação.
-            Se o seu projeto pede outra construção, vale descrever a aplicação para a engenharia avaliar.
+            Se o seu projeto pede outra construção, vale descrever a aplicação para o nosso time avaliar.
           </p>
         </Prose>
 
@@ -553,7 +553,7 @@ export default function TransformadorDeCorrentePage() {
       <PillarClosing id="fecho" titulo="Comece pela restrição, não pelo código do produto">
         <p>
           Se o seu painel tem restrição de espaço, exigência de exatidão específica, ou histórico de TC que não durou o
-          esperado, descreva a restrição para a nossa engenharia antes de fechar a especificação. É mais rápido do que
+          esperado, descreva a restrição para o nosso time antes de fechar a especificação. É mais rápido do que
           comparar catálogos.
         </p>
       </PillarClosing>

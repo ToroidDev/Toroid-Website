@@ -37,7 +37,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Transformador para Equipamento Médico | Toroid do Brasil",
   description:
-    "Transformador para equipamento médico com isolação galvânica e baixo ruído audível. Fale com a engenharia e peça seu orçamento.",
+    "Transformador para equipamento médico com isolação galvânica e baixo ruído audível. Fale com o nosso time e peça seu orçamento.",
   alternates: { canonical: "/aplicacoes/equipamentos-medicos" },
   robots: { index: false, follow: false },
 };
@@ -63,7 +63,7 @@ const PERGUNTAS: Pergunta[] = [
   {
     pergunta: "Qual isolação um transformador para equipamento médico precisa ter?",
     resposta:
-      "Depende da classificação do equipamento final e do tipo de contato com o paciente. Traga a classificação e a engenharia dimensiona a isolação e a distância de isolamento necessárias.",
+      "Depende da classificação do equipamento final e do tipo de contato com o paciente. Traga a classificação e o nosso time responde com o dimensionamento da isolação e da distância de isolamento necessárias.",
   },
   {
     pergunta: "Dá para reduzir o ruído audível perto do leito?",
@@ -165,7 +165,7 @@ export default function EquipamentosMedicosPage() {
 
         <div className={styles.ctaInline}>
           <p className={styles.ctaInlineTexto}>
-            Já sabe a classificação do seu equipamento? Envie os dados e a engenharia dimensiona a isolação.
+            Já sabe a classificação do seu equipamento? Envie os dados e o nosso time responde com o dimensionamento da isolação.
           </p>
           <WhatsAppLink
             className={styles.ctaInlineLink}
@@ -184,7 +184,7 @@ export default function EquipamentosMedicosPage() {
       <PillarChecklist
         id="fechar"
         eyebrow="Antes da cotação"
-        titulo="Feche a especificação com a engenharia"
+        titulo="Feche a especificação com o nosso time"
         lead="É esse conjunto de dados que separa uma cotação de catálogo de um dimensionamento sob medida. Se algum item ainda não existe no seu projeto, a equipe ajuda a fechar."
         itens={CHECKLIST}
       />

@@ -46,7 +46,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Transformador Toroidal para Nobreak | Toroid do Brasil",
   description:
-    "Transformador toroidal para nobreak com isolação galvânica, baixa irradiação de campo e eficiência até 98%. Fale com a engenharia e peça seu orçamento.",
+    "Transformador toroidal para nobreak com isolação galvânica, baixa irradiação de campo e eficiência até 98%. Fale com o nosso time e peça seu orçamento.",
   alternates: { canonical: "/aplicacoes/nobreaks" },
 };
 
@@ -78,7 +78,7 @@ const PERGUNTAS: Pergunta[] = [
   {
     pergunta: "Qual potência de toroidal usar no meu nobreak?",
     resposta:
-      "Depende de potência de saída, topologia e regime de carga. A faixa vai de 5 VA a 15 kVA. Envie os dados de entrada e saída e a engenharia dimensiona.",
+      "Depende de potência de saída, topologia e regime de carga. A faixa vai de 5 VA a 15 kVA. Envie os dados de entrada e saída e o nosso time responde com o dimensionamento.",
   },
   {
     pergunta: "Toroidal reduz EMI dentro do gabinete?",
@@ -250,7 +250,7 @@ export default function TransformadoresNobreaksPage() {
 
         <div className={styles.ctaInline}>
           <p className={styles.ctaInlineTexto}>
-            Precisa de previsibilidade de prazo para um programa de produção? Fale com a engenharia sobre volume, lote e
+            Precisa de previsibilidade de prazo para um programa de produção? Fale com o nosso time sobre volume, lote e
             cronograma.
           </p>
           <WhatsAppLink
@@ -273,7 +273,7 @@ export default function TransformadoresNobreaksPage() {
       <PillarChecklist
         id="fechar"
         eyebrow="Antes da cotação"
-        titulo="Feche a especificação com a engenharia"
+        titulo="Feche a especificação com o nosso time"
         lead="É esse conjunto de dados que separa uma cotação de catálogo de um dimensionamento sob medida. Se algum item ainda não existe no seu projeto, a equipe ajuda a fechar."
         itens={CHECKLIST}
       />

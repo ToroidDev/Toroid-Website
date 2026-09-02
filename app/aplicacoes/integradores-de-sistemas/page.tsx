@@ -48,7 +48,7 @@ const PERGUNTAS: Pergunta[] = [
   },
   {
     pergunta: "Quanto tempo leva do desenho à amostra?",
-    resposta: "Varia com a complexidade da especificação e o volume do lote. Envie os dados do projeto e a engenharia retorna com prazo.",
+    resposta: "Varia com a complexidade da especificação e o volume do lote. Envie os dados do projeto e o nosso time retorna com prazo.",
   },
   {
     pergunta: "Dá para padronizar o fornecimento para vários projetos diferentes da integradora?",
@@ -150,11 +150,11 @@ export default function IntegradoresDeSistemasPage() {
 
         <div className={styles.ctaInline}>
           <p className={styles.ctaInlineTexto}>
-            Tem um projeto em cotação agora? Envie os dados e a engenharia responde com o dimensionamento.
+            Tem um projeto em cotação agora? Envie os dados e o nosso time responde com o dimensionamento.
           </p>
           <WhatsAppLink
             className={styles.ctaInlineLink}
-            mensagem="Olá! Tenho um projeto em cotação agora e gostaria de falar com a engenharia sobre o dimensionamento."
+            mensagem="Olá! Tenho um projeto em cotação agora e gostaria de falar com o time sobre o dimensionamento."
           >
             Falar sobre o projeto
             <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
@@ -169,7 +169,7 @@ export default function IntegradoresDeSistemasPage() {
       <PillarChecklist
         id="fechar"
         eyebrow="Antes da cotação"
-        titulo="Feche a especificação com a engenharia"
+        titulo="Feche a especificação com o nosso time"
         lead="É esse conjunto de dados que separa uma cotação de catálogo de um dimensionamento sob medida. Se algum item ainda não existe no seu projeto, a equipe ajuda a fechar."
         itens={CHECKLIST}
       />

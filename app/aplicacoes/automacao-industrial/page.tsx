@@ -23,7 +23,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Transformador para Automação Industrial | Toroid do Brasil",
   description:
-    "Transformador para painel de automação industrial com isolação galvânica e baixa irradiação de campo. Fale com a engenharia e peça seu orçamento.",
+    "Transformador para painel de automação industrial com isolação galvânica e baixa irradiação de campo. Fale com o nosso time e peça seu orçamento.",
   alternates: { canonical: "/aplicacoes/automacao-industrial" },
 };
 
@@ -147,7 +147,7 @@ export default function AutomacaoIndustrialPage() {
 
         <div className={styles.ctaInline}>
           <p className={styles.ctaInlineTexto}>
-            Já sabe a tensão e a potência do circuito de controle? Envie os dados e a engenharia dimensiona.
+            Já sabe a tensão e a potência do circuito de controle? Envie os dados e o nosso time responde com o dimensionamento.
           </p>
           <WhatsAppLink
             className={styles.ctaInlineLink}
@@ -166,7 +166,7 @@ export default function AutomacaoIndustrialPage() {
       <PillarChecklist
         id="fechar"
         eyebrow="Antes da cotação"
-        titulo="Feche a especificação com a engenharia"
+        titulo="Feche a especificação com o nosso time"
         lead="É esse conjunto de dados que separa uma cotação de catálogo de um dimensionamento sob medida. Se algum item ainda não existe no seu projeto, a equipe ajuda a fechar."
         itens={CHECKLIST}
       />

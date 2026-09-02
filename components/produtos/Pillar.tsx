@@ -79,9 +79,9 @@ export function PillarHero({
             <WhatsAppLink
               className={styles.onDarkSecondary}
               mensagem={{
-                pt: `Olá! Vim pela página de ${nomeCategoria} e gostaria de falar com a engenharia.`,
-                es: `¡Hola! Vine por la página de ${nomeCategoria} y me gustaría hablar con la ingeniería.`,
-                en: `Hi! I came from the ${nomeCategoria} page and I would like to talk to your engineering team.`,
+                pt: `Olá! Vim pela página de ${nomeCategoria} e gostaria de falar com o time.`,
+                es: `¡Hola! Vine por la página de ${nomeCategoria} y me gustaría hablar con el equipo.`,
+                en: `Hi! I came from the ${nomeCategoria} page and I would like to talk to your team.`,
               }}
             >
               <T pt="Falar com nosso time" es="Hablar con nuestro equipo" en="Talk to our team" />

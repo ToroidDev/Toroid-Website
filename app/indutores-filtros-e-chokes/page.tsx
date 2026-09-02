@@ -410,7 +410,7 @@ export default function IndutoresFiltrosEChokesPage() {
       <PillarClosing id="fecho" titulo="Descreva o circuito, não o componente">
         <p>
           Se você ainda não tem a indutância alvo fechada, isso não impede a conversa. Descrever a faixa de corrente, a
-          frequência e o que precisa ser atenuado ou limitado já é suficiente para a nossa engenharia propor um
+          frequência e o que precisa ser atenuado ou limitado já é suficiente para o nosso time propor um
           dimensionamento e discutir alternativas.
         </p>
       </PillarClosing>

@@ -23,7 +23,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Transformador para Equipamento Laboratorial | Toroid do Brasil",
   description:
-    "Transformador para instrumento de laboratório com baixa irradiação de campo e regulação estável sob carga. Fale com a engenharia e peça seu orçamento.",
+    "Transformador para instrumento de laboratório com baixa irradiação de campo e regulação estável sob carga. Fale com o nosso time e peça seu orçamento.",
   alternates: { canonical: "/aplicacoes/equipamentos-laboratoriais" },
 };
 
@@ -46,7 +46,7 @@ const PERGUNTAS: Pergunta[] = [
   },
   {
     pergunta: "Como vocês tratam a estabilidade de tensão sob variação de carga?",
-    resposta: "A regulação é especificada a partir da carga informada no seu projeto. Envie a faixa de variação esperada e a engenharia dimensiona.",
+    resposta: "A regulação é especificada a partir da carga informada no seu projeto. Envie a faixa de variação esperada e o nosso time responde com o dimensionamento.",
   },
   {
     pergunta: "Fazem transformador sob medida para instrumento de bancada, em baixo volume?",
@@ -145,7 +145,7 @@ export default function EquipamentosLaboratoriaisPage() {
 
         <div className={styles.ctaInline}>
           <p className={styles.ctaInlineTexto}>
-            Já sabe a tensão e a potência do seu instrumento? Envie os dados e a engenharia dimensiona.
+            Já sabe a tensão e a potência do seu instrumento? Envie os dados e o nosso time responde com o dimensionamento.
           </p>
           <WhatsAppLink
             className={styles.ctaInlineLink}
@@ -164,7 +164,7 @@ export default function EquipamentosLaboratoriaisPage() {
       <PillarChecklist
         id="fechar"
         eyebrow="Antes da cotação"
-        titulo="Feche a especificação com a engenharia"
+        titulo="Feche a especificação com o nosso time"
         lead="É esse conjunto de dados que separa uma cotação de catálogo de um dimensionamento sob medida. Se algum item ainda não existe no seu projeto, a equipe ajuda a fechar."
         itens={CHECKLIST}
       />
