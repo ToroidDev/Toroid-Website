@@ -123,3 +123,32 @@ a.card {
 .card:hover .cardLink svg {
   transform: translateX(4px);
 }
+
+.shareCtaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 3.2vw, 40px);
+}
+
+/* Discreto de propósito: texto + ícone, sem fundo nem borda, para não competir
+   visualmente com os 5 cards acima. Mesma lógica do link de WhatsApp do
+   Footer, só que sobre o fundo levemente azulado desta seção. */
+.shareCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 46ch;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color 0.2s var(--ease-out);
+}
+
+.shareCta svg {
+  flex: none;
+}
+
+.shareCta:hover {
+  color: var(--color-blue);
+}

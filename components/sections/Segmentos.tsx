@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, BatteryCharging, Cpu, FlaskConical, HeartPulse, Network } from "lucide-react";
+import { ArrowRight, BatteryCharging, Cpu, FlaskConical, HeartPulse, MessageCircle, Network } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { T } from "@/components/i18n/T";
 import styles from "./Segmentos.module.css";
 
@@ -132,6 +133,28 @@ export function Segmentos() {
               </article>
             );
           })}
+        </div>
+
+        {/* CTA discreto, não um botão: o pedido do comercial foi "de maneira
+            discreta", então segue o mesmo espírito do link de WhatsApp do
+            Footer (ícone + texto, cor secundária) em vez do padrão de botão
+            usado no Hero/CTA. */}
+        <div className={styles.shareCtaWrap}>
+          <WhatsAppLink
+            className={styles.shareCta}
+            mensagem={{
+              pt: "Olá! Gostaria de compartilhar um projeto com a Toroid do Brasil e avaliar a engenharia de aplicação.",
+              es: "¡Hola! Me gustaría compartir un proyecto con Toroid do Brasil y evaluar la ingeniería de aplicación.",
+              en: "Hi! I'd like to share a project with Toroid do Brasil and have your application engineering take a look.",
+            }}
+          >
+            <MessageCircle size={16} strokeWidth={1.9} aria-hidden="true" />
+            <T
+              pt="Compartilhe seu projeto com a Toroid do Brasil e avalie nossa engenharia de aplicação."
+              es="Comparta su proyecto con Toroid do Brasil y evalúe nuestra ingeniería de aplicación."
+              en="Share your project with Toroid do Brasil and put our application engineering to the test."
+            />
+          </WhatsAppLink>
         </div>
       </div>
     </section>
