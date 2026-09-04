@@ -50,6 +50,8 @@ const PAGINAS_ESPELHO: Record<string, Partial<Record<Locale, string>>> = {
   "/es/transformadores-toroidais": { pt: "/transformadores-toroidais", es: "/es/transformadores-toroidais" },
   "/indutores-filtros-e-chokes": { pt: "/indutores-filtros-e-chokes", es: "/es/indutores-filtros-e-chokes" },
   "/es/indutores-filtros-e-chokes": { pt: "/indutores-filtros-e-chokes", es: "/es/indutores-filtros-e-chokes" },
+  "/isobox": { pt: "/isobox", es: "/es/isobox" },
+  "/es/isobox": { pt: "/isobox", es: "/es/isobox" },
 };
 
 // Devolve a URL real da página nesse idioma, ou null se não existe espelho

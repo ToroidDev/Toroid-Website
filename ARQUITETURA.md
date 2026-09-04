@@ -312,7 +312,8 @@ Ao criar uma nova página de família de produto ou de segmento, reaproveitar es
 - Posts de blog antigos → `/blog/[slug]` (mesmo slug)
 - Padrão de path para arquivos de data do WP: `{ source: '/:ano(\d{4})/:mes(\d{2})/:dia(\d{2})', destination: '/blog' }` — um redirect cobre qualquer URL não listada explicitamente
 - `/whatsapp` → `/#orcamento`
-- Casos **sem redirect por decisão** (404 aceito): `/lp` (descontinuada), artefatos de rastreio de campanha antigos, PDFs técnicos (seguem na Media Library do WP, fora do domínio do front-end novo), `/isobox` (slug reservado, página nova ainda não construída)
+- Casos **sem redirect por decisão** (404 aceito): `/lp` (descontinuada), artefatos de rastreio de campanha antigos, PDFs técnicos (seguem na Media Library do WP, fora do domínio do front-end novo)
+- `/isobox` mantém o slug sem precisar de redirect: a página existe hoje em `app/isobox/page.tsx` (construída em 2026-09-04, ver ROADMAP.md)
 
 `images.remotePatterns` cobre só `toroid.com.br/wp-content/uploads/**` — se a mídia migrar para CDN/subdomínio próprio, precisa de uma entrada nova (comentário no próprio arquivo já avisa disso).
 

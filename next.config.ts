@@ -199,8 +199,8 @@ const nextConfig = {
       // PDFs técnicos (Transf-corrente.pdf, Transf-Transistorizados.pdf) continuam
       // servidos direto da Media Library do WordPress — sem migração, sem redirect,
       // o host de mídia do WP não sai do ar (só o front-end de páginas).
-      // /isobox/ mantém o slug (Grupo A) — página nova a construir, sem prioridade
-      // definida ainda, ver ROADMAP.md.
+      // /isobox/ mantém o slug (Grupo A): a página já existe em app/isobox/page.tsx
+      // (2026-09-04, ver ROADMAP.md), sem precisar de redirect por manter o path.
       // adicionar cada URL antiga → nova aqui, uma por linha, antes do go-live
     ];
   },

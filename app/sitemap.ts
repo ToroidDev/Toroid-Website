@@ -11,6 +11,7 @@ const ROTAS_ESTATICAS = [
   "/transformador-de-potencia",
   "/transformadores-toroidais",
   "/indutores-filtros-e-chokes",
+  "/isobox",
   "/capacidade-fabril",
   "/quem-somos",
   "/contato",
@@ -45,6 +46,10 @@ const ALTERNADAS: Record<string, Record<string, string>> = {
   "/indutores-filtros-e-chokes": {
     "pt-BR": absoluteUrl("/indutores-filtros-e-chokes"),
     es: absoluteUrl("/es/indutores-filtros-e-chokes"),
+  },
+  "/isobox": {
+    "pt-BR": absoluteUrl("/isobox"),
+    es: absoluteUrl("/es/isobox"),
   },
 };
 
@@ -89,6 +94,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: {
           "pt-BR": absoluteUrl("/indutores-filtros-e-chokes"),
           es: absoluteUrl("/es/indutores-filtros-e-chokes"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/es/isobox"),
+      alternates: {
+        languages: {
+          "pt-BR": absoluteUrl("/isobox"),
+          es: absoluteUrl("/es/isobox"),
         },
       },
     },
