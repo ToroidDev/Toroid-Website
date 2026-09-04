@@ -1,4 +1,4 @@
-export type ProdutoIcone = "tc" | "toroidal" | "indutor" | "potencia";
+export type ProdutoIcone = "tc" | "toroidal" | "indutor" | "potencia" | "isobox";
 
 export interface Produto {
   id: string;
@@ -46,5 +46,15 @@ export const produtos: Produto[] = [
     imagem: "/images/INDUTORES.png",
     href: "/indutores-filtros-e-chokes",
     icone: "indutor",
+  },
+  {
+    id: "isobox",
+    nome: "Isobox",
+    descricaoCurta:
+      "Transformador de corrente de linha padrão, pronto para os três tipos de montagem mais comuns em painel: trilho DIN, fundo de painel ou barramento.",
+    resumo: "Linha padrão pronta para montagem em painel",
+    imagem: "/images/ISOBOXXX.png",
+    href: "/isobox",
+    icone: "isobox",
   },
 ];

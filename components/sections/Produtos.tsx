@@ -16,17 +16,17 @@ export function Produtos() {
       <div className={styles.inner}>
         <SectionHeading eyebrow={<T pt="Produtos" es="Productos" en="Products" />}>
           <T
-            pt="Três famílias, todas projetadas sob medida."
-            es="Tres familias, todas diseñadas a medida."
-            en="Three families, all custom engineered."
+            pt="Linha padrão e projetos sob medida."
+            es="Línea estándar y proyectos a medida."
+            en="Standard line and custom-engineered projects."
           />
         </SectionHeading>
 
         <Link href="/transformadores-toroidais" className={styles.toroidalLink}>
           <T
-            pt="Conheça a tecnologia por trás do núcleo toroidal, presente nas três famílias"
-            es="Conozca la tecnología detrás del núcleo toroidal, presente en las tres familias"
-            en="See the technology behind the toroidal core, present in all three families"
+            pt="Conheça a tecnologia por trás do núcleo toroidal, presente em toda a linha"
+            es="Conozca la tecnología detrás del núcleo toroidal, presente en toda la línea"
+            en="See the technology behind the toroidal core, present across the line"
           />
           <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
         </Link>

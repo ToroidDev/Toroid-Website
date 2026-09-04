@@ -57,11 +57,24 @@ export function IndutorIcon({ size = 46, className }: IconProps) {
   );
 }
 
+export function IsoboxIcon({ size = 46, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden="true" className={className}>
+      <circle cx="24" cy="24" r="18" stroke="#1A4B8C" strokeWidth="1.4" />
+      <circle cx="24" cy="24" r="8" stroke="#1A4B8C" strokeWidth="1.4" />
+      {/* trilho de montagem: o que diferencia o Isobox do TC sob medida é vir pronto para instalar */}
+      <path d="M14 40h20" stroke="#B8834A" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M18 40v4M30 40v4" stroke="#B8834A" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const ICONS: Record<ProdutoIcone, (props: IconProps) => React.JSX.Element> = {
   tc: TcIcon,
   toroidal: ToroidalIcon,
   indutor: IndutorIcon,
   potencia: PotenciaIcon,
+  isobox: IsoboxIcon,
 };
 
 export function ProdutoIconeSvg({

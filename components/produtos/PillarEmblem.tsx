@@ -92,11 +92,29 @@ function DetalheIndutor() {
   );
 }
 
+function DetalheIsobox() {
+  return (
+    <g>
+      {/* mesmo condutor do TC, mas com o pé de trilho DIN na base: o Isobox é
+          um TC de linha padrão, pronto para montar, não uma família nova */}
+      <path d={`M${C} 26V${C - R_TORUS_IN + 2}`} stroke={ACCENT} strokeWidth={7} strokeLinecap="round" />
+      <path d={`M${C} ${C + R_TORUS_IN - 2}V${SIZE - 46}`} stroke={ACCENT} strokeWidth={7} strokeLinecap="round" />
+      <circle cx={C} cy={C} r={26} stroke={ACCENT} strokeWidth={2} fill="none" opacity={0.5} />
+      <g stroke={ACCENT} strokeWidth={6} strokeLinecap="round">
+        <path d={`M${C - 30} ${SIZE - 30}H${C + 30}`} />
+        <path d={`M${C - 20} ${SIZE - 30}V${SIZE - 16}`} />
+        <path d={`M${C + 20} ${SIZE - 30}V${SIZE - 16}`} />
+      </g>
+    </g>
+  );
+}
+
 const DETALHES: Record<ProdutoIcone, () => React.JSX.Element> = {
   tc: DetalheTc,
   toroidal: DetalheToroidal,
   indutor: DetalheIndutor,
   potencia: DetalheTP,
+  isobox: DetalheIsobox,
 };
 
 export function PillarEmblem({ icone, className }: { icone: ProdutoIcone; className?: string }) {

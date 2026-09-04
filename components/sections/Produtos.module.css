@@ -45,7 +45,17 @@
   display: grid;
   gap: 20px;
   margin-top: clamp(38px, 4.4vw, 56px);
+  /* Responsivo (1/2/3 colunas) até 1080px; a partir daí força os 4 cards
+     numa linha só, largura fixa em vez de auto-fit — com o `--shell` de
+     1200px como teto, cada card ainda fica com ~260-270px, o suficiente
+     para imagem + selo + título + texto sem espremer demais. */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+}
+
+@media (min-width: 1080px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .card {
