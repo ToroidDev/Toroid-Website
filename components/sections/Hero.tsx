@@ -4,6 +4,7 @@ import { HeroToroidLogo } from "@/components/ui/HeroToroidLogo";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { T } from "@/components/i18n/T";
+import { HeroHeadline } from "./HeroHeadline";
 import styles from "./Hero.module.css";
 
 // Barra do pé do hero. Ocupa o lugar do `contactInfo` do componente de referência,
@@ -29,33 +30,13 @@ export function Hero() {
 
       <div className={styles.inner}>
         <div className={styles.copy}>
-          <p className={styles.slogan}>
-            <span className={styles.sloganRule} aria-hidden="true" />
-            <T pt="Engenharia nacional · ISO 9001" es="Ingeniería nacional · ISO 9001" en="National engineering · ISO 9001" />
-          </p>
-
-          {/* O verde entra só em "o desempenho", duas palavras. Espalhado pela
-              frase inteira ele empatava em peso visual com o azul, o que a
-              identidade proíbe: azul é base, verde é detalhe. */}
-          <h1 className={styles.headline}>
-            <T
-              pt="Pouco espaço no painel não deveria comprometer "
-              es="Poco espacio en el panel no debería comprometer "
-              en="Limited panel space shouldn't compromise "
-            />
-            <span className={styles.headlineAccent}>
-              <T pt="o desempenho" es="el rendimiento" en="performance" />
-            </span>
-            <T pt=" do sistema." es=" del sistema." en=" of the system." />
-          </h1>
-
-          <p className={styles.subtitle}>
-            <T
-              pt="Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação, não de um catálogo. Especificação conferida antes de produzir, mais de 30 anos fabricando no Brasil."
-              es="Transformadores de corriente, transformadores de potencia e inductores diseñados a partir de tu aplicación, no de un catálogo. Especificación verificada antes de producir, más de 30 años fabricando en Brasil."
-              en="Current transformers, power transformers and inductors engineered from your application, not a catalog. Specification checked before production, more than 30 years manufacturing in Brazil."
-            />
-          </p>
+          {/* O selo, o H1 (dores) e o parágrafo de valor + CTA moram juntos em
+              HeroHeadline.tsx: os três giram no mesmo relógio (ver o arquivo),
+              incluindo o selo, que troca a cada duas mudanças de dor. O verde
+              entra só no trecho de destaque de cada frase (ex.: "o
+              desempenho"), nunca na frase inteira — espalhado ele empatava em
+              peso visual com o azul, o que a identidade proíbe. */}
+          <HeroHeadline />
 
           <div className={styles.actions}>
             <a href="#orcamento" className={styles.primary}>

@@ -113,10 +113,78 @@
   color: #fff;
   max-width: 24ch;
   text-shadow: 0 1px 26px rgba(6, 20, 42, 0.45);
+  /* As 4 frases que se revezam aqui (ver HeroHeadline.tsx) não têm o mesmo
+     número de linhas em todo idioma e toda largura de tela — uma altura fixa
+     "chutada" em linhas sempre acabava estourando em alguma combinação.
+     Em vez disso, as 4 ficam empilhadas na mesma célula de grid
+     (.headlineSlot com grid-area: 1 / 1) e a grade cresce sozinha até caber
+     a mais alta das quatro, no idioma e na largura reais. Isso é o que dá
+     altura fixa de verdade, sem salto entre frases. */
+  display: grid;
+}
+
+.headlineSlot {
+  grid-area: 1 / 1;
+  /* sem isso, um item de grid tem min-width:auto por padrão, o que pode
+     empurrar a coluna além do max-width acima só por causa de uma palavra
+     comprida sem ponto de quebra */
+  min-width: 0;
+}
+
+.headlineFrase {
+  display: block;
+  /* O flash É a transição: nada de fade/slide por trás, o texto novo entra
+     no pico de brilho e assenta dali. */
+  animation: flashEletrico 0.65s ease-out both;
+}
+
+/* Lampejo elétrico: a troca em si, não um acompanhamento discreto de um
+   fade. Começa no pico (0%), quase estourado, cai, dá um segundo arco menor
+   (como uma descarga estabilizando) e assenta. `filter` (brightness +
+   drop-shadow, nunca text-shadow, que já é usado pelo `.headline` em si e
+   entraria em conflito) não afeta layout nem CLS, e some sozinho com o
+   bloco global de prefers-reduced-motion (globals.css). Só entra nos
+   elementos que realmente mudaram de conteúdo (headline, frase de valor,
+   selo) — o CTA fixo ao lado nunca ganha esta classe. */
+@keyframes flashEletrico {
+  0% {
+    filter: brightness(3.6) drop-shadow(0 0 16px rgba(255, 255, 255, 0.9));
+  }
+  20% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+  34% {
+    filter: brightness(2.6) drop-shadow(0 0 10px rgba(255, 255, 255, 0.65));
+  }
+  50% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+  100% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
 }
 
 .headlineAccent {
   color: var(--color-green-light);
+}
+
+/* Selo institucional: só ganha o flash quando o próprio valor troca (a
+   `key` em HeroHeadline.tsx já garante isso — ver comentário lá), não a
+   cada mudança de dor. */
+.sloganFlash {
+  display: inline-block;
+  animation: flashEletrico 0.65s ease-out both;
+}
+
+/* Frase de valor: mesmo parágrafo do CTA de autoridade fixo (.subtitle logo
+   abaixo), com a mesma tipografia — só a ordem separa os dois, o benefício
+   vem primeiro. Nada de altura reservada nem quebra forçada: o texto flui
+   direto para o CTA, como duas frases do mesmo parágrafo. Só esta frase
+   ganha o flash a cada troca; o CTA nunca ganha, porque o texto dele nunca
+   muda. */
+.beneficioFrase {
+  display: inline-block;
+  animation: flashEletrico 0.65s ease-out both;
 }
 
 .subtitle {
