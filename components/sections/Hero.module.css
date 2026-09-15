@@ -3,14 +3,20 @@
    no fluxo normal do documento, sobe por cima dele — cartão deslizando sobre
    o azul, sem JS de scroll. Mesmo mecanismo de QuemSomosHero.module.css.
    z-index baixo o bastante para nunca competir com a pílula fixa da nav
-   (z-index 60, ver Nav.module.css). */
+   (z-index 60, ver Nav.module.css). `height: clamp(…, 100svh, …)`, nunca
+   `min-height` com teto abaixo de 100svh: com min-height: min(92svh,900px)
+   o hero ficava até 8vh (ou mais, em monitor alto com o teto de 900px batendo
+   antes) mais baixo que a viewport, e a ProvaInstitucional — que não é sticky,
+   só sobe por cima no fluxo normal — já nascia espiada por cima dos botões
+   antes do usuário rolar um pixel sequer. Mesmo valor de clamp de
+   QuemSomosHero.module.css, que já não tinha esse problema. */
 .hero {
   position: sticky;
   top: 0;
   z-index: 1;
   isolation: isolate;
   overflow: hidden;
-  min-height: min(92svh, 900px);
+  height: clamp(640px, 100svh, 960px);
   display: flex;
   flex-direction: column;
   /* folga para a pílula de nav flutuante passar por cima sem encostar no texto */
