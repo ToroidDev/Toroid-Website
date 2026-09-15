@@ -1,6 +1,42 @@
 # Roadmap: site institucional Toroid do Brasil
 
-Atualizado em 2026-08-10, a partir do estado real do repositório (`git log`, árvore de arquivos, `lib/wordpress.ts`, TODOs no código e a auditoria de design de 2026-08-05 em `.impeccable/critique/`). Ponto de partida para realinhar com `CLAUDE.md` e `PRODUCT.md` quando o projeto avançar de fase; não substitui esses dois arquivos, que continuam sendo a autoridade de convenção e posicionamento.
+Atualizado em 2026-09-08, a partir do estado real do repositório (`git log`, árvore de arquivos, `lib/wordpress.ts`, TODOs no código) e de verificação ao vivo feita nesta data (`curl` em `toroid.com.br`, `toroid-website.vercel.app` e `wp-json/wp/v2/*`, ver seção 0). Ponto de partida para realinhar com `CLAUDE.md` e `PRODUCT.md` quando o projeto avançar de fase; não substitui esses dois arquivos, que continuam sendo a autoridade de convenção e posicionamento.
+
+---
+
+## 0. Verificação ao vivo (2026-09-08) e revalidação do cronograma
+
+O cronograma de execução (Notion, "plano semana a semana") previa corte de DNS na Semana 5 (31/08 a 02/09). Essa janela passou há uma semana sem o corte acontecer, e não há commit no repositório desde 2026-09-04 (`4e6adf1`). Esta seção reconcilia cronograma e roadmap com o estado real, checado agora por request direto, não por relato:
+
+- `curl -I https://toroid.com.br` devolve `host-header: WordPress.com`, `link: wp-json`, e o HTML ainda tem `wp-content`/`Elementor`; `robots.txt` e `sitemap.xml` do domínio ainda são os do WordPress antigo. **O corte de DNS não aconteceu**: o domínio segue 100% no site velho.
+- `https://toroid-website.vercel.app` está no ar com o deploy mais recente (`4e6adf1`, 2026-09-04) íntegro: `/produtos` já mostra o card do Isobox, `/isobox` responde 200, `/blog` responde 200. **O lado do código está pronto para o corte**: o que está segurando não é falta de trabalho técnico.
+- `wp-json/wp/v2/produto` e `wp-json/wp/v2/aplicacao` continuam 404 (`wp-json/wp/v2/types` nem lista os dois CPTs), mesmo diagnóstico da Trilha B desde 2026-08-17, sem mudança. Isso **não bloqueia o corte de DNS** (as páginas de produto/aplicação são estáticas), só continua bloqueando o item A.10.
+
+### Checklist da Semana 3 (17 a 21/08) e Semana 4 (24 a 28/08) do cronograma, reconciliado com o repositório
+
+| Item previsto no cronograma | Status real (2026-09-08) | Evidência |
+|---|---|---|
+| Schema.org: Organization, Product, FAQPage, BreadcrumbList | ✅ Feito | Trilha A, item 11 |
+| Sitemap.xml, robots.txt, canonical tags | ✅ Feito | Trilha A, item 7 (`app/sitemap.ts`/`app/robots.ts`) |
+| Performance: otimização de imagens, Core Web Vitals / Lighthouse 90+ | ✅ Validado em produção (2026-08-17) | Seção 5 |
+| Revisão de tom de voz em todo o conteúdo | ✅ Coberto nas 3 famílias + Isobox (revisão da engenharia, 2026-09-01) | Trilha A, item 16. Não confirmado para as 4 páginas de segmento novas (item 1.5) nem para o blog migrado |
+| Migração e revisão dos posts de blog existentes | 🟡 Parcial | Blog migrado e ao vivo (20+ títulos confirmados), mas ~5 posts com "30/40 anos" desatualizado ou frase banida seguem sem revisão editorial (Trilha B) |
+| Mapa de redirecionamento 301 completo | ✅ Feito, 68 entradas hoje em `next.config.ts` (o texto da seção 1.1 abaixo, que falava em 64, ficou desatualizado com adições posteriores: `/trabalhe-conosco`, `/tranformadores-de-tensao`, `/transformadores-nobreaks` etc.) | `next.config.ts` |
+| Eventos de conversão no GA4 (`whatsapp_click`, `form_submit`) | 🟡 Implementado, não confirmado ao vivo | Trilha A, item 8: "só testei a estrutura do código (...), não uma sessão de GA4 de verdade" |
+| QA cross-browser e cross-device | ❓ Sem registro no repositório de que essa rodada aconteceu | (nenhuma) |
+| Teste ponta a ponta de todos os formulários | 🟡 Formulário funcional e verificado em código; sem registro de uma sessão de QA manual ponta a ponta | `components/forms/OrcamentoForm.tsx` |
+| Revisão final de copy e imagens (produto real, nunca flutuando) | ✅ Fotos reais da fábrica substituíram placeholders, vídeo institucional adicionado (2026-09-01) | Commits `fb99aa6`, `106f5ba` |
+| Validação formal da diretoria em staging | ❓ Sem registro, nenhuma menção no ROADMAP nem no histórico de commits de uma aprovação formal desse tipo | (nenhuma) |
+| Checklist final: redirects, Ads, formulários, WhatsApp | 🟡 Redirects e WhatsApp ok; mapeamento de campanhas Ads é só "ponto de partida", sem confirmação na conta real | Trilha B, "Mapeamento de URLs das campanhas Ads" |
+
+### Cronograma revisado (proposta, a partir de 2026-09-08)
+
+O que falta agora é majoritariamente decisão/acesso de terceiro (diretoria, WP admin, Ads), não código novo:
+
+1. **Agora:** fechar as pontas que hoje são só "código pronto, ninguém confirmou": sessão real de GA4 DebugView, rodada de QA cross-browser/device, teste ponta a ponta dos formulários, revisão editorial dos ~5 posts de blog com dado desatualizado.
+2. **Sem data-alvo até resposta de terceiro:** validação formal da diretoria em staging. É o pré-requisito que o próprio cronograma original colocava antes do corte, não faz sentido propor uma data de corte sem essa confirmação vir primeiro.
+3. **Corte de DNS:** assim que o item 2 acontecer, em janela de baixo tráfego (terça ou quarta, como o plano original já previa). Logisticamente pode ser feito a qualquer momento: o deploy na Vercel já está pronto e íntegro (verificado acima), o atraso é de aprovação, não de prontidão técnica.
+4. **48 a 72h seguintes ao corte:** monitoramento intensivo (GA4, erros 404, qualidade de landing page nos Ads) e reenvio do sitemap ao Search Console, como já previsto na semana de go-live original.
 
 ---
 
@@ -9,7 +45,7 @@ Atualizado em 2026-08-10, a partir do estado real do repositório (`git log`, á
 ### 1.1 Fundação técnica (concluída)
 
 - Next.js App Router, TypeScript, Server Components por padrão.
-- `next.config.ts`: `remotePatterns` de imagem para `toroid.com.br` (ainda não validado contra uma URL real de mídia), headers de cache para assets estáticos, 64 redirects 301 (na prática 308, ver nota abaixo) mapeados a partir do export completo do Search Console (`paginasGSC.md`, 83 URLs): as 3 URLs de produto que viveram em `/produtos/...`, o `__trashed` do WordPress antigo, 58 posts de blog (incluindo o typo `/tranformadores-de-tensao` e a versão com escrita correta, redirecionadas para o mesmo destino), um padrão de path para arquivos de data (`/:ano/:mes/:dia` → `/blog`), e `/whatsapp` → `/#orcamento`. Essencialmente completo — o que resta fora do mapa é por decisão explícita (`/lp` descontinuada, `/isobox` mantém o mesmo slug e por isso nunca precisou de redirect, PDFs seguem na Media Library do WP) ou pendência externa (política de privacidade), não por falta de dado.
+- `next.config.ts`: `remotePatterns` de imagem para `toroid.com.br` (ainda não validado contra uma URL real de mídia), headers de cache para assets estáticos, 68 redirects 301 (na prática 308, ver nota abaixo; eram 64 em 2026-08-17, o número cresceu com entradas adicionadas depois, `/trabalhe-conosco`, `/tranformadores-de-tensao`, `/transformadores-nobreaks`, ver Trilha A) mapeados a partir do export completo do Search Console (`paginasGSC.md`, 83 URLs): as 3 URLs de produto que viveram em `/produtos/...`, o `__trashed` do WordPress antigo, 58 posts de blog (incluindo o typo `/tranformadores-de-tensao` e a versão com escrita correta, redirecionadas para o mesmo destino), um padrão de path para arquivos de data (`/:ano/:mes/:dia` → `/blog`), e `/whatsapp` → `/#orcamento`. Essencialmente completo: o que resta fora do mapa é por decisão explícita (`/lp` descontinuada, `/isobox` mantém o mesmo slug e por isso nunca precisou de redirect, PDFs seguem na Media Library do WP) ou pendência externa (política de privacidade), não por falta de dado.
 - Nota técnica: `permanent: true` no Next.js retorna HTTP 308, não 301 — é o substituto moderno que preserva o método HTTP; Search Console/Google tratam como equivalente a 301 para sinal de ranking. Não é bug, é o comportamento padrão do framework desde os primeiros 2 redirects do projeto.
 - Fontes via `next/font/google` (Montserrat nos títulos, Karla no corpo), sem `<link>` bloqueante.
 - Sistema de design: tokens de cor em `globals.css`, ilustrações SVG próprias e determinísticas (`HeroToroid`, `CurrentWave`), zero bibliotecas pesadas.
@@ -104,7 +140,7 @@ Rodada única de `/impeccable` sobre a home. Cruzando com o estado atual do cód
 | Confirmar quais tipos construtivos de TC a Toroid fornece além de janela e bipartido (barra, enrolado) | Comercial/Engenharia | A seção "Tipos construtivos" de `/transformador-de-corrente` declara hoje que a linha é construída em torno de janela e bipartida até 1,5 kV, e trata barra, bucha e enrolado como referência de especificação. Se a Toroid fornece barra ou enrolado, essa linha de escopo precisa ser ajustada. |
 | Aprovação comercial da mensagem-chave da página de nobreaks (dor de campo vs. dor inferida da NBR5356-5) | Comercial | Mesmo item acima |
 | Liberação de cases/depoimentos de cliente | Comercial | Substituir o placeholder de prova social por conteúdo real |
-| Plano de corte (DNS/domínio) do WordPress atual para o Next.js na Vercel | Quem administra infraestrutura | Data de go-live |
+| Plano de corte (DNS/domínio) do WordPress atual para o Next.js na Vercel | Quem administra infraestrutura | Data de go-live. **Verificado ao vivo em 2026-09-08 (ver seção 0): `toroid.com.br` continua 100% no WordPress antigo, corte não aconteceu.** O deploy de destino (`toroid-website.vercel.app`) está íntegro e atualizado. Não é o código que está segurando o corte, é a decisão/execução em si (que a Semana 4 do cronograma original condicionava à validação formal da diretoria em staging, sem registro de que essa validação ocorreu). |
 
 ### Mapeamento de URLs das campanhas Ads ativas para o novo site (Semana 2 do cronograma de execução)
 
@@ -153,8 +189,9 @@ Prioridade prática, considerando o que já foi construído:
 
 ---
 
-## 5. Bloqueios que impedem o go-live (resumo, atualizado 2026-08-17)
+## 5. Bloqueios que impedem o go-live (resumo, atualizado 2026-09-08)
 
+- **Corte de DNS ainda não aconteceu**, verificado ao vivo em 2026-09-08 (ver seção 0): `toroid.com.br` continua servindo o WordPress antigo (Elementor), passada uma semana da data de go-live do cronograma original (31/08 a 02/09). O destino (`toroid-website.vercel.app`) está com o deploy atual íntegro. Este é hoje o único bloqueio que não é "falta de código", é decisão/execução de quem administra a infraestrutura, condicionada (no cronograma original) a uma validação formal da diretoria em staging da qual não há registro.
 - ~~Nenhum lead-capture funcional existe~~ **Resolvido**: form + `/api/orcamento` + persistência no MongoDB.
 - ~~`WP_API_URL` não confirmado~~ **Parcialmente resolvido**: confirmado em produção para posts de blog (item 1.3 acima, verificado ao vivo em `toroid-website.vercel.app/blog`). Produto e Aplicação continuam bloqueados — CPTs `produto`/`aplicacao` retornam 404 na REST API (Trilha B).
 - ~~Telefone, e-mail, WhatsApp e redes sociais são placeholders~~ **Resolvido** (Trilha B): dados reais confirmados.
