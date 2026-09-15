@@ -32,3 +32,54 @@
   margin-top: clamp(32px, 4vw, 48px);
   color: var(--color-text-secondary);
 }
+
+/* Só o botão, sem seção própria (sem heading, sem fundo, sem embed): a
+   publicação embutida do LinkedIn foi removida — depende de cookie de
+   terceiro e cai num tamanho degradado sob ad blocker, então virou risco
+   maior que o valor de mostrar o post em si. Isso aqui é só o convite. */
+.linkedin {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter) clamp(56px, 6.5vw, 96px);
+  display: flex;
+  justify-content: center;
+}
+
+.linkedinCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 22px;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  font-family: var(--font-title);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.linkedinCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(26, 75, 140, 0.1), 0 3px 8px rgba(26, 75, 140, 0.05);
+  border-color: var(--color-blue-soft);
+}
+
+.linkedinCta svg:first-child {
+  flex: none;
+  color: var(--color-blue);
+}
+
+.linkedinSeta {
+  flex: none;
+  color: var(--color-border-strong);
+  transition: color 0.18s ease-out, transform 0.2s var(--ease-out);
+}
+
+.linkedinCta:hover .linkedinSeta {
+  color: var(--color-blue);
+  transform: translate(2px, -2px);
+}

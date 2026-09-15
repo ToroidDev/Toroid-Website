@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
 import { BlogHero } from "@/components/blog/BlogHero";
 import { Paginacao } from "@/components/blog/Paginacao";
-import { LinkedinSection } from "@/components/blog/LinkedinSection";
 import { PostCard } from "@/components/blog/PostCard";
 import { PostDestaque } from "@/components/blog/PostDestaque";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LinkedinIcon } from "@/components/ui/SocialIcons";
 import { decodificarEntidades } from "@/lib/blog";
 import { absoluteUrl } from "@/lib/seo";
 import { getPostsPagina, type PostResumo } from "@/lib/wordpress";
 import styles from "./page.module.css";
+
+const LINKEDIN_URL = "https://www.linkedin.com/company/toroidbrasil/";
 
 // Renderiza por request (searchParams é API de request-time no Next 16, ver
 // node_modules/next/dist/docs → file-conventions/page.md), mas sem custo de
@@ -147,7 +150,13 @@ export default async function BlogPage({
         </div>
       </section>
 
-      <LinkedinSection />
+      <div className={styles.linkedin}>
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener" className={styles.linkedinCta}>
+          <LinkedinIcon size={20} />
+          <span>Nos acompanhe no LinkedIn para mais conteúdo técnico</span>
+          <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" className={styles.linkedinSeta} />
+        </a>
+      </div>
 
       <CTA />
 
