@@ -4,11 +4,13 @@ import { ArrowRight } from "lucide-react";
 import { getAnosDeMercado } from "@/lib/institucional";
 import styles from "./Historia.module.css";
 
-const LINHA_DO_TEMPO = [
-  { ano: "1994", marco: "Fundação em São José dos Pinhais, PR: uma máquina, três pessoas." },
-  { ano: "2004", marco: "Mudança para uma nova sede de aproximadamente 600 m²." },
-  { ano: "2016", marco: "Mudança para a sede atual, de aproximadamente 1.600 m², onde a fábrica opera hoje." },
-];
+// Comentado por ora: a linha do tempo com esses 3 marcos (1994/2004/2016) já
+// existe em LinhaDoTempo.tsx, mantida como a única exibida na página.
+// const LINHA_DO_TEMPO = [
+//   { ano: "1994", marco: "Fundação em São José dos Pinhais, PR: uma máquina, três pessoas." },
+//   { ano: "2004", marco: "Mudança para uma nova sede de aproximadamente 600 m²." },
+//   { ano: "2016", marco: "Mudança para a sede atual, de aproximadamente 1.600 m², onde a fábrica opera hoje." },
+// ];
 
 const NUMEROS = [
   { valor: "~80", rotulo: "colaboradores" },
@@ -39,14 +41,14 @@ export function Historia() {
             rastreabilidade de lote e sistema de gestão certificado.
           </p>
 
-          <ol className={styles.timeline}>
+          {/* <ol className={styles.timeline}>
             {LINHA_DO_TEMPO.map(({ ano, marco }) => (
               <li key={ano} className={styles.timelineItem}>
                 <span className={styles.timelineAno}>{ano}</span>
                 <span className={styles.timelineMarco}>{marco}</span>
               </li>
             ))}
-          </ol>
+          </ol> */}
 
           <p className={styles.nota}>
             A Toroid do Brasil nasceu em 1994, com uma máquina e três pessoas, como parte de um grupo com raízes na
@@ -54,14 +56,11 @@ export function Historia() {
           </p>
         </div>
 
-        {/* Fotos de ofício, não de fachada/planta: a linha do tempo logo abaixo
-            já mostra as sedes e o chão de fábrica em tela cheia, e repetir as
-            mesmas imagens a poucos pixels de distância enfraquecia as duas. */}
         <div className={styles.media}>
           <figure className={`${styles.tile} ${styles.tileMain}`}>
             <Image
-              src="/images/bobinando.webp"
-              alt="Operador bobinando um núcleo toroidal na fábrica da Toroid"
+              src="/images/casamadeiratoroid.webp"
+              alt="Primeira sede da Toroid do Brasil, uma casa de madeira em São José dos Pinhais, PR"
               fill
               sizes="(min-width: 900px) 40vw, 100vw"
               className={styles.tileImg}
@@ -69,8 +68,8 @@ export function Historia() {
           </figure>
           <figure className={styles.tile}>
             <Image
-              src="/images/nucleo.webp"
-              alt="Núcleo toroidal em processo de fabricação na planta da Toroid"
+              src="/images/fabrica-interna-tratada.webp"
+              alt="Vista do chão de fábrica da Toroid, com postos de bobinagem e montagem em operação"
               fill
               sizes="(min-width: 900px) 40vw, 100vw"
               className={styles.tileImg}
