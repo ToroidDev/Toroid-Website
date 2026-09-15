@@ -1,6 +1,7 @@
 import { ArrowRight, ClipboardCheck, Factory, MapPin, MessageCircle } from "lucide-react";
 // import { HeroToroid } from "@/components/ui/HeroToroid"; // animação anterior (render isométrico do núcleo), mantida no repo, ver HeroToroidLogo abaixo
-import { HeroToroidLogo } from "@/components/ui/HeroToroidLogo";
+// import { HeroToroidLogo } from "@/components/ui/HeroToroidLogo";
+import { HeroToroidLogo3D } from "@/components/ui/HeroToroidLogo3D"; // PREVIEW: fusão 3D + marca, ver comentário no arquivo
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { T } from "@/components/i18n/T";
@@ -59,7 +60,8 @@ export function Hero() {
 
         <div className={styles.art}>
           {/* <HeroToroid variant="dark" /> */}
-          <HeroToroidLogo />
+          {/* <HeroToroidLogo /> */}
+          <HeroToroidLogo3D />
         </div>
       </div>
 

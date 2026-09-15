@@ -1,8 +1,16 @@
-/* Faixa de prova. Encosta no hero escuro, então ganha um fundo levemente azulado
-   e uma borda superior própria em vez do wash global que existia antes. */
+/* Faixa de prova. Borda superior arredondada + sombra escura por cima: é o
+   que lê como "cartão subindo sobre o azul" enquanto o Hero (sticky, ver
+   Hero.module.css) permanece pregado no topo da viewport. z-index acima do
+   Hero (1) e margin-top negativo de 1px evita um fiapo de gap subpixel entre
+   as duas seções em telas de alta densidade. Mesmo mecanismo de
+   Historia.module.css em /quem-somos. */
 .section {
   position: relative;
+  z-index: 2;
+  margin-top: -1px;
   background: linear-gradient(180deg, var(--color-bg-tint) 0%, #fff 100%);
+  border-radius: clamp(22px, 3.6vw, 44px) clamp(22px, 3.6vw, 44px) 0 0;
+  box-shadow: 0 -48px 100px rgba(9, 28, 56, 0.32);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -54,6 +62,7 @@
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--color-blue);
+  white-space: nowrap;
 }
 
 .statLabel {
@@ -67,4 +76,18 @@
 /* ISO 9001 e RoHS Compliant: mesmo padrão, mas em corpo de selo, não de número */
 .selo {
   font-size: clamp(19px, 1.7vw, 40px);
+}
+
+/* No mobile os itens quebram em várias linhas (`.stats` já é `flex-wrap`), e o
+   filete vertical passava a nascer no início de linhas quebradas, sem nada
+   para separar ali — só um recuo torto. Sem o filete, o `gap` de `.stats`
+   sozinho já alinha tudo à mesma margem esquerda. */
+@media (max-width: 700px) {
+  .stat + .stat {
+    padding-left: 0;
+  }
+
+  .stat + .stat::before {
+    content: none;
+  }
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { ProvaInstitucional } from "@/components/sections/ProvaInstitucional";
+import { HeroStack } from "@/components/sections/HeroStack";
 import { Produtos } from "@/components/sections/Produtos";
 import { Segmentos } from "@/components/sections/Segmentos";
 // import { ProvaGoogle } from "@/components/sections/ProvaGoogle"; // ver aviso no arquivo: falta confirmar nota/total de avaliações reais antes de ligar
@@ -26,8 +25,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Hero />
-      <ProvaInstitucional />
+      <HeroStack />
       <Produtos />
       <Segmentos />
       {/* <ProvaGoogle /> */}

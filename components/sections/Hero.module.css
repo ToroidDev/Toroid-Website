@@ -1,5 +1,13 @@
+/* `position: sticky; top: 0` gruda o hero no topo da viewport pelo intervalo
+   de scroll igual à própria altura; a seção seguinte (ProvaInstitucional),
+   no fluxo normal do documento, sobe por cima dele — cartão deslizando sobre
+   o azul, sem JS de scroll. Mesmo mecanismo de QuemSomosHero.module.css.
+   z-index baixo o bastante para nunca competir com a pílula fixa da nav
+   (z-index 60, ver Nav.module.css). */
 .hero {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   isolation: isolate;
   overflow: hidden;
   min-height: min(92svh, 900px);

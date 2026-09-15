@@ -45,7 +45,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   height: 100%;
   /* a nav passou a ser fixed: sem isto todo âncora aterrissa por baixo da pílula */
   scroll-padding-top: clamp(92px, 10vw, 116px);
@@ -136,9 +135,6 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { ProvaInstitucional } from "@/components/sections/ProvaInstitucional";
+import { HeroStack } from "@/components/sections/HeroStack";
 import { Produtos } from "@/components/sections/Produtos";
 import { Segmentos } from "@/components/sections/Segmentos";
 import { Performance } from "@/components/sections/Performance";
@@ -32,8 +31,7 @@ export const metadata: Metadata = {
 export default function HomeEs() {
   return (
     <>
-      <Hero />
-      <ProvaInstitucional />
+      <HeroStack />
       <Produtos />
       <Segmentos />
       <Performance />
