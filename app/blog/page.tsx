@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CTA } from "@/components/sections/CTA";
 import { BlogHero } from "@/components/blog/BlogHero";
 import { Paginacao } from "@/components/blog/Paginacao";
+import { LinkedinSection } from "@/components/blog/LinkedinSection";
 import { PostCard } from "@/components/blog/PostCard";
 import { PostDestaque } from "@/components/blog/PostDestaque";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
@@ -145,6 +146,8 @@ export default async function BlogPage({
           )}
         </div>
       </section>
+
+      <LinkedinSection />
 
       <CTA />
 

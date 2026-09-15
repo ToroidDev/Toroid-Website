@@ -84,11 +84,8 @@ export function PostDestaque({ destaque, sugestoes }: { destaque: PostResumo; su
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className={styles.itemCorpo}>
-                        <TemaChip tema={temaSugestao} />
+                        <TemaChip tema={temaSugestao} tone="texto" />
                         <span className={styles.itemTitulo} dangerouslySetInnerHTML={{ __html: post.titulo }} />
-                        <time className={styles.itemData} dateTime={dataISO(post.publicadoEm)}>
-                          {formatarData(post.publicadoEm)}
-                        </time>
                       </span>
                       <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" className={styles.itemSeta} />
                     </Link>
