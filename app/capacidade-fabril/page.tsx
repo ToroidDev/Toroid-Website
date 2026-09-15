@@ -3,13 +3,17 @@ import { CTA } from "@/components/sections/CTA";
 import { CapacidadeHero } from "@/components/capacidade-fabril/CapacidadeHero";
 import { ZigZagSecao } from "@/components/ui/ZigZagSecao";
 import { PillarChecklist } from "@/components/produtos/Pillar";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
+
+const TITULO = "Capacidade Fabril | Toroid do Brasil";
+const DESCRICAO =
+  "Da matéria-prima ao teste elétrico: conheça o processo de fabricação de transformadores e indutores da Toroid do Brasil, engenharia aplicada e fabricação sob medida em São José dos Pinhais, PR.";
 
 export const metadata: Metadata = {
-  title: "Capacidade Fabril | Toroid do Brasil",
-  description:
-    "Da matéria-prima ao teste elétrico: conheça o processo de fabricação de transformadores e indutores da Toroid do Brasil, engenharia aplicada e fabricação sob medida em São José dos Pinhais, PR.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/capacidade-fabril" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/capacidade-fabril" }),
 };
 
 const JSON_LD = [

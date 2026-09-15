@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -22,10 +22,13 @@ import {
 // de indutor confirmada pela engenharia ainda. O brief de conteúdo recebido em
 // 2026-09-01 foi aplicado nas duas versões.
 
+const TITULO = "Inductores y Reactores a Medida | Toroid do Brasil";
+const DESCRICAO =
+  "Inductores y reactores con inductancia especificada según el rango real de operación del circuito, fabricación nacional y garantía de 3 años. Solicita presupuesto técnico.";
+
 export const metadata: Metadata = {
-  title: "Inductores y Reactores a Medida | Toroid do Brasil",
-  description:
-    "Inductores y reactores con inductancia especificada según el rango real de operación del circuito, fabricación nacional y garantía de 3 años. Solicita presupuesto técnico.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: absoluteUrl("/es/indutores-filtros-e-chokes"),
     languages: {
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/indutores-filtros-e-chokes"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/es/indutores-filtros-e-chokes", locale: "es_ES" }),
 };
 
 const SECOES: SecaoPilar[] = [

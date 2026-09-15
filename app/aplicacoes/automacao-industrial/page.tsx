@@ -8,6 +8,7 @@ import { FaixaControle } from "@/components/aplicacoes/FaixaControle";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -20,11 +21,15 @@ import styles from "./page.module.css";
 // para este segmento.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const TITULO = "Transformador para Automação Industrial | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador para painel de automação industrial com isolação galvânica e baixa irradiação de campo. Fale com o nosso time e peça seu orçamento.";
+
 export const metadata: Metadata = {
-  title: "Transformador para Automação Industrial | Toroid do Brasil",
-  description:
-    "Transformador para painel de automação industrial com isolação galvânica e baixa irradiação de campo. Fale com o nosso time e peça seu orçamento.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/aplicacoes/automacao-industrial" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/aplicacoes/automacao-industrial" }),
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -66,12 +71,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para automação industrial",
-        item: "https://toroid.com.br/aplicacoes/automacao-industrial",
+        item: absoluteUrl("/aplicacoes/automacao-industrial"),
       },
     ],
   },

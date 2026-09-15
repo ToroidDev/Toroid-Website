@@ -196,14 +196,39 @@ export function OrcamentoForm() {
     <form className={styles.form} onSubmit={onSubmit} noValidate>
       <div className={styles.campo}>
         <label htmlFor="orcamento-nome">{t.campoNome}</label>
-        <input id="orcamento-nome" name="nome" type="text" required minLength={2} autoComplete="name" />
-        {erros.nome && <p className={styles.erroCampo}>{erros.nome[0]}</p>}
+        <input
+          id="orcamento-nome"
+          name="nome"
+          type="text"
+          required
+          minLength={2}
+          autoComplete="name"
+          aria-invalid={!!erros.nome}
+          aria-describedby={erros.nome ? "orcamento-nome-erro" : undefined}
+        />
+        {erros.nome && (
+          <p id="orcamento-nome-erro" role="alert" className={styles.erroCampo}>
+            {erros.nome[0]}
+          </p>
+        )}
       </div>
 
       <div className={styles.campo}>
         <label htmlFor="orcamento-email">{t.campoEmail}</label>
-        <input id="orcamento-email" name="email" type="email" required autoComplete="email" />
-        {erros.email && <p className={styles.erroCampo}>{erros.email[0]}</p>}
+        <input
+          id="orcamento-email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          aria-invalid={!!erros.email}
+          aria-describedby={erros.email ? "orcamento-email-erro" : undefined}
+        />
+        {erros.email && (
+          <p id="orcamento-email-erro" role="alert" className={styles.erroCampo}>
+            {erros.email[0]}
+          </p>
+        )}
       </div>
 
       <div className={styles.campo}>
@@ -218,8 +243,14 @@ export function OrcamentoForm() {
           placeholder={t.placeholderTelefone}
           value={telefone}
           onChange={(e) => setTelefone(mascararTelefone(e.target.value))}
+          aria-invalid={!!erros.telefone}
+          aria-describedby={erros.telefone ? "orcamento-telefone-erro" : undefined}
         />
-        {erros.telefone && <p className={styles.erroCampo}>{erros.telefone[0]}</p>}
+        {erros.telefone && (
+          <p id="orcamento-telefone-erro" role="alert" className={styles.erroCampo}>
+            {erros.telefone[0]}
+          </p>
+        )}
       </div>
 
       <div className={styles.campo}>
@@ -229,8 +260,14 @@ export function OrcamentoForm() {
           name="observacao"
           rows={3}
           placeholder={t.placeholderObservacao}
+          aria-invalid={!!erros.observacao}
+          aria-describedby={erros.observacao ? "orcamento-observacao-erro" : undefined}
         />
-        {erros.observacao && <p className={styles.erroCampo}>{erros.observacao[0]}</p>}
+        {erros.observacao && (
+          <p id="orcamento-observacao-erro" role="alert" className={styles.erroCampo}>
+            {erros.observacao[0]}
+          </p>
+        )}
       </div>
 
       {/* Campos completos, esperando validação comercial (lib/orcamento-schema.ts):
@@ -251,10 +288,19 @@ export function OrcamentoForm() {
       </div>
       */}
 
-      {erroGeral && <p className={styles.erroGeral}>{erroGeral}</p>}
+      {erroGeral && (
+        <p role="alert" className={styles.erroGeral}>
+          {erroGeral}
+        </p>
+      )}
 
       <div className={styles.acoes}>
-        <button type="submit" className={styles.enviar} disabled={estado === "enviando"}>
+        <button
+          type="submit"
+          className={styles.enviar}
+          disabled={estado === "enviando"}
+          aria-busy={estado === "enviando"}
+        >
           {estado === "enviando" ? (
             <>
               <Loader2 size={18} strokeWidth={2} className={styles.spin} aria-hidden="true" />

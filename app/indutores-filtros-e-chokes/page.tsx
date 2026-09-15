@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -35,10 +35,13 @@ import {
 // confirmado. Fase seguinte: trocar por lib/wordpress.ts (getProdutoPorSlug)
 // quando WP_API_URL estiver validado, sem mudar URL nem estrutura desta página.
 
+const TITULO = "Indutores e Reatores sob Medida | Toroid do Brasil";
+const DESCRICAO =
+  "Indutores e reatores com indutância especificada pela faixa real de operação do circuito, fabricação nacional e garantia de 3 anos. Peça orçamento técnico.";
+
 export const metadata: Metadata = {
-  title: "Indutores e Reatores sob Medida | Toroid do Brasil",
-  description:
-    "Indutores e reatores com indutância especificada pela faixa real de operação do circuito, fabricação nacional e garantia de 3 anos. Peça orçamento técnico.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: "/indutores-filtros-e-chokes",
     languages: {
@@ -47,6 +50,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/indutores-filtros-e-chokes"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/indutores-filtros-e-chokes" }),
 };
 
 const SECOES: SecaoPilar[] = [

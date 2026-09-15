@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -39,10 +39,13 @@ import {
 // confirmado. Fase seguinte: trocar por lib/wordpress.ts (getProdutoPorSlug)
 // quando WP_API_URL estiver validado, sem mudar URL nem estrutura desta página.
 
+const TITULO = "Transformador de Potência sob Medida | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador de potência com isolação galvânica, eficiência até 98% e núcleo toroidal ou convencional conforme o projeto. Peça orçamento técnico com o nosso time.";
+
 export const metadata: Metadata = {
-  title: "Transformador de Potência sob Medida | Toroid do Brasil",
-  description:
-    "Transformador de potência com isolação galvânica, eficiência até 98% e núcleo toroidal ou convencional conforme o projeto. Peça orçamento técnico com o nosso time.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: "/transformador-de-potencia",
     languages: {
@@ -51,6 +54,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/transformador-de-potencia"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/transformador-de-potencia" }),
 };
 
 const SECOES: SecaoPilar[] = [

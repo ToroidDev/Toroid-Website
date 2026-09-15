@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -33,10 +33,13 @@ import {
 // confirmado. Fase seguinte: trocar por lib/wordpress.ts (getProdutoPorSlug)
 // quando WP_API_URL estiver validado, sem mudar URL nem estrutura desta página.
 
+const TITULO = "Transformador de Corrente (TC) sob Medida | Toroid";
+const DESCRICAO =
+  "Transformador de corrente para medição e proteção, com classe de exatidão a partir de 0,3%, fabricação nacional e garantia de 3 anos. Peça seu orçamento técnico.";
+
 export const metadata: Metadata = {
-  title: "Transformador de Corrente (TC) sob Medida | Toroid",
-  description:
-    "Transformador de corrente para medição e proteção, com classe de exatidão a partir de 0,3%, fabricação nacional e garantia de 3 anos. Peça seu orçamento técnico.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: "/transformador-de-corrente",
     languages: {
@@ -45,6 +48,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/transformador-de-corrente"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/transformador-de-corrente" }),
 };
 
 const SECOES: SecaoPilar[] = [

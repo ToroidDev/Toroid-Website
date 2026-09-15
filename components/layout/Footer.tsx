@@ -56,15 +56,15 @@ export function Footer() {
               <FooterText k="redes" />
             </p>
             <div className={styles.columnList}>
-              <a href="https://www.linkedin.com/company/toroidbrasil/" target="_blank" rel="noopener">
+              <a href="https://www.linkedin.com/company/toroidbrasil/" target="_blank" rel="noopener noreferrer">
                 <LinkedinIcon size={15} />
                 LinkedIn
               </a>
-              <a href="https://www.instagram.com/toroidbrasil/" target="_blank" rel="noopener">
+              <a href="https://www.instagram.com/toroidbrasil/" target="_blank" rel="noopener noreferrer">
                 <InstagramIcon size={15} />
                 Instagram
               </a>
-              <a href="https://www.youtube.com/@toroiddobrasil3985" target="_blank" rel="noopener">
+              <a href="https://www.youtube.com/@toroiddobrasil3985" target="_blank" rel="noopener noreferrer">
                 <YoutubeIcon size={15} />
                 YouTube
               </a>

@@ -97,6 +97,25 @@ button {
   border-radius: 3px;
 }
 
+.pular-para-conteudo {
+  position: fixed;
+  top: -100%;
+  left: 12px;
+  z-index: 1000;
+  padding: 10px 18px;
+  background: var(--color-blue);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: 6px;
+  transition: top 0.15s var(--ease-out);
+}
+
+.pular-para-conteudo:focus-visible {
+  top: 12px;
+  outline-color: #fff;
+}
+
 @keyframes toroGlow {
   0%,
   100% {

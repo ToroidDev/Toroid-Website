@@ -10,7 +10,7 @@ import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LinkedinIcon } from "@/components/ui/SocialIcons";
 import { decodificarEntidades } from "@/lib/blog";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { getPostsPagina, type PostResumo } from "@/lib/wordpress";
 import styles from "./page.module.css";
 
@@ -34,14 +34,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const pagina = lerPagina((await searchParams).page);
   const sufixo = pagina > 1 ? ` (página ${pagina})` : "";
+  const titulo = `Blog${sufixo} | Toroid do Brasil`;
+  const descricao =
+    "Conteúdo técnico sobre especificação de transformadores de corrente, de potência e indutores, direto da engenharia da Toroid do Brasil.";
+  const path = pagina > 1 ? `/blog?page=${pagina}` : "/blog";
 
   return {
-    title: `Blog${sufixo} | Toroid do Brasil`,
-    description:
-      "Conteúdo técnico sobre especificação de transformadores de corrente, de potência e indutores, direto da engenharia da Toroid do Brasil.",
+    title: titulo,
+    description: descricao,
     // Canônica por página, e não sempre /blog: as páginas 2+ têm conteúdo
     // próprio, e apontar todas para a primeira esconderia o acervo do índice.
-    alternates: { canonical: pagina > 1 ? `/blog?page=${pagina}` : "/blog" },
+    alternates: { canonical: path },
+    ...metadataOg({ title: titulo, description: descricao, path }),
   };
 }
 
@@ -151,7 +155,7 @@ export default async function BlogPage({
       </section>
 
       <div className={styles.linkedin}>
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener" className={styles.linkedinCta}>
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={styles.linkedinCta}>
           <LinkedinIcon size={20} />
           <span>Nos acompanhe no LinkedIn para mais conteúdo técnico</span>
           <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" className={styles.linkedinSeta} />

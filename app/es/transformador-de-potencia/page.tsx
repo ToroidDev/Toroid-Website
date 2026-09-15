@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -23,10 +23,13 @@ import {
 // e núcleo toroidal do documento da engenharia NÃO foi publicada, por decisão:
 // não reintroduzir aqui.
 
+const TITULO = "Transformador de Potencia a Medida | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador de potencia con aislamiento galvánico, eficiencia hasta 98% y núcleo toroidal o convencional según el proyecto. Solicita presupuesto técnico con nuestro equipo.";
+
 export const metadata: Metadata = {
-  title: "Transformador de Potencia a Medida | Toroid do Brasil",
-  description:
-    "Transformador de potencia con aislamiento galvánico, eficiencia hasta 98% y núcleo toroidal o convencional según el proyecto. Solicita presupuesto técnico con nuestro equipo.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: absoluteUrl("/es/transformador-de-potencia"),
     languages: {
@@ -35,6 +38,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/transformador-de-potencia"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/es/transformador-de-potencia", locale: "es_ES" }),
 };
 
 const SECOES: SecaoPilar[] = [

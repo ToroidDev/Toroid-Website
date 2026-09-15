@@ -79,7 +79,7 @@ export function ContatoInfo() {
           <p className={styles.tituloColuna}>Redes sociais</p>
           <div className={styles.lista}>
             {REDES.map(({ nome, href, Icon }) => (
-              <a key={nome} href={href} target="_blank" rel="noopener" className={styles.item}>
+              <a key={nome} href={href} target="_blank" rel="noopener noreferrer" className={styles.item}>
                 <Icon size={16} />
                 {nome}
               </a>

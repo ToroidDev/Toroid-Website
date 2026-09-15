@@ -8,6 +8,7 @@ import { BandaRegulacao } from "@/components/aplicacoes/BandaRegulacao";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -43,11 +44,15 @@ import styles from "./page.module.css";
 // fase seguinte separada, sem mudar URL nem estrutura desta página.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const TITULO = "Transformador Toroidal para Nobreak | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador toroidal para nobreak com isolação galvânica, baixa irradiação de campo e eficiência até 98%. Fale com o nosso time e peça seu orçamento.";
+
 export const metadata: Metadata = {
-  title: "Transformador Toroidal para Nobreak | Toroid do Brasil",
-  description:
-    "Transformador toroidal para nobreak com isolação galvânica, baixa irradiação de campo e eficiência até 98%. Fale com o nosso time e peça seu orçamento.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/aplicacoes/nobreaks" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/aplicacoes/nobreaks" }),
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -116,7 +121,7 @@ const JSON_LD = [
     },
     description:
       "Transformador toroidal para nobreaks e condicionadores de energia, com isolação galvânica, blindagem eletrostática e eletromagnética, construção tipo seco conforme ABNT NBR5356-11 e faixa de 5 VA a 15 kVA.",
-    url: "https://toroid.com.br/aplicacoes/nobreaks",
+    url: absoluteUrl("/aplicacoes/nobreaks"),
     additionalProperty: ESPECIFICACOES.map(([name, value]) => ({
       "@type": "PropertyValue",
       name,
@@ -127,12 +132,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para nobreaks",
-        item: "https://toroid.com.br/aplicacoes/nobreaks",
+        item: absoluteUrl("/aplicacoes/nobreaks"),
       },
     ],
   },

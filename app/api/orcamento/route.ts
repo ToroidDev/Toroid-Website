@@ -10,16 +10,11 @@ import {
   type LeadDocument,
 } from "@/lib/leads-schema";
 import { getDb } from "@/lib/mongodb";
+import { obterIpRequisicao, permitirRequisicao } from "@/lib/rate-limit";
 
 // nodemailer e o driver do mongodb dependem de módulos nativos do Node
 // (net/tls/crypto), incompatíveis com o runtime Edge.
 export const runtime = "nodejs";
-
-function obterIp(request: Request): string | null {
-  const encaminhado = request.headers.get("x-forwarded-for");
-  if (encaminhado) return encaminhado.split(",")[0]?.trim() || null;
-  return request.headers.get("x-real-ip");
-}
 
 function hashearIp(ip: string | null): string | null {
   if (!ip) return null;
@@ -42,11 +37,22 @@ function detectarDispositivo(userAgent: string | null): LeadContext["device"] {
 
 function montarContexto(request: Request): LeadContext {
   const userAgent = request.headers.get("user-agent");
-  const ip = obterIp(request);
+  const ip = obterIpRequisicao(request);
   return { userAgent, ipHash: hashearIp(ip), device: detectarDispositivo(userAgent) };
 }
 
+const JANELA_RATE_LIMIT_MS = 60_000;
+const MAX_REQUISICOES_POR_JANELA = 5;
+
 export async function POST(request: Request) {
+  const ip = obterIpRequisicao(request);
+  if (!permitirRequisicao(`orcamento:${ip ?? "desconhecido"}`, JANELA_RATE_LIMIT_MS, MAX_REQUISICOES_POR_JANELA)) {
+    return NextResponse.json(
+      { ok: false, error: "Muitas solicitações. Aguarde um momento e tente novamente." },
+      { status: 429 },
+    );
+  }
+
   const body = await request.json().catch(() => null);
   if (!body) {
     return NextResponse.json({ ok: false, error: "JSON inválido." }, { status: 400 });

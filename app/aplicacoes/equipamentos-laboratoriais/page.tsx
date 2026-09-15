@@ -8,6 +8,7 @@ import { FaixaEstabilidade } from "@/components/aplicacoes/FaixaEstabilidade";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -20,11 +21,15 @@ import styles from "./page.module.css";
 // para este segmento.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const TITULO = "Transformador para Equipamento Laboratorial | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador para instrumento de laboratório com baixa irradiação de campo e regulação estável sob carga. Fale com o nosso time e peça seu orçamento.";
+
 export const metadata: Metadata = {
-  title: "Transformador para Equipamento Laboratorial | Toroid do Brasil",
-  description:
-    "Transformador para instrumento de laboratório com baixa irradiação de campo e regulação estável sob carga. Fale com o nosso time e peça seu orçamento.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/aplicacoes/equipamentos-laboratoriais" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/aplicacoes/equipamentos-laboratoriais" }),
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -63,12 +68,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para equipamentos laboratoriais",
-        item: "https://toroid.com.br/aplicacoes/equipamentos-laboratoriais",
+        item: absoluteUrl("/aplicacoes/equipamentos-laboratoriais"),
       },
     ],
   },

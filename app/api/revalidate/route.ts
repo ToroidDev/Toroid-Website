@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
+import { timingSafeEqual } from "node:crypto";
 import { CATEGORIAS_PRODUTO } from "@/lib/wordpress";
 
 // Alvo do webhook do WordPress (CLAUDE.md → "Revalidação sob demanda").
@@ -20,12 +21,18 @@ function tagsParaPostType(postType: string, slug: string): string[] {
   }
 }
 
+function comparaSeguro(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  return bufA.length === bufB.length && timingSafeEqual(bufA, bufB);
+}
+
 function autorizado(request: Request): boolean {
   const segredo = process.env.REVALIDATE_SECRET;
   if (!segredo) return false;
   const doHeader = request.headers.get("x-revalidate-secret");
   const daQuery = new URL(request.url).searchParams.get("secret");
-  return doHeader === segredo || daQuery === segredo;
+  return (!!doHeader && comparaSeguro(doHeader, segredo)) || (!!daQuery && comparaSeguro(daQuery, segredo));
 }
 
 export async function POST(request: Request) {

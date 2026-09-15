@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
 import { PostBody } from "@/components/blog/PostBody";
 import { getPostPorSlug } from "@/lib/wordpress";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Mesmo motivo do app/blog/page.tsx e de app/aplicacoes/[slug]/page.tsx: sem
@@ -34,10 +35,15 @@ export async function generateMetadata({
   const post = await buscarPost(slug);
   if (!post) return {};
 
+  const titulo = `${post.titulo} | Toroid do Brasil`;
+  const descricao = textoSemHtml(post.resumoHtml, 160);
+  const path = `/blog/${post.slug}`;
+
   return {
-    title: `${post.titulo} | Toroid do Brasil`,
-    description: textoSemHtml(post.resumoHtml, 160),
-    alternates: { canonical: `/blog/${post.slug}` },
+    title: titulo,
+    description: descricao,
+    alternates: { canonical: path },
+    ...metadataOg({ title: titulo, description: descricao, path }),
   };
 }
 
@@ -55,9 +61,9 @@ export default async function BlogPostPage({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
-        { "@type": "ListItem", position: 2, name: "Blog", item: "https://toroid.com.br/blog" },
-        { "@type": "ListItem", position: 3, name: post.titulo, item: `https://toroid.com.br/blog/${post.slug}` },
+        { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog") },
+        { "@type": "ListItem", position: 3, name: post.titulo, item: absoluteUrl(`/blog/${post.slug}`) },
       ],
     },
   ];

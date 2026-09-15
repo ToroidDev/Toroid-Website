@@ -29,6 +29,8 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [produtosOpen, setProdutosOpen] = useState(false);
   const produtosRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { locale } = useLocale();
   const t = navDictionary[locale];
@@ -66,8 +68,38 @@ export function Nav() {
   useEffect(() => {
     if (!mobileOpen) return;
     document.body.style.overflow = "hidden";
+
+    // Foco entra no menu ao abrir e fica contido nele (Tab/Shift+Tab não
+    // escapa pro conteúdo por trás do overlay); Escape fecha e devolve o
+    // foco ao botão hambúrguer que abriu.
+    const menuEl = mobileMenuRef.current;
+    const focaveis = menuEl?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+    );
+    focaveis?.[0]?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !focaveis || focaveis.length === 0) return;
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
+      if (e.shiftKey && document.activeElement === primeiro) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault();
+        primeiro.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
+      burgerRef.current?.focus();
     };
   }, [mobileOpen]);
 
@@ -168,7 +200,15 @@ export function Nav() {
             </Link>
           </nav>
 
-          <button type="button" className={styles.burger} aria-label={t.abrirMenu} onClick={() => setMobileOpen(true)}>
+          <button
+            ref={burgerRef}
+            type="button"
+            className={styles.burger}
+            aria-label={t.abrirMenu}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileOpen(true)}
+          >
             <Menu size={24} strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
@@ -176,7 +216,14 @@ export function Nav() {
       </header>
 
       {mobileOpen && (
-        <div className={styles.mobileMenu}>
+        <div
+          id="mobile-menu"
+          ref={mobileMenuRef}
+          className={styles.mobileMenu}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t.abrirMenu}
+        >
           <div className={styles.mobileHeader}>
             <Image
               src="/images/logo-toroid-trim.png"

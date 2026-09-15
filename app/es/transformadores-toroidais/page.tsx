@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { PillarBody, PillarClosing, PillarHero, PillarIndex, Prose, type SecaoPilar } from "@/components/produtos/Pillar";
 import { CampoUniforme } from "@/components/produtos/CampoUniforme";
 import { SinalAudio } from "@/components/produtos/SinalAudio";
@@ -15,10 +15,13 @@ import { ZigZagSecao } from "@/components/ui/ZigZagSecao";
 // toroidal seja superior. O link pra Indutores & Reatores aponta pra URL em
 // português — essa família ainda não tem espelho em /es.
 
+const TITULO = "Transformador Toroidal: Cómo Funciona y Dónde Aplicar | Toroid do Brasil";
+const DESCRICAO =
+  "Entiende cómo funciona el núcleo toroidal, cómo lo fabrica Toroid, y en qué aplicaciones esta tecnología marca más diferencia.";
+
 export const metadata: Metadata = {
-  title: "Transformador Toroidal: Cómo Funciona y Dónde Aplicar | Toroid do Brasil",
-  description:
-    "Entiende cómo funciona el núcleo toroidal, cómo lo fabrica Toroid, y en qué aplicaciones esta tecnología marca más diferencia.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: absoluteUrl("/es/transformadores-toroidais"),
     languages: {
@@ -27,6 +30,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/transformadores-toroidais"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/es/transformadores-toroidais", locale: "es_ES" }),
 };
 
 const SECOES: SecaoPilar[] = [
@@ -48,12 +52,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://toroid.com.br/es" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/es") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores Toroidales",
-        item: "https://toroid.com.br/es/transformadores-toroidais",
+        item: absoluteUrl("/es/transformadores-toroidais"),
       },
     ],
   },

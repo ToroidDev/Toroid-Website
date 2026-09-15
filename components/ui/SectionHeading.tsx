@@ -9,11 +9,15 @@ export function SectionHeading({
   children,
   lead,
   tone = "light",
+  as: Tag = "h2",
 }: {
   eyebrow: ReactNode;
   children: ReactNode;
   lead?: ReactNode;
   tone?: "light" | "dark";
+  // Só /produtos precisa de "h1" hoje: é a única página cujo primeiro
+  // heading visível é este componente, sem hero próprio antes dele.
+  as?: "h1" | "h2";
 }) {
   return (
     <div className={tone === "dark" ? `${styles.wrap} ${styles.dark}` : styles.wrap}>
@@ -21,7 +25,7 @@ export function SectionHeading({
         <span className={styles.rule} aria-hidden="true" />
         {eyebrow}
       </p>
-      <h2 className={styles.heading}>{children}</h2>
+      <Tag className={styles.heading}>{children}</Tag>
       {lead ? <p className={styles.lead}>{lead}</p> : null}
     </div>
   );

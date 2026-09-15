@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarAviso,
@@ -22,10 +22,13 @@ import {
 // engenharia em 2026-09-01 (ver o comentário na página em pt), e qualquer
 // correção lá precisa ser replicada aqui também.
 
+const TITULO = "Transformador de Corriente (TC) a Medida | Toroid";
+const DESCRICAO =
+  "Transformador de corriente para medición y protección, con clase de exactitud desde 0,3%, fabricación nacional y garantía de 3 años. Solicita tu presupuesto técnico.";
+
 export const metadata: Metadata = {
-  title: "Transformador de Corriente (TC) a Medida | Toroid",
-  description:
-    "Transformador de corriente para medición y protección, con clase de exactitud desde 0,3%, fabricación nacional y garantía de 3 años. Solicita tu presupuesto técnico.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: absoluteUrl("/es/transformador-de-corrente"),
     languages: {
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/transformador-de-corrente"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/es/transformador-de-corrente", locale: "es_ES" }),
 };
 
 const SECOES: SecaoPilar[] = [

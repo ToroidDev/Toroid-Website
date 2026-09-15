@@ -9,7 +9,7 @@ import { Compromissos } from "@/components/quem-somos/Compromissos";
 import { VideoInstitucional } from "@/components/quem-somos/VideoInstitucional";
 import { FAQSection } from "@/components/quem-somos/FAQSection";
 import { getAnosDeMercado } from "@/lib/institucional";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 
 // Layout desta página é deliberadamente diferente das demais (ver CLAUDE.md/
 // ROADMAP.md): hero azul cheio com `position: sticky`, e a seção seguinte
@@ -19,11 +19,15 @@ import { absoluteUrl } from "@/lib/seo";
 // página adiciona LocalBusiness (endereço/telefone/horário) e FAQPage, que
 // só fazem sentido por página.
 
+const TITULO = "Quem Somos | Toroid do Brasil";
+const DESCRICAO =
+  "Toroid do Brasil: fabricante de transformadores de corrente, de potência e indutores desde 1994, em São José dos Pinhais, PR. Conheça nossa história, missão, visão e valores.";
+
 export const metadata: Metadata = {
-  title: "Quem Somos | Toroid do Brasil",
-  description:
-    "Toroid do Brasil: fabricante de transformadores de corrente, de potência e indutores desde 1994, em São José dos Pinhais, PR. Conheça nossa história, missão, visão e valores.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/quem-somos" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/quem-somos" }),
 };
 
 const PERGUNTAS = [
@@ -53,8 +57,8 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
-      { "@type": "ListItem", position: 2, name: "Quem somos", item: "https://toroid.com.br/quem-somos" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Quem somos", item: absoluteUrl("/quem-somos") },
     ],
   },
   {

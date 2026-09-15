@@ -10,7 +10,7 @@ import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { ConsentDefaultScript } from "@/components/analytics/ConsentDefaultScript";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, metadataOg } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -32,17 +32,24 @@ const karla = Karla({
   display: "swap",
 });
 
+const TITULO_PADRAO = "Toroid do Brasil | Transformadores de Corrente, de Potência e Indutores";
+const DESCRICAO_PADRAO =
+  "Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação. Especificação conferida antes de produzir, fabricação nacional com ISO 9001.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Toroid do Brasil | Transformadores de Corrente, de Potência e Indutores",
-  description:
-    "Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação. Especificação conferida antes de produzir, fabricação nacional com ISO 9001.",
+  title: TITULO_PADRAO,
+  description: DESCRICAO_PADRAO,
+  ...metadataOg({ title: TITULO_PADRAO, description: DESCRICAO_PADRAO, path: "/" }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${karla.variable}`}>
       <body>
+        <a href="#conteudo-principal" className="pular-para-conteudo">
+          Pular para o conteúdo
+        </a>
         <ConsentDefaultScript />
         <GoogleAnalytics />
         <OrganizationSchema />
@@ -50,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <AttributionCapture />
           <LocaleProvider>
             <Nav />
-            {children}
+            <main id="conteudo-principal">{children}</main>
             <ConditionalFooter>
               <Footer />
             </ConditionalFooter>

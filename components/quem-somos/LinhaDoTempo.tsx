@@ -215,7 +215,6 @@ export function LinhaDoTempo() {
                     alt={marco.alt}
                     fill
                     sizes="(min-width: 1475px) 1180px, (min-width: 761px) 80vw, 90vw"
-                    priority={i === 0}
                     className={styles.painelImg}
                   />
                   <div className={styles.painelVeu} aria-hidden="true" />

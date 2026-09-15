@@ -8,6 +8,7 @@ import { FaixaIsolamento } from "@/components/aplicacoes/FaixaIsolamento";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -34,12 +35,16 @@ import styles from "./page.module.css";
 // diferente de TC/TP/Indutores.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const TITULO = "Transformador para Equipamento Médico | Toroid do Brasil";
+const DESCRICAO =
+  "Transformador para equipamento médico com isolação galvânica e baixo ruído audível. Fale com o nosso time e peça seu orçamento.";
+
 export const metadata: Metadata = {
-  title: "Transformador para Equipamento Médico | Toroid do Brasil",
-  description:
-    "Transformador para equipamento médico com isolação galvânica e baixo ruído audível. Fale com o nosso time e peça seu orçamento.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/aplicacoes/equipamentos-medicos" },
   robots: { index: false, follow: false },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/aplicacoes/equipamentos-medicos" }),
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -81,12 +86,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para equipamentos médicos",
-        item: "https://toroid.com.br/aplicacoes/equipamentos-medicos",
+        item: absoluteUrl("/aplicacoes/equipamentos-medicos"),
       },
     ],
   },

@@ -27,17 +27,24 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // assets estáticos gerados pelo Next (JS/CSS com hash no nome): cache máximo seguro
-        source: '/_next/static/:path*',
+        // imagens servidas diretamente da pasta /public do projeto (logo, ícones fixos)
+        source: '/:all*(svg|jpg|jpeg|png|webp|avif|ico)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
       {
-        // imagens servidas diretamente da pasta /public do projeto (logo, ícones fixos)
-        source: '/:all*(svg|jpg|jpeg|png|webp|avif|ico)',
+        // Headers de segurança básicos, em toda rota. Sem CSP completo por
+        // enquanto (precisaria mapear GA4/gtag, fontes do Google, etc. sem
+        // quebrar nada) — os quatro abaixo são baratos e sem risco de
+        // regressão, e cobrem o essencial: clickjacking, MIME-sniffing,
+        // vazamento de Referer entre origens, downgrade pra HTTP.
+        source: '/:path*',
         headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
         ],
       },
     ];
@@ -89,9 +96,8 @@ const nextConfig = {
       // Posts de blog indexados no WordPress antigo, preservando a mesma URL
       // sob /blog/. O conteúdo em si será reescrito na Fase 3 no padrão de
       // voz do brand book — o 301 aqui só protege o sinal de ranking que já
-      // existe. ATENÇÃO: /blog/[slug] ainda não existe como rota (ver
-      // ROADMAP.md), então até essa rota ser construída estes redirects
-      // terminam em 404. Confirmar que /blog/[slug] existe antes do go-live.
+      // existe. /blog/[slug] existe como rota (app/blog/[slug]/page.tsx);
+      // cada redirect só resolve se o post existir no WP com o slug idêntico.
       { source: '/suporte-especializado-toroid', destination: '/blog/suporte-especializado-toroid', permanent: true },
       { source: '/o-que-realmente-difere-os-transformadores-toroidais-dos-modelos-convencionais', destination: '/blog/o-que-realmente-difere-os-transformadores-toroidais-dos-modelos-convencionais', permanent: true },
       { source: '/voce-sabe-o-que-e-classe-termica-em-transformadores-e-por-que-ela-importa', destination: '/blog/voce-sabe-o-que-e-classe-termica-em-transformadores-e-por-que-ela-importa', permanent: true },

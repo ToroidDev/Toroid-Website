@@ -4,6 +4,7 @@ import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { LinkedinIcon } from "@/components/ui/SocialIcons";
 import { Valores } from "@/components/quem-somos/Valores";
 import { getAnosDeMercado } from "@/lib/institucional";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // Conteúdo institucional mínimo, de propósito: a página equivalente no
@@ -18,19 +19,23 @@ import styles from "./page.module.css";
 // Sem i18n aqui, mesmo padrão de /quem-somos, /contato e /blog: só home e as
 // 4 páginas de produto têm mirror em espanhol hoje.
 
+const TITULO = "Trabalhe Conosco | Toroid do Brasil";
+const DESCRICAO =
+  "Oportunidades na Toroid do Brasil: fabricante de transformadores e indutores em São José dos Pinhais, PR. Vagas no LinkedIn, currículo por e-mail.";
+
 export const metadata: Metadata = {
-  title: "Trabalhe Conosco | Toroid do Brasil",
-  description:
-    "Oportunidades na Toroid do Brasil: fabricante de transformadores e indutores em São José dos Pinhais, PR. Vagas no LinkedIn, currículo por e-mail.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/trabalhe-conosco" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/trabalhe-conosco" }),
 };
 
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
-    { "@type": "ListItem", position: 2, name: "Trabalhe Conosco", item: "https://toroid.com.br/trabalhe-conosco" },
+    { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Trabalhe Conosco", item: absoluteUrl("/trabalhe-conosco") },
   ],
 };
 
@@ -59,7 +64,7 @@ export default function TrabalheConoscoPage() {
             <a
               href="https://www.linkedin.com/company/toroidbrasil/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className={styles.secondary}
             >
               <LinkedinIcon size={17} />

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Factory, MapPin, ShieldCheck } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import {
   PillarBody,
@@ -24,10 +24,13 @@ import pillarStyles from "@/components/produtos/Pillar.module.css";
 // outras páginas de produto: troca por lib/wordpress.ts quando WP_API_URL
 // cobrir o CPT `produto`, sem mudar URL nem estrutura.
 
+const TITULO = "Isobox: Transformador de Corrente de Linha Padrão | Toroid";
+const DESCRICAO =
+  "Isobox, a linha padrão de transformador de corrente toroidal da Toroid do Brasil: corrente secundária de 5 A, isolamento de 600 V e três tipos de montagem em painel. Peça seu orçamento técnico.";
+
 export const metadata: Metadata = {
-  title: "Isobox: Transformador de Corrente de Linha Padrão | Toroid",
-  description:
-    "Isobox, a linha padrão de transformador de corrente toroidal da Toroid do Brasil: corrente secundária de 5 A, isolamento de 600 V e três tipos de montagem em painel. Peça seu orçamento técnico.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: {
     canonical: "/isobox",
     languages: {
@@ -36,6 +39,7 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/isobox"),
     },
   },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/isobox" }),
 };
 
 const SECOES: SecaoPilar[] = [
@@ -226,7 +230,7 @@ export default function IsoboxPage() {
           <a
             href="https://toroid.com.br/wp-content/uploads/2023/07/Linha-padrao-TC.pdf"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             style={{ color: "var(--color-blue)", fontWeight: 600, textDecoration: "underline" }}
           >
             Baixar especificação técnica (PDF)

@@ -5,6 +5,7 @@ import { CTA } from "@/components/sections/CTA";
 import { AplicacaoHero } from "@/components/aplicacoes/AplicacaoHero";
 import { PillarBody, Prose } from "@/components/produtos/Pillar";
 import { getAplicacaoPorSlug, getProdutosPorIds, type CategoriaProduto } from "@/lib/wordpress";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 
 // Padrão dinâmico genérico do CLAUDE.md, alimentado pelo CPT `aplicacao` do
 // WordPress. Sem generateStaticParams de propósito: o conteúdo é 100% do WP e
@@ -46,10 +47,15 @@ export async function generateMetadata({
   const aplicacao = await buscarAplicacao(slug);
   if (!aplicacao) return {};
 
+  const titulo = `${aplicacao.titulo} | Toroid do Brasil`;
+  const descricao = aplicacao.dorSegmento;
+  const path = `/aplicacoes/${aplicacao.slug}`;
+
   return {
-    title: `${aplicacao.titulo} | Toroid do Brasil`,
-    description: aplicacao.dorSegmento,
-    alternates: { canonical: `/aplicacoes/${aplicacao.slug}` },
+    title: titulo,
+    description: descricao,
+    alternates: { canonical: path },
+    ...metadataOg({ title: titulo, description: descricao, path }),
   };
 }
 
@@ -69,12 +75,12 @@ export default async function AplicacaoPage({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+        { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
         {
           "@type": "ListItem",
           position: 2,
           name: aplicacao.titulo,
-          item: `https://toroid.com.br/aplicacoes/${aplicacao.slug}`,
+          item: absoluteUrl(`/aplicacoes/${aplicacao.slug}`),
         },
       ],
     },

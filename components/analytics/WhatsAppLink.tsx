@@ -16,7 +16,7 @@ type Props = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target" | "
   mensagem?: MensagemWhatsapp;
 };
 
-// Substitui todo <a href={whatsappLink} target="_blank" rel="noopener">
+// Substitui todo <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
 // direto pelo site: centraliza o link E o evento whatsapp_click (CLAUDE.md,
 // "UTM e eventos de conversão") num único lugar, em vez de repetir em cada
 // seção que abre WhatsApp.
@@ -28,7 +28,7 @@ export function WhatsAppLink({ children, onClick, mensagem, ...rest }: Props) {
     <a
       href={href}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       onClick={(event) => {
         trackWhatsappClick();
         onClick?.(event);

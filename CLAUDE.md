@@ -111,7 +111,7 @@ Meta: Lighthouse Performance ≥ 90, LCP < 2.5s, CLS < 0.1, INP < 200ms.
   ```
 - **Scripts de terceiro (GA4, WhatsApp widget se houver) sempre via `next/script`** com `strategy="afterInteractive"`, nunca `beforeInteractive` para analytics, isso bloqueia LCP sem necessidade.
 - **Nada de bibliotecas pesadas para coisa simples.** Antes de importar uma lib nova, perguntar se dá pra resolver com CSS ou com o que o Next.js já oferece.
-- **Bundle:** rodar `@next/bundle-analyzer` antes de qualquer PR que adicione dependência nova visível ao cliente.
+- **Bundle:** rodar `npx next experimental-analyze --output` (nativo do Next 16.1+, gera relatório em `.next/diagnostics/analyze/`) antes de qualquer PR que adicione dependência nova visível ao cliente — não instalar `@next/bundle-analyzer` à parte, o pacote não está no projeto e o comando nativo cobre o mesmo caso de uso.
 - **Nenhuma chamada à API do WordPress no client.** Toda leitura de conteúdo acontece em Server Component ou API Route. O browser do usuário nunca fala direto com `wp-json`.
 
 ---

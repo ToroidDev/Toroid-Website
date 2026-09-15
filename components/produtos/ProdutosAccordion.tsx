@@ -21,6 +21,7 @@ export function ProdutosAccordion() {
       <InstitutionalPattern opacity={0.06} className={styles.pattern} />
       <div className={styles.inner}>
         <SectionHeading
+          as="h1"
           eyebrow="Produtos"
           lead="Busca transformadores? Consulte a Toroid do Brasil."
         >

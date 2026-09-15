@@ -8,6 +8,7 @@ import { FluxoEspecificacao } from "@/components/aplicacoes/FluxoEspecificacao";
 import { Perguntas, type Pergunta } from "@/components/aplicacoes/Perguntas";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { absoluteUrl, metadataOg } from "@/lib/seo";
 import styles from "./page.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -23,11 +24,15 @@ import styles from "./page.module.css";
 // equivalente às outras páginas deste lote.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const TITULO = "Transformador Sob Medida para Integradores de Sistemas | Toroid do Brasil";
+const DESCRICAO =
+  "Transformadores e indutores sob medida para integradores de sistemas elétricos, com engenharia dedicada e ensaio documentado antes do embarque.";
+
 export const metadata: Metadata = {
-  title: "Transformador Sob Medida para Integradores de Sistemas | Toroid do Brasil",
-  description:
-    "Transformadores e indutores sob medida para integradores de sistemas elétricos, com engenharia dedicada e ensaio documentado antes do embarque.",
+  title: TITULO,
+  description: DESCRICAO,
   alternates: { canonical: "/aplicacoes/integradores-de-sistemas" },
+  ...metadataOg({ title: TITULO, description: DESCRICAO, path: "/aplicacoes/integradores-de-sistemas" }),
 };
 
 const PROVA = ["ISO 9001", `${getAnosDeMercado()} anos de mercado`, "garantia de 3 anos"];
@@ -67,12 +72,12 @@ const JSON_LD = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: "https://toroid.com.br/" },
+      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
         name: "Transformadores para integradores de sistemas elétricos",
-        item: "https://toroid.com.br/aplicacoes/integradores-de-sistemas",
+        item: absoluteUrl("/aplicacoes/integradores-de-sistemas"),
       },
     ],
   },

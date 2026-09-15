@@ -32,7 +32,7 @@ export function ProvaGoogle() {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <a href={LINK_AVALIACOES} target="_blank" rel="noopener" className={styles.card}>
+        <a href={LINK_AVALIACOES} target="_blank" rel="noopener noreferrer" className={styles.card}>
           <GoogleIcon size={28} />
 
           <div className={styles.texto}>

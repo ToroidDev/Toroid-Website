@@ -8,7 +8,9 @@ import Script from "next/script";
 // existir no dataLayer antes do gtag.js do GoogleAnalytics.tsx processar
 // qualquer comando 'config' (esse roda em afterInteractive, então a ordem já
 // fica garantida pelas duas strategies, sem depender da ordem dos componentes
-// no JSX).
+// no JSX). Exceção deliberada à regra geral de "nunca beforeInteractive pra
+// analytics" (CLAUDE.md, Performance): é JS inline, sem request de rede,
+// então não bloqueia LCP como um <script src> externo bloquearia.
 export function ConsentDefaultScript() {
   const GA4_MEASUREMENT_ID = process.env.GA4_MEASUREMENT_ID;
   if (!GA4_MEASUREMENT_ID) return null;

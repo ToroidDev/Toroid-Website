@@ -4,6 +4,7 @@ import { z } from "zod";
 import { getDb } from "@/lib/mongodb";
 import { enviarAvisoWhatsappAposEnvio } from "@/lib/orcamento-mailer";
 import type { LeadDocument } from "@/lib/leads-schema";
+import { obterIpRequisicao, permitirRequisicao } from "@/lib/rate-limit";
 
 // nodemailer e o driver do mongodb dependem de módulos nativos do Node
 // (net/tls/crypto), incompatíveis com o runtime Edge.
@@ -18,7 +19,15 @@ const corpoSchema = z.object({ leadId: z.string() });
 // CLAUDE.md, seção de duplicidade de lead. Best-effort de ponta a ponta: o
 // link do WhatsApp já abriu em nova aba antes desta chamada terminar, então
 // nenhuma falha aqui deve virar erro visível pro usuário.
+const JANELA_RATE_LIMIT_MS = 60_000;
+const MAX_REQUISICOES_POR_JANELA = 10;
+
 export async function POST(request: Request) {
+  const ip = obterIpRequisicao(request);
+  if (!permitirRequisicao(`orcamento-whatsapp:${ip ?? "desconhecido"}`, JANELA_RATE_LIMIT_MS, MAX_REQUISICOES_POR_JANELA)) {
+    return NextResponse.json({ ok: false }, { status: 429 });
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = corpoSchema.safeParse(body);
   if (!parsed.success || !ObjectId.isValid(parsed.data.leadId)) {
