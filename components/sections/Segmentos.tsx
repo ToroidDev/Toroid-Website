@@ -1,92 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, BatteryCharging, Cpu, FlaskConical, HeartPulse, MessageCircle, Network } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { T } from "@/components/i18n/T";
+import { SEGMENTOS } from "@/lib/segmentos";
 import styles from "./Segmentos.module.css";
-
-const SEGMENTOS = [
-  {
-    id: "medicos",
-    titulo: {
-      pt: "Fabricantes de equipamentos médicos",
-      es: "Fabricantes de equipos médicos",
-      en: "Medical equipment manufacturers",
-    },
-    texto: {
-      pt: "Blindagem entre enrolamentos e baixa corrente de fuga: menos interferência no sinal medido, laudo confiável e aprovação em ensaio sem retrabalho de projeto.",
-      es: "Blindaje entre bobinados y baja corriente de fuga: menos interferencia en la señal medida, informe confiable y aprobación en el ensayo sin rehacer el proyecto.",
-      en: "Shielding between windings and low leakage current: less interference in the measured signal, a reliable report and test approval without redesign.",
-    },
-    icon: HeartPulse,
-    // Rascunho técnico ainda sem validação da engenharia/comercial (ver
-    // ROADMAP.md, item 1.5). Mantida como link interno mesmo assim, mas com
-    // `robots: noindex` na própria página até essa validação acontecer, por
-    // ser conteúdo normativo de equipamento regulado.
-    href: "/aplicacoes/equipamentos-medicos",
-  },
-  {
-    id: "nobreaks",
-    titulo: {
-      pt: "Nobreaks e condicionadores de energia",
-      es: "UPS y acondicionadores de energía",
-      en: "UPS systems and power conditioners",
-    },
-    texto: {
-      pt: "Menor perda a vazio e dispersão magnética contida: menos calor dentro do gabinete, autonomia preservada em campo e menos acionamento de garantia.",
-      es: "Menor pérdida en vacío y dispersión magnética contenida: menos calor dentro del gabinete, autonomía preservada en campo y menos activación de garantía.",
-      en: "Lower no-load loss and contained magnetic dispersion: less heat inside the enclosure, autonomy preserved in the field and fewer warranty claims.",
-    },
-    icon: BatteryCharging,
-    href: "/aplicacoes/nobreaks",
-  },
-  {
-    id: "automacao",
-    titulo: {
-      pt: "Automação industrial",
-      es: "Automatización industrial",
-      en: "Industrial automation",
-    },
-    texto: {
-      pt: "Núcleo toroidal sem entreferro e volume reduzido: cabe no painel projetado, temperatura estável no armário e menos parada de linha por falha térmica.",
-      es: "Núcleo toroidal sin entrehierro y volumen reducido: cabe en el panel proyectado, temperatura estable en el gabinete y menos paradas de línea por falla térmica.",
-      en: "Toroidal core with no air gap and reduced volume: fits the designed panel, stable cabinet temperature and fewer line stops from thermal failure.",
-    },
-    icon: Cpu,
-    href: "/aplicacoes/automacao-industrial",
-  },
-  {
-    id: "laboratorio",
-    titulo: {
-      pt: "Equipamentos laboratoriais",
-      es: "Equipos de laboratorio",
-      en: "Laboratory equipment",
-    },
-    texto: {
-      pt: "Ruído acústico e magnético reduzido: leitura estável no instrumento, repetibilidade entre ensaios e menos recalibração fora do plano.",
-      es: "Ruido acústico y magnético reducido: lectura estable en el instrumento, repetibilidad entre ensayos y menos recalibración fuera de plan.",
-      en: "Reduced acoustic and magnetic noise: stable instrument reading, repeatability between tests and less unplanned recalibration.",
-    },
-    icon: FlaskConical,
-    href: "/aplicacoes/equipamentos-laboratoriais",
-  },
-  {
-    id: "integradores",
-    titulo: {
-      pt: "Integradores de sistemas elétricos",
-      es: "Integradores de sistemas eléctricos",
-      en: "Electrical systems integrators",
-    },
-    texto: {
-      pt: "Dimensionamento sob medida por aplicação: montagem sem adaptação em campo, cronograma de obra mantido e menos hora extra de equipe própria.",
-      es: "Dimensionamiento a medida por aplicación: montaje sin adaptación en campo, cronograma de obra mantenido y menos horas extra del equipo propio.",
-      en: "Custom sizing per application: field installation with no on-site adaptation, project schedule kept and less overtime for your own team.",
-    },
-    icon: Network,
-    href: "/aplicacoes/integradores-de-sistemas",
-  },
-];
 
 export function Segmentos() {
   return (

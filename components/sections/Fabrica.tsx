@@ -51,9 +51,6 @@ export function Fabrica() {
               className={styles.tileImg}
             />
             {/* <div className={styles.tileOverlay} /> */}
-            <figcaption className={styles.tileCaption}>
-              
-            </figcaption>
           </figure>
 
           <figure className={styles.tile}>
@@ -65,9 +62,6 @@ export function Fabrica() {
               className={styles.tileImg}
             />
             {/* <div className={styles.tileOverlay} /> */}
-            <figcaption className={styles.tileCaption}>
-              
-            </figcaption>
           </figure>
 
           <figure className={styles.tile}>

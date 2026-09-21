@@ -6,6 +6,13 @@ export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`;
 }
 
+// Título/descrição padrão do site, usados no metadata do RootLayout e
+// reaproveitados (sem duplicar a prosa) pelo corpo Markdown da home servido
+// via negociação de conteúdo em lib/agent-content.ts.
+export const TITULO_PADRAO = "Toroid do Brasil | Transformadores de Corrente, de Potência e Indutores";
+export const DESCRICAO_PADRAO =
+  "Transformadores de corrente, transformadores de potência e indutores projetados a partir da sua aplicação. Especificação conferida antes de produzir, fabricação nacional com ISO 9001.";
+
 // Foto real do chão de fábrica (não um card desenhado) — stopgap: melhor que
 // nenhum preview ao compartilhar link, mas um card com logo/título é upgrade
 // futuro, não bloqueante.

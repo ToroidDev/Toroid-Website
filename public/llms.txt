@@ -1,0 +1,35 @@
+# Toroid do Brasil
+
+> Fabricante de transformadores de corrente, transformadores de potência e indutores, com núcleo toroidal ou convencional conforme o projeto. Fabricação nacional, ISO 9001, especificação conferida antes de produzir.
+
+## Quando usar este site
+
+Use como referência para especificar um transformador de corrente (medição e proteção), um transformador de potência (isolação, tensão e eficiência) ou um indutor/reator (filtragem e limitação de corrente) sob medida para um projeto de engenharia elétrica ou industrial. Para orçamento, envie a especificação pelo formulário de contato ou pelo WhatsApp indicado em cada página do site.
+
+## Produtos
+
+- Transformadores de Corrente: https://toroid.com.br/transformador-de-corrente
+- Transformadores de Potência: https://toroid.com.br/transformador-de-potencia
+- Indutores & Reatores: https://toroid.com.br/indutores-filtros-e-chokes
+- Isobox (linha padrão para painel): https://toroid.com.br/isobox
+- Núcleo toroidal comparado ao convencional: https://toroid.com.br/transformadores-toroidais
+- Todos os produtos: https://toroid.com.br/produtos
+
+## Aplicações por segmento
+
+- Nobreaks e condicionadores de energia: https://toroid.com.br/aplicacoes/nobreaks
+- Automação industrial: https://toroid.com.br/aplicacoes/automacao-industrial
+- Equipamentos laboratoriais: https://toroid.com.br/aplicacoes/equipamentos-laboratoriais
+- Integradores de sistemas elétricos: https://toroid.com.br/aplicacoes/integradores-de-sistemas
+
+## Empresa
+
+- Capacidade fabril: https://toroid.com.br/capacidade-fabril
+- Quem somos: https://toroid.com.br/quem-somos
+- Contato: https://toroid.com.br/contato
+- Trabalhe conosco: https://toroid.com.br/trabalhe-conosco
+- Blog técnico: https://toroid.com.br/blog
+
+## Recursos para agentes
+
+- Mapa do site: https://toroid.com.br/sitemap.xml

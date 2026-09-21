@@ -1,30 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
-
-// Rotas reais hoje no App Router. Cada uma existe de fato — nada aqui é
-// aspiracional, porque uma URL de sitemap que devolve 404 é pior sinal pro
-// Google do que simplesmente não listar a URL.
-const ROTAS_ESTATICAS = [
-  "/",
-  "/produtos",
-  "/transformador-de-corrente",
-  "/transformador-de-potencia",
-  "/transformadores-toroidais",
-  "/indutores-filtros-e-chokes",
-  "/isobox",
-  "/capacidade-fabril",
-  "/quem-somos",
-  "/contato",
-  "/aplicacoes/nobreaks",
-  "/aplicacoes/automacao-industrial",
-  "/aplicacoes/equipamentos-laboratoriais",
-  "/aplicacoes/integradores-de-sistemas",
-  // /aplicacoes/equipamentos-medicos fica de fora de propósito: ainda com
-  // `robots: noindex` (conteúdo normativo de equipamento regulado sem
-  // validação da engenharia, ver aviso no próprio arquivo).
-  "/blog",
-  "/trabalhe-conosco",
-];
+import { ROTAS_ESTATICAS } from "@/lib/routes";
 
 // Só a home tem espelho em espanhol hoje (ver app/es/page.tsx e
 // lib/i18n.ts). Alternates aqui é o mesmo hreflang das páginas, só que no

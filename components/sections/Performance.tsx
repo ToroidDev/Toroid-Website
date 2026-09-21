@@ -115,7 +115,6 @@ export function Performance() {
           </div>
 
           <div className={styles.waveWrap}>
-            <p className={styles.waveLabel}></p>
             <CurrentWave variant="dark" />
           </div>
         </div>
