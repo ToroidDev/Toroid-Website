@@ -5,6 +5,7 @@ import { CookieSettingsLink } from "@/components/layout/CookieSettingsLink";
 import { FooterText } from "@/components/layout/FooterText";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { SocialLink } from "@/components/ui/SocialLink";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -56,18 +57,18 @@ export function Footer() {
               <FooterText k="redes" />
             </p>
             <div className={styles.columnList}>
-              <a href="https://www.linkedin.com/company/toroidbrasil/" target="_blank" rel="noopener noreferrer">
+              <SocialLink rede="linkedin" contexto="footer">
                 <LinkedinIcon size={15} />
                 LinkedIn
-              </a>
-              <a href="https://www.instagram.com/toroidbrasil/" target="_blank" rel="noopener noreferrer">
+              </SocialLink>
+              <SocialLink rede="instagram" contexto="footer">
                 <InstagramIcon size={15} />
                 Instagram
-              </a>
-              <a href="https://www.youtube.com/@toroiddobrasil3985" target="_blank" rel="noopener noreferrer">
+              </SocialLink>
+              <SocialLink rede="youtube" contexto="footer">
                 <YoutubeIcon size={15} />
                 YouTube
-              </a>
+              </SocialLink>
             </div>
           </div>
         </div>

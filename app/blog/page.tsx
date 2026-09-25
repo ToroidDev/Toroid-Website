@@ -9,12 +9,11 @@ import { PostDestaque } from "@/components/blog/PostDestaque";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LinkedinIcon } from "@/components/ui/SocialIcons";
+import { SocialLink } from "@/components/ui/SocialLink";
 import { decodificarEntidades } from "@/lib/blog";
 import { absoluteUrl, metadataOg } from "@/lib/seo";
 import { getPostsPagina, type PostResumo } from "@/lib/wordpress";
 import styles from "./page.module.css";
-
-const LINKEDIN_URL = "https://www.linkedin.com/company/toroidbrasil/";
 
 // Renderiza por request (searchParams é API de request-time no Next 16, ver
 // node_modules/next/dist/docs → file-conventions/page.md), mas sem custo de
@@ -155,11 +154,11 @@ export default async function BlogPage({
       </section>
 
       <div className={styles.linkedin}>
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={styles.linkedinCta}>
+        <SocialLink rede="linkedin" contexto="blog" className={styles.linkedinCta}>
           <LinkedinIcon size={20} />
           <span>Nos acompanhe no LinkedIn para mais conteúdo técnico</span>
           <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" className={styles.linkedinSeta} />
-        </a>
+        </SocialLink>
       </div>
 
       <CTA />

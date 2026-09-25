@@ -34,3 +34,8 @@ export function trackFormSubmit(): void {
   if (typeof window === "undefined" || !window.gtag) return;
   window.gtag("event", "form_submit", utmDoUltimoToque());
 }
+
+export function trackSocialClick(rede: string, contexto: string): void {
+  if (typeof window === "undefined" || !window.gtag) return;
+  window.gtag("event", "social_click", { rede, contexto, ...utmDoUltimoToque() });
+}

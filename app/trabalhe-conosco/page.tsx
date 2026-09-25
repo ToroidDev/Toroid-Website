@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { InstitutionalPattern } from "@/components/ui/InstitutionalPattern";
 import { LinkedinIcon } from "@/components/ui/SocialIcons";
+import { SocialLink } from "@/components/ui/SocialLink";
 import { Valores } from "@/components/quem-somos/Valores";
 import { getAnosDeMercado } from "@/lib/institucional";
 import { absoluteUrl, metadataOg } from "@/lib/seo";
@@ -61,15 +62,10 @@ export default function TrabalheConoscoPage() {
               Enviar currículo
               <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
             </a>
-            <a
-              href="https://www.linkedin.com/company/toroidbrasil/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.secondary}
-            >
+            <SocialLink rede="linkedin" contexto="carreiras" className={styles.secondary}>
               <LinkedinIcon size={17} />
               Ver vagas no LinkedIn
-            </a>
+            </SocialLink>
           </div>
         </div>
       </section>

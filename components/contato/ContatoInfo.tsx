@@ -1,6 +1,8 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedinIcon, WhatsappIcon, YoutubeIcon } from "@/components/ui/SocialIcons";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { SocialLink } from "@/components/ui/SocialLink";
+import type { RedeSocial } from "@/lib/social";
 import styles from "./ContatoInfo.module.css";
 
 const CONTATOS = [
@@ -14,10 +16,10 @@ const ENDERECOS = [
   { pais: "Estados Unidos", linhas: ["2020 Northwood Drive", "Salisbury, MD 21801"] },
 ];
 
-const REDES = [
-  { nome: "LinkedIn", href: "https://www.linkedin.com/company/toroidbrasil/", Icon: LinkedinIcon },
-  { nome: "Instagram", href: "https://www.instagram.com/toroidbrasil/", Icon: InstagramIcon },
-  { nome: "YouTube", href: "https://www.youtube.com/@toroiddobrasil3985", Icon: YoutubeIcon },
+const REDES: { nome: string; rede: RedeSocial; Icon: typeof LinkedinIcon }[] = [
+  { nome: "LinkedIn", rede: "linkedin", Icon: LinkedinIcon },
+  { nome: "Instagram", rede: "instagram", Icon: InstagramIcon },
+  { nome: "YouTube", rede: "youtube", Icon: YoutubeIcon },
 ];
 
 export function ContatoInfo() {
@@ -78,11 +80,11 @@ export function ContatoInfo() {
         <div className={styles.coluna}>
           <p className={styles.tituloColuna}>Redes sociais</p>
           <div className={styles.lista}>
-            {REDES.map(({ nome, href, Icon }) => (
-              <a key={nome} href={href} target="_blank" rel="noopener noreferrer" className={styles.item}>
+            {REDES.map(({ nome, rede, Icon }) => (
+              <SocialLink key={nome} rede={rede} contexto="contato" className={styles.item}>
                 <Icon size={16} />
                 {nome}
-              </a>
+              </SocialLink>
             ))}
           </div>
         </div>
