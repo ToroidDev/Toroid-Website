@@ -13,12 +13,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'toroid.com.br',
+        hostname: 'toroidcombr.wpcomstaging.com',
         pathname: '/wp-content/uploads/**',
       },
-      // Se a hospedagem servir mídia por CDN ou subdomínio próprio, duplicar o bloco acima
-      // trocando hostname, ex.: { protocol: 'https', hostname: 'media.toroid.com.br', pathname: '/**' }
-      // CONFIRMAR isso testando a URL de uma imagem de produto real do WP antes de assumir.
+      // toroid.com.br deixou de servir mídia do WP em 2026-10-02 (troca do "endereço
+      // principal do site" na WordPress.com, ver MIGRATION.md 2.2) — confirmado via
+      // wp-json/wp/v2/media que source_url já vem do domínio acima.
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 dias, imagem de produto não muda a cada deploy
