@@ -238,7 +238,7 @@ async function wpFetch<T>(path: string, revalidate: number, tags: string[]): Pro
 }
 
 export async function getProdutoPorSlug(categoria: CategoriaProduto, slug: string): Promise<Produto | null> {
-  const raw = await wpFetch<WPRawProduto[]>(`/produto?slug=${slug}`, 3600, [`produto-${slug}`]);
+  const raw = await wpFetch<WPRawProduto[]>(`/produto?slug=${encodeURIComponent(slug)}`, 3600, [`produto-${slug}`]);
   const encontrado = raw.find((item) => item.acf.categoria_produto === categoria);
   return encontrado ? mapProduto(encontrado) : null;
 }
@@ -260,7 +260,9 @@ export async function getProdutosPorIds(ids: number[]): Promise<Produto[]> {
 }
 
 export async function getAplicacaoPorSlug(slug: string): Promise<Aplicacao | null> {
-  const raw = await wpFetch<WPRawAplicacao[]>(`/aplicacao?slug=${slug}`, 3600, [`aplicacao-${slug}`]);
+  const raw = await wpFetch<WPRawAplicacao[]>(`/aplicacao?slug=${encodeURIComponent(slug)}`, 3600, [
+    `aplicacao-${slug}`,
+  ]);
   return raw[0] ? mapAplicacao(raw[0]) : null;
 }
 
@@ -303,6 +305,8 @@ export async function getPosts(): Promise<PostResumo[]> {
 }
 
 export async function getPostPorSlug(slug: string): Promise<Post | null> {
-  const raw = await wpFetch<WPRawPost[]>(`/posts?slug=${slug}&_embed=wp:featuredmedia`, 3600, [`post-${slug}`]);
+  const raw = await wpFetch<WPRawPost[]>(`/posts?slug=${encodeURIComponent(slug)}&_embed=wp:featuredmedia`, 3600, [
+    `post-${slug}`,
+  ]);
   return raw[0] ? mapPost(raw[0]) : null;
 }
