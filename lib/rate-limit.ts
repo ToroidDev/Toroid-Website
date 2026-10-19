@@ -22,10 +22,18 @@ function contadores(): Map<string, Contador> {
   return globalParaRateLimit._rateLimitContadores;
 }
 
+// `x-real-ip` é o header que a própria borda da Vercel define a partir da
+// conexão TCP real (não repassa valor de cliente) — por isso vem primeiro.
+// `x-forwarded-for` cai como fallback: na Vercel o primeiro item da lista
+// também é confiável (a borda é o único hop antes da função), mas manter a
+// ordem do helper oficial (`ipAddress` de `@vercel/functions`) evita
+// depender de detalhe de implementação caso um proxy/CDN externo seja
+// adicionado na frente no futuro.
 export function obterIpRequisicao(request: Request): string | null {
+  const ipReal = request.headers.get("x-real-ip");
+  if (ipReal) return ipReal;
   const encaminhado = request.headers.get("x-forwarded-for");
-  if (encaminhado) return encaminhado.split(",")[0]?.trim() || null;
-  return request.headers.get("x-real-ip");
+  return encaminhado?.split(",")[0]?.trim() || null;
 }
 
 /**
