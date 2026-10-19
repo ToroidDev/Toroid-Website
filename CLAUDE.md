@@ -23,7 +23,11 @@ Site institucional da Toroid do Brasil (fabricante de transformadores de corrent
 
 ## Variáveis de ambiente
 
-Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configurado no Vercel em Production + Preview + **Development**. Confirmado nas três em 2026-08-13 via `vercel env ls` — `WP_API_URL`, `WHATSAPP_NUMBER`, `GA4_MEASUREMENT_ID`, `REVALIDATE_SECRET` e `LEAD_IP_HASH_SECRET` presentes nas três (os dois últimos como Sensitive em Preview/Production, Non-sensitive em Development — a Vercel não permite variável Sensitive em Development). `MONGODB_URI` é a única que ainda falta em todas. **Achado nessa confirmação**: `WP_API_URL` estava configurada só em Development e com valor errado (`https://toroid.com.br/wp-json`, faltando `/wp/v2`) — corrigido para `https://toroid.com.br/wp-json/wp/v2` nas três.
+Nunca hardcodar estes valores em nenhum arquivo. Sempre `process.env.X`, configurado no Vercel em Production + Preview + **Development**. Confirmado nas três em 2026-08-13 via `vercel env ls` — `WP_API_URL`, `WHATSAPP_NUMBER`, `GA4_MEASUREMENT_ID`, `REVALIDATE_SECRET` e `LEAD_IP_HASH_SECRET` presentes nas três (os dois últimos como Sensitive em Preview/Production, Non-sensitive em Development — a Vercel não permite variável Sensitive em Development). **Achado nessa confirmação**: `WP_API_URL` estava configurada só em Development e com valor errado (`https://toroid.com.br/wp-json`, faltando `/wp/v2`) — corrigido para `https://toroid.com.br/wp-json/wp/v2` nas três.
+
+**Reconfirmado em 2026-09-25** (ver `MIGRATION.md`, seção 1.2): `MONGODB_URI` presente em Production e Preview desde 2026-08-13 (a nota anterior — "é a única que ainda falta em todas" — estava desatualizada). O cluster Atlas (M0, free tier) mostrou "Paused" no monitoramento por inatividade; testado via "Browse Collections" no Atlas e envio real do formulário — cluster ativo, string válida, gravação funcionando normalmente. `BING_SITE_VERIFICATION` decidido não configurar: a propriedade do domínio no Bing Webmaster Tools já foi verificada via import do Google Search Console, método que não depende de nenhuma env var.
+
+Além das 7 abaixo, `lib/orcamento-mailer.ts` também lê `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` (credenciais do relay SMTP que envia o e-mail de notificação de lead) e `ORCAMENTO_DESTINATARIOS` (lista de e-mails que recebem essa notificação) — confirmadas em Production desde 2026-08-14, só não estavam documentadas aqui até esta atualização.
 
 ```
 WP_API_URL=https://toroid.com.br/wp-json/wp/v2
@@ -32,9 +36,18 @@ GA4_MEASUREMENT_ID=G-XXXXXXXXXX
 MONGODB_URI=mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/toroid?retryWrites=true&w=majority
 LEAD_IP_HASH_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>
 REVALIDATE_SECRET=<string aleatória, ex.: `openssl rand -hex 32`>
+BING_SITE_VERIFICATION=<token gerado pelo Bing Webmaster Tools ao adicionar a propriedade>
+SMTP_HOST=<host do provedor SMTP>
+SMTP_PORT=<porta do provedor SMTP>
+SMTP_USER=<usuário de autenticação SMTP>
+SMTP_PASSWORD=<senha/token de autenticação SMTP>
+SMTP_FROM=<endereço de remetente; se ausente, cai pra SMTP_USER>
+ORCAMENTO_DESTINATARIOS=<e-mails separados por vírgula que recebem a notificação de lead>
 ```
 
 `REVALIDATE_SECRET` autentica o webhook do WordPress contra `/api/revalidate` (ver "Revalidação sob demanda" abaixo) — sem ela, a rota rejeita toda chamada com 401, por design (evita que qualquer request externo force `revalidateTag` de graça).
+
+`BING_SITE_VERIFICATION` é opcional: sem ela, a meta tag `msvalidate.01` (`app/layout.tsx`) simplesmente não renderiza, mesmo comportamento do GA4 sem `GA4_MEASUREMENT_ID`. Gerado no Bing Webmaster Tools (bing.com/webmasters) ao adicionar `toroid.com.br` como propriedade e escolher verificação por meta tag — alternativa a importar direto do Google Search Console pela UI do Bing, que não exige nenhuma mudança de código.
 
 `MONGODB_URI` é obrigatória para a persistência de leads (ver "Formulário de orçamento e captura de lead" abaixo) — sem ela, a gravação no MongoDB falha silenciosamente (loga no servidor) mas o formulário continua funcionando via e-mail. `LEAD_IP_HASH_SECRET` é opcional e recomendada: sem ela, o hash de IP do lead usa SHA-256 simples, mais fraco que o HMAC salgado.
 
@@ -83,6 +96,7 @@ Taxonomia de categoria: `especificacao-tecnica`, `engenharia-manutencao`, `aplic
   })
   ```
 - **Revalidação sob demanda:** `app/api/revalidate/route.ts` (POST, `{ post_type: "produto"|"aplicacao"|"post", slug }`, autenticado por `REVALIDATE_SECRET` via header `X-Revalidate-Secret` ou `?secret=`) chama `revalidateTag` com as mesmas tags de `lib/wordpress.ts`. Falta configurar, no WordPress, o webhook que dispara essa rota ao publicar/editar (Trilha B/ROADMAP.md) — a rota já está pronta e esperando. Isso evita dois extremos ruins: página estática desatualizada por horas, ou renderização dinâmica a cada request só pra ter conteúdo fresco.
+- **IndexNow:** a mesma rota, depois de revalidar, notifica via `after()` (`lib/indexnow.ts`) as URLs afetadas para os buscadores participantes do protocolo (Bing, Yandex, Seznam etc.), em vez de esperar o crawler redescobrir sozinho. Chave publicada em `public/c165dbaf002ee0026d2050be06dd83a8.txt` (texto puro, não é segredo — por isso vive como constante em `lib/indexnow.ts`, não env var: uma env var podendo mudar sem o arquivo em `public/` ser renomeado junto quebraria a verificação). Best-effort, nunca bloqueia nem derruba a resposta do webhook.
 - **Rotas por tipo de conteúdo:** as URLs de produto são exigidas por tráfego orgânico e campanhas de Ads já ativas — não seguem um padrão genérico `/produtos/[categoria]/[slug]`. São top-level e uma delas tem slug totalmente diferente do nome interno do produto:
   - Transformadores de Corrente: `/transformador-de-corrente`
   - Transformadores de Potência: `/transformador-de-potencia`
