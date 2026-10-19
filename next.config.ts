@@ -170,14 +170,13 @@ const nextConfig = {
       { source: '/juntos-transformamos-desafios-em-solucoes', destination: '/blog/juntos-transformamos-desafios-em-solucoes', permanent: true },
       { source: '/respeito-construindo-conexoes-que-fazem-a-diferenca', destination: '/blog/respeito-construindo-conexoes-que-fazem-a-diferenca', permanent: true },
 
-      // /tranformadores-de-tensao/ (com o typo) é a URL real indexada e
-      // aponta pro conteúdo correto — preservada exatamente como está.
-      { source: '/tranformadores-de-tensao', destination: '/blog/tranformadores-de-tensao', permanent: true },
+      // /tranformadores-de-tensao/ (com o typo) é uma URL indexada, mas o post
+      // não existe mais (decisão de 2026-09-30): vai pra família de
+      // Transformador de Potência, que é a página comercial equivalente.
+      { source: '/tranformadores-de-tensao', destination: '/transformador-de-potencia', permanent: true },
       // /transformadores-de-tensao/ (escrita correta, sem tráfego orgânico
-      // hoje) redireciona atualmente para um arquivo de mídia do WP por
-      // engano. Defensivo: manda pro mesmo destino da versão com typo acima,
-      // caso alguém link a versão corrigida no futuro.
-      { source: '/transformadores-de-tensao', destination: '/blog/tranformadores-de-tensao', permanent: true },
+      // hoje) segue o mesmo destino, caso alguém link a versão corrigida.
+      { source: '/transformadores-de-tensao', destination: '/transformador-de-potencia', permanent: true },
 
       // Arquivos de data do WordPress (listagem por dia, sem valor de
       // conteúdo próprio) — padrão de path em vez de lista literal, cobre
