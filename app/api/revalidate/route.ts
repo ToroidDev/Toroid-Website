@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { revalidateTag } from "next/cache";
 import { timingSafeEqual } from "node:crypto";
 import { CATEGORIAS_PRODUTO } from "@/lib/wordpress";
+import { submitIndexNow } from "@/lib/indexnow";
 
 // Alvo do webhook do WordPress (CLAUDE.md → "Revalidação sob demanda").
 // Espera POST com body { post_type: "produto" | "aplicacao" | "post", slug: string }
@@ -16,6 +17,23 @@ function tagsParaPostType(postType: string, slug: string): string[] {
       return ["aplicacoes", `aplicacao-${slug}`];
     case "post":
       return ["posts", `post-${slug}`];
+    default:
+      return [];
+  }
+}
+
+// URLs a notificar via IndexNow (ver lib/indexnow.ts). O webhook não informa
+// a categoria do produto, só o slug — mesma imprecisão que tagsParaPostType já
+// aceita ao invalidar todas as categorias de uma vez, então aqui também
+// notifica a listagem e as três famílias em vez de tentar adivinhar uma só.
+function urlsParaPostType(postType: string, slug: string): string[] {
+  switch (postType) {
+    case "produto":
+      return ["/produtos", "/transformador-de-corrente", "/transformador-de-potencia", "/indutores-filtros-e-chokes"];
+    case "aplicacao":
+      return [`/aplicacoes/${slug}`];
+    case "post":
+      return [`/blog/${slug}`];
     default:
       return [];
   }
@@ -57,5 +75,12 @@ export async function POST(request: Request) {
   // (o padrão recomendado nos outros casos) só invalida no próximo acesso à
   // página, o que aqui deixaria o conteúdo desatualizado até alguém visitar.
   tags.forEach((tag) => revalidateTag(tag, { expire: 0 }));
+
+  // after() agenda a notificação pro IndexNow pra depois da resposta já ter
+  // sido enviada ao WordPress — mesmo padrão de app/api/orcamento/route.ts,
+  // nunca atrasa nem derruba o { ok: true } por causa de um buscador externo.
+  const urls = urlsParaPostType(postType, slug);
+  after(() => submitIndexNow(urls));
+
   return NextResponse.json({ ok: true, revalidated: tags });
 }

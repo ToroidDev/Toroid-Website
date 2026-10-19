@@ -35,6 +35,12 @@ export const metadata: Metadata = {
   title: TITULO_PADRAO,
   description: DESCRICAO_PADRAO,
   ...metadataOg({ title: TITULO_PADRAO, description: DESCRICAO_PADRAO, path: "/" }),
+  // Verificação de propriedade no Bing Webmaster Tools. Sem a env var, o
+  // Next.js simplesmente não renderiza a meta tag — mesmo comportamento do
+  // GA4 em GoogleAnalytics.tsx, não quebra a página.
+  ...(process.env.BING_SITE_VERIFICATION
+    ? { verification: { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } }
+    : {}),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
