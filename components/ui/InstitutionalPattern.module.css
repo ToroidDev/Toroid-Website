@@ -1,0 +1,21 @@
+/* Usado só quando <InstitutionalPattern wave />. Cada raio escala a partir do
+   próprio ponto de origem (transform-box: view-box fixa a origem em
+   coordenadas do viewBox, não da bounding box do elemento) — por isso o
+   miolo (circulosPequenos, path estático fora daqui) nunca se move, só a
+   ponta sobe e desce. animation-delay negativo e proporcional ao índice
+   espalha a fase entre raios vizinhos, dando o efeito de onda percorrendo o
+   círculo em vez de tudo pulsar junto. */
+.raio {
+  transform-box: view-box;
+  animation: onda 3.6s ease-in-out infinite;
+}
+
+@keyframes onda {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.055);
+  }
+}

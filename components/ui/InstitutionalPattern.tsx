@@ -1,3 +1,5 @@
+import styles from "./InstitutionalPattern.module.css";
+
 const SIZE = 1000;
 const CENTER = SIZE / 2;
 const LINE_COUNT = 76;
@@ -10,6 +12,11 @@ interface InstitutionalPatternProps {
   /** Cor do traço. O cinza padrão desaparece sobre azul profundo: nas seções
    *  invertidas passar um tom claro (ex.: "#9FC2EA"). */
   stroke?: string;
+  /** Cada ponta sobe e desce em fase escalonada (efeito de onda), miolo
+   *  parado. Troca a renderização em 3 `<path>` por um `<g>` por raio — só
+   *  vale o custo de nó a mais em página isolada e de baixo tráfego como a
+   *  404, nunca como padrão em seção que se repete pelo site. */
+  wave?: boolean;
 }
 
 // Sub-pixel não muda nada visível num traço a 0.05-0.12 de opacidade, mas
@@ -42,12 +49,14 @@ export function InstitutionalPattern({
   opacity = 0.06,
   className,
   stroke = "#E0E0E0",
+  wave = false,
 }: InstitutionalPatternProps) {
   const radius = spiral ? 168 : 132;
 
   let linhas = "";
   let circulosPequenos = "";
   let circulosGrandes = "";
+  const raios: { x1: number; y1: number; x2: number; y2: number; delay: number }[] = [];
 
   for (let i = 0; i < LINE_COUNT; i++) {
     const angle = (i / LINE_COUNT) * Math.PI * 2;
@@ -59,9 +68,14 @@ export function InstitutionalPattern({
     const x2 = arredonda(CENTER + (radius + length) * Math.cos(endAngle));
     const y2 = arredonda(CENTER + (radius + length) * Math.sin(endAngle));
 
-    linhas += `M${x1},${y1}L${x2},${y2} `;
     circulosPequenos += pathDeCirculo(x1, y1, 9);
-    circulosGrandes += pathDeCirculo(x2, y2, 15);
+
+    if (wave) {
+      raios.push({ x1, y1, x2, y2, delay: -(i / LINE_COUNT) * 3.6 });
+    } else {
+      linhas += `M${x1},${y1}L${x2},${y2} `;
+      circulosGrandes += pathDeCirculo(x2, y2, 15);
+    }
   }
 
   return (
@@ -72,9 +86,24 @@ export function InstitutionalPattern({
       className={className}
       style={{ display: "block", opacity }}
     >
-      <path d={linhas} stroke={stroke} strokeWidth={7} strokeLinecap="round" fill="none" />
       <path d={circulosPequenos} fill={stroke} />
-      <path d={circulosGrandes} fill={stroke} />
+      {wave ? (
+        raios.map((raio, i) => (
+          <g
+            key={i}
+            className={styles.raio}
+            style={{ transformOrigin: `${raio.x1}px ${raio.y1}px`, animationDelay: `${raio.delay}s` }}
+          >
+            <line x1={raio.x1} y1={raio.y1} x2={raio.x2} y2={raio.y2} stroke={stroke} strokeWidth={7} strokeLinecap="round" />
+            <circle cx={raio.x2} cy={raio.y2} r={15} fill={stroke} />
+          </g>
+        ))
+      ) : (
+        <>
+          <path d={linhas} stroke={stroke} strokeWidth={7} strokeLinecap="round" fill="none" />
+          <path d={circulosGrandes} fill={stroke} />
+        </>
+      )}
     </svg>
   );
 }

@@ -16,9 +16,10 @@
   color: var(--color-on-blue);
 }
 
-/* Pattern institucional girando devagar: única peça de movimento da página,
-   um giro completo a cada 90s. Pausa sozinho via a regra global de
-   prefers-reduced-motion em app/globals.css. */
+/* Pattern institucional em onda (InstitutionalPattern wave): cada ponta sobe
+   e desce em fase escalonada, miolo parado — única peça de movimento da
+   página. Pausa sozinha via a regra global de prefers-reduced-motion em
+   app/globals.css. */
 .pattern {
   position: absolute;
   z-index: 0;
@@ -26,16 +27,7 @@
   left: 50%;
   width: min(1400px, 160vw);
   pointer-events: none;
-  animation: girar 90s linear infinite;
-}
-
-@keyframes girar {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+  transform: translate(-50%, -50%);
 }
 
 .inner {

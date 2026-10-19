@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <section className={styles.section}>
-      <InstitutionalPattern spiral opacity={0.05} stroke="#BBD5F2" className={styles.pattern} />
+      <InstitutionalPattern wave opacity={0.05} stroke="#BBD5F2" className={styles.pattern} />
       <div className={styles.inner}>
         <Link href="/" className={styles.voltar}>
           <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
