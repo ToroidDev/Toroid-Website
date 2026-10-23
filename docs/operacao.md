@@ -53,8 +53,8 @@ Rollback de **DNS** (voltar a servir o WordPress antigo em `toroid.com.br`) deix
 |---|---|
 | Erro em API Route ou página dinâmica | Vercel → projeto → **Logs** (runtime logs; filtrar por `/api/orcamento`, status 5xx). CLI: `vercel logs <url-do-deploy>` |
 | Build falhou | Vercel → Deployments → deploy com erro → Build Logs. Reproduza local com `npm run build` |
-| Tráfego e páginas mais vistas | GA4 (o Web Analytics da Vercel foi removido em 2026-10-19, ver problemas-conhecidos 4.13) |
-| Core Web Vitals reais | PageSpeed Insights (dados CrUX do Google); o Speed Insights da Vercel foi removido em 2026-10-19 |
+| Tráfego e páginas mais vistas | Vercel → Analytics; GA4 |
+| Core Web Vitals reais | Vercel → Speed Insights |
 | Indexação, 404 vistos pelo Google | Google Search Console (Páginas / Indexação); Bing Webmaster Tools |
 | Leads | MongoDB Atlas → cluster `cluster0-toroidsite` → `toroid.leads`; caixas de `ORCAMENTO_DESTINATARIOS` |
 | DNS / e-mail corporativo | Cloudflare (zona `toroid.com.br`), Google Workspace admin |
@@ -169,7 +169,7 @@ Pergunte antes se dá para resolver com CSS ou com o que o Next já oferece (reg
 ## 9. Rotina de saúde (sugestão mensal)
 
 - [ ] Search Console: picos de 404 ou "Página com redirecionamento" inesperados
-- [ ] PageSpeed Insights: LCP, CLS e INP dentro da meta nas páginas de produto
+- [ ] Speed Insights: LCP, CLS e INP dentro da meta nas páginas de produto
 - [ ] Atlas: leads do mês batem com os e-mails recebidos (se não batem, a gravação está falhando)
 - [ ] `npm outdated` e avisos de segurança do GitHub
 - [ ] Revisar [problemas-conhecidos.md](./problemas-conhecidos.md)

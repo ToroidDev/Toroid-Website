@@ -22,13 +22,13 @@ toroid.com.br        │   • cookie geo         Server Components         /blo
                 toroidcombr.wpcomstaging.com      → e-mail comercial    banco toroid, coleção leads
                 wp-json/wp/v2/posts + mídia
 
-No navegador: GA4 (gtag.js, só com consentimento),
+No navegador: GA4 (gtag.js, só com consentimento), Vercel Analytics, Speed Insights,
               atribuição UTM em localStorage/sessionStorage.
 ```
 
 Princípios que toda mudança precisa respeitar:
 
-1. **O navegador nunca fala com o WordPress.** Toda leitura de conteúdo é feita no servidor ([lib/wordpress.ts](../lib/wordpress.ts)). As únicas requisições do browser para fora são GA4, `wa.me` e as imagens.
+1. **O navegador nunca fala com o WordPress.** Toda leitura de conteúdo é feita no servidor ([lib/wordpress.ts](../lib/wordpress.ts)). As únicas requisições do browser para fora são GA4, Vercel Analytics, `wa.me` e as imagens.
 2. **Estático por padrão.** Nenhum Server Component lê `cookies()` ou `headers()`. O idioma é resolvido no cliente justamente para não tirar páginas da geração estática.
 3. **Conteúdo de produto e segmento é código**, não CMS (por enquanto). Só o blog vem do WordPress. Ver seção 6.
 4. **Falha parcial nunca derruba a página.** WordPress fora do ar: blog mostra estado vazio, sitemap sai sem posts. MongoDB fora: formulário continua respondendo. Cada degradação está comentada no código.
@@ -48,7 +48,7 @@ Princípios que toda mudança precisa respeitar:
 | Validação | Zod 4 |
 | E-mail | Nodemailer 9 |
 | Banco | Driver `mongodb` 7 (declarado em `serverExternalPackages`) |
-| Observabilidade | Logs de runtime da Vercel (`@vercel/analytics` e `@vercel/speed-insights` seguem no `package.json`, sem uso, desde 2026-10-19) |
+| Observabilidade | `@vercel/analytics`, `@vercel/speed-insights`, logs de runtime da Vercel |
 | Deploy | Vercel, Node 24.x, time `toroid`, projeto `toroid-website` |
 | Node local | 24.9.0 ([.nvmrc](../.nvmrc)) |
 
@@ -271,7 +271,7 @@ Não coloque lógica pesada aqui: roda em toda navegação.
 3. `OrganizationSchema` (JSON-LD do site inteiro, montado só aqui)
 4. `AttributionCapture` (UTM, dentro de `Suspense`)
 5. `LocaleProvider` envolvendo `Nav`, `<main id="conteudo-principal">`, `ConditionalFooter` + `Footer` e `WhatsAppButton`
-6. `CookieConsentBanner`
+6. `CookieConsentBanner`, `Analytics`, `SpeedInsights`
 
 Fontes: Montserrat 600/700 (títulos) e Karla variável (corpo), via `next/font/google`, expostas como `--font-montserrat` e `--font-karla`.
 

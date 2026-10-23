@@ -249,7 +249,7 @@ curl -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/jso
 | Proteção | Deploys de preview exigem login na Vercel (SSO em tudo, exceto domínios customizados) |
 | Firewall | Regras de bypass para caminhos `/wp-*` criadas na época do corte; não há regra de rate limit para `/api/*` |
 | Env vars | Production, Preview e Development. Lista completa no CLAUDE.md. Mudança só vale a partir do próximo deploy |
-| Observabilidade | Runtime logs. Web Analytics e Speed Insights removidos em 2026-10-19 (estouraram o limite do plano Hobby) |
+| Observabilidade | Runtime logs, Vercel Analytics, Speed Insights (Core Web Vitals reais) |
 
 ## 8. DNS e e-mail corporativo
 
